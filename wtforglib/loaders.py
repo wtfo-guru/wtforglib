@@ -1,7 +1,6 @@
-import os
 from os import PathLike
 from pathlib import Path
-from typing import Any, Union
+from typing import Union
 
 import yaml
 
@@ -18,13 +17,6 @@ def load_yaml_file(filenm: Union[str, PathLike[str]], missing_ok: bool = True):
     missing_ok : bool optional default True
         When False and file does not exist raises FileNotFound exeception
 
-    Raises
-    ------
-    FileNotFoundError
-        If fail_missing is True and filenm does not exist
-    ValueError
-        If file does not contain valid yaml
-
     Returns
     -------
     dict[Any, Any]
@@ -33,8 +25,8 @@ def load_yaml_file(filenm: Union[str, PathLike[str]], missing_ok: bool = True):
     ypath = Path(filenm)
     yaml_result = {}
     if ypath.exists() and ypath.is_file():
-        with open(ypath, "r") as file:
-            yaml_result = yaml.safe_load(file)
+        with open(ypath, "r") as yfile:
+            yaml_result = yaml.safe_load(yfile)
     elif not missing_ok:
         raise_filenotfound(ypath)
     return yaml_result
