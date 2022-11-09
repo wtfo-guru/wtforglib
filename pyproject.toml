@@ -1,10 +1,12 @@
 [tool.poetry]
 name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
-version = "0.1.0"
+version = "0.1.0-dev0"
 license = "MIT"
 
-authors = []
+authors = [
+  "Quien Sabe <qs5779@mail.com>",
+]
 
 readme = "README.md"
 
@@ -21,7 +23,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-types-pyyaml = "^6.0.12.1"
+types-pyyaml = "^6.0.12.2"
 
 [tool.poetry.group.test.dependencies]
 mypy = "^0.982"

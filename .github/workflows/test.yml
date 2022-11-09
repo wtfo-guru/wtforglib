@@ -3,7 +3,7 @@ name: test
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
   workflow_dispatch:
 
@@ -19,7 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10']
+        # python-version: ['3.8', '3.9', '3.10'] I need to figure out 3.8 typing
+        python-version: ['3.9', '3.10']
 
     steps:
     - uses: actions/checkout@v3
@@ -46,7 +47,7 @@ jobs:
       run: make test
 
     # Upload coverage to codecov: https://codecov.io/
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
+    # - name: Upload coverage to Codecov
+    #   uses: codecov/codecov-action@v3
+    #   with:
+    #     file: ./coverage.xml
