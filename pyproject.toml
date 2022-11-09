@@ -23,7 +23,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-types-pyyaml = "^6.0.12.1"
+types-pyyaml = "^6.0.12.2"
 
 [tool.poetry.group.test.dependencies]
 mypy = "^0.982"
