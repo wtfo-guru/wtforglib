@@ -3,6 +3,10 @@ import os
 from typing import Union
 
 
+class ShellError(Exception):
+    """Raised when subprocess resultcode not 0."""
+
+
 def raise_filenotfound(filenm: Union[str, os.PathLike[str]]) -> None:
     """Raises a FileNotFoundError execption for the given filenm.
 
