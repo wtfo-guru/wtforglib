@@ -3,7 +3,9 @@ from pathlib import Path
 
 import pytest
 
-from wtforglib.loaders import load_yaml_file
+from wtforglib.files import load_yaml_file
+
+# mypy: disable_error_code = var-annotated
 
 LAYOUT = """---
 foo: bar
