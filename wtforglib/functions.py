@@ -87,4 +87,4 @@ def hostname(test: bool = False) -> str:  # noqa: WPS605
 
 def strtobool(rts: str) -> bool:
     """Covert string rts to boolean."""
-    return rts.lower() in ["true", "1", "t", "y", "yes"]
+    return rts.lower() in {"true", "1", "t", "y", "yes"}
