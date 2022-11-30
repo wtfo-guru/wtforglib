@@ -6,3 +6,4 @@ ValueType = TypeVar("ValueType")
 
 Fspec = Union[str, PathLike[str]]
 Wdict = dict[Any, Any]  # type: ignore
+StrAnyDict = dict[str, Any]  # type: ignore
