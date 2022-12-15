@@ -1,29 +1,28 @@
 import json
-from os import PathLike
 from pathlib import Path
-from typing import Dict, TypeVar, Union
 
 import yaml
 
 from wtforglib.errors import raise_filenotfound
-
-K = TypeVar("K")  # noqa: WPS111
-V = TypeVar("V")  # noqa: WPS111
+from wtforglib.kinds import Fspec, Wdict
 
 
-def load_yaml_file(filenm: Union[str, PathLike[str]], missing_ok: bool = True):
+def load_yaml_file(
+    filenm: Fspec,
+    missing_ok: bool = True,
+) -> Wdict:
     """Loads a yaml file.
 
     Parameters
     ----------
-    filenm : Union[str,PathLike[str]]
+    filenm : Fspec
         The yaml file to load
     missing_ok : bool optional default True
         When False and file does not exist raises FileNotFound exeception
 
     Returns
     -------
-    dict[Any, Any]
+    Wdict
         Representing contents of filenm
     """
     ypath = Path(filenm)
@@ -37,25 +36,25 @@ def load_yaml_file(filenm: Union[str, PathLike[str]], missing_ok: bool = True):
 
 
 def load_json_file(
-    filenm: Union[str, PathLike[str]],
+    filenm: Fspec,
     missing_ok: bool = True,
-) -> Dict[K, V]:
+) -> Wdict:
     """Loads a json file.
 
     Parameters
     ----------
-    filenm : Union[str,PathLike[str]]
+    filenm : Fspec
         The yaml file to load
     missing_ok : bool optional default True
         When False and file does not exist raises FileNotFound exeception
 
     Returns
     -------
-    dict[Any, Any]
+    Wdict
         Representing contents of filenm
     """
     jpath = Path(filenm)
-    rtn = {}  # type: Dict[K,V]
+    rtn: Wdict = {}
     if jpath.exists() and jpath.is_file():
         with open(jpath, "r") as jfile:
             rtn = json.load(jfile)
@@ -65,17 +64,17 @@ def load_json_file(
 
 
 def write_json_file(
-    filenm: Union[str, PathLike[str]],
-    src_data: Dict[K, V],
+    filenm: Fspec,
+    src_data: Wdict,
     indent: int = 2,
 ) -> bool:
     """Writes src_data to a file in a json format.
 
     Parameters
     ----------
-    filenm : Union[str,PathLike[str]]
+    filenm : Fspec
         The yaml file to load
-    src_data : Dict[K,V]
+    src_data : Wdict
         The data to write to a file
     indent : int Optional
         The number of spaces to indent
@@ -91,12 +90,12 @@ def write_json_file(
     return jpath.exists()
 
 
-def ensure_directory(target: Union[str, PathLike[str]], perm: int = 0o755) -> bool:
+def ensure_directory(target: Fspec, perm: int = 0o755) -> bool:
     """Creates a directory if it doesn't exist.
 
     Parameters
     ----------
-    target : Union[str,PathLike[str]]
+    target : Fspec
         The path to the target directory
     perm : int Optional
         The mode to use if creationg needed

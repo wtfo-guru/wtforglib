@@ -83,3 +83,8 @@ def hostname(test: bool = False) -> str:  # noqa: WPS605
         else:  # pragma no cover
             WtfSingleton.hn = sp_result.stdout.rstrip()
     return WtfSingleton.hn
+
+
+def strtobool(rts: str) -> bool:
+    """Covert string rts to boolean."""
+    return rts.lower() in {"true", "1", "t", "y", "yes"}
