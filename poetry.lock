@@ -1326,6 +1326,17 @@ pygments = ">=2.4,<3.0"
 typing_extensions = ">=4.0,<5.0"
 
 [[package]]
+name = "wheel"
+version = "0.38.4"
+description = "A built-package format for Python"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+test = ["pytest (>=3.0.0)"]
+
+[[package]]
 name = "win32-setctime"
 version = "1.1.0"
 description = "A small Python utility to set file creation time on Windows"
@@ -1351,7 +1362,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "eda9b74294c2905f50fc74b429b1a8464bf7447ff0ed3a0dcc0f1da70747f498"
+content-hash = "5df081d36a550681b4d19a9149f4ec69eb60934068cf4edd97df85a958c99868"
 
 [metadata.files]
 alabaster = [
@@ -1986,6 +1997,10 @@ urllib3 = [
 wemake-python-styleguide = [
     {file = "wemake-python-styleguide-0.17.0.tar.gz", hash = "sha256:c8869fac392019c2bb3eae4287399245d10d2726b23f1b3c68d1564909c3a71a"},
     {file = "wemake_python_styleguide-0.17.0-py3-none-any.whl", hash = "sha256:d10b953bbe4fba83a34f4c224a0e1849ede89e486eacfc760690e6c87a28eaae"},
+]
+wheel = [
+    {file = "wheel-0.38.4-py3-none-any.whl", hash = "sha256:b60533f3f5d530e971d6737ca6d58681ee434818fab630c83a734bb10c083ce8"},
+    {file = "wheel-0.38.4.tar.gz", hash = "sha256:965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac"},
 ]
 win32-setctime = [
     {file = "win32_setctime-1.1.0-py3-none-any.whl", hash = "sha256:231db239e959c2fe7eb1d7dc129f11172354f98361c4fa2d6d2d7e278baa8aad"},
