@@ -1,9 +1,9 @@
 from os import PathLike
-from typing import Any, TypeVar, Union
+from typing import Any, Dict, TypeVar, Union
 
 KeyType = TypeVar("KeyType")
 ValueType = TypeVar("ValueType")
 
 Fspec = Union[str, PathLike[str]]
-Wdict = dict[Any, Any]  # type: ignore
-StrAnyDict = dict[str, Any]  # type: ignore
+Wdict = Dict[Any, Any]  # type: ignore
+StrAnyDict = Dict[str, Any]  # type: ignore

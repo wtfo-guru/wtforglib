@@ -1,13 +1,14 @@
 import errno
 import os
-from typing import Union
+
+from wtforglib.kinds import Fspec
 
 
 class ShellError(Exception):
     """Raised when subprocess resultcode not 0."""
 
 
-def raise_filenotfound(filenm: Union[str, os.PathLike[str]]) -> None:
+def raise_filenotfound(filenm: Fspec) -> None:
     """Raises a FileNotFoundError execption for the given filenm.
 
     Parameters
@@ -20,4 +21,4 @@ def raise_filenotfound(filenm: Union[str, os.PathLike[str]]) -> None:
     FileNotFoundError
         If fail_missing is True and filenm does not exist
     """
-    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), filenm)
+    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), str(filenm))
