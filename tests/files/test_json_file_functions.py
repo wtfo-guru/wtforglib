@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from wtforglib.files import load_json_file, write_json_file
+from wtforglib.versioned import unlink_path
 
 test_data = {"foo": "bar"}
 
@@ -21,7 +22,7 @@ def test_load_json_file():
     _t_file, path = tempfile.mkstemp()
     assert write_json_file(path, test_data)
     test_me = load_json_file(path)
-    Path(path).unlink(missing_ok=True)
+    unlink_path(path, missing_ok=True)
     assert isinstance(test_me, dict)
     assert test_me["foo"] == "bar"
 
@@ -29,7 +30,7 @@ def test_load_json_file():
 def test_load_json_file_missing():
     """Test load_json_file function with missing_ok=False."""
     _t_file, path = tempfile.mkstemp()
-    Path(path).unlink(missing_ok=True)
+    unlink_path(path, missing_ok=True)
     missing_path = str(path) + ".missing"
     with pytest.raises(FileNotFoundError):
         load_json_file(missing_path, False)

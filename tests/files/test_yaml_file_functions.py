@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 
 from wtforglib.files import load_yaml_file
+from wtforglib.versioned import unlink_path
 
 # mypy: disable_error_code = var-annotated
 
@@ -20,7 +21,7 @@ def test_load_yaml_file():
         yfile.write(LAYOUT)
         yfile.close()
     test_me = load_yaml_file(path)
-    Path(path).unlink(missing_ok=True)
+    unlink_path(path, missing_ok=True)
     assert isinstance(test_me, dict)
     assert test_me["foo"] == "bar"
 
@@ -28,7 +29,7 @@ def test_load_yaml_file():
 def test_load_yaml_file_missing():
     """Test load_yaml_file function with missing_ok=False."""
     _t_file, path = tempfile.mkstemp()
-    Path(path).unlink(missing_ok=True)
+    unlink_path(path, missing_ok=True)
     missing_path = str(path) + ".missing"
     with pytest.raises(FileNotFoundError):
         load_yaml_file(missing_path, False)

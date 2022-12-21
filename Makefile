@@ -28,6 +28,10 @@ package:
 .PHONY: test
 test: lint package unit
 
+.PHONY: work37
+work37:
+	docker run --pull --rm -it --volume $(PROJECT):/project/ qs5779/python-testing:ubuntu20.04-3.7.16 /bin/bash
+
 .PHONY: work38
 work38:
 	docker run --rm -it --volume $(PROJECT):/project/ qs5779/python-testing:ubuntu20.04-3.8.16 /bin/bash

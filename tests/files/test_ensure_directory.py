@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from wtforglib.files import ensure_directory
+from wtforglib.versioned import unlink_path
 
 # mypy: disable_error_code = var-annotated
 
@@ -14,7 +15,7 @@ def test_exception_raised():
     _t_file, path = tempfile.mkstemp()
     with pytest.raises(NotADirectoryError):
         ensure_directory(path)
-    Path(path).unlink()
+    unlink_path(path, missing_ok=True)
 
 
 def test_directory_exists():
