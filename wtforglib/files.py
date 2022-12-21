@@ -4,13 +4,13 @@ from pathlib import Path
 import yaml
 
 from wtforglib.errors import raise_filenotfound
-from wtforglib.kinds import Fspec, Wdict
+from wtforglib.kinds import Fspec, StrAnyDict
 
 
 def load_yaml_file(
     filenm: Fspec,
     missing_ok: bool = True,
-) -> Wdict:
+) -> StrAnyDict:
     """Loads a yaml file.
 
     Parameters
@@ -22,7 +22,7 @@ def load_yaml_file(
 
     Returns
     -------
-    Wdict
+    StrAnyDict
         Representing contents of filenm
     """
     ypath = Path(filenm)
@@ -38,7 +38,7 @@ def load_yaml_file(
 def load_json_file(
     filenm: Fspec,
     missing_ok: bool = True,
-) -> Wdict:
+) -> StrAnyDict:
     """Loads a json file.
 
     Parameters
@@ -50,11 +50,11 @@ def load_json_file(
 
     Returns
     -------
-    Wdict
+    StrAnyDict
         Representing contents of filenm
     """
     jpath = Path(filenm)
-    rtn: Wdict = {}
+    rtn: StrAnyDict = {}
     if jpath.exists() and jpath.is_file():
         with open(jpath, "r") as jfile:
             rtn = json.load(jfile)
@@ -65,7 +65,7 @@ def load_json_file(
 
 def write_json_file(
     filenm: Fspec,
-    src_data: Wdict,
+    src_data: StrAnyDict,
     indent: int = 2,
 ) -> bool:
     """Writes src_data to a file in a json format.
@@ -74,7 +74,7 @@ def write_json_file(
     ----------
     filenm : Fspec
         The yaml file to load
-    src_data : Wdict
+    src_data : StrAnyDict
         The data to write to a file
     indent : int Optional
         The number of spaces to indent
