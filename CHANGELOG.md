@@ -1,8 +1,7 @@
-# Version history
 
-We follow [Semantic Versions](https://semver.org/).
+<a name="v0.2.1"></a>
+## [v0.2.1](https://gitlab.com/wtfo-guru/wtforglib/compare/v0.2.0...v0.2.1) (2022-12-15)
 
 
-## Version 0.1.0
-
-- Initial release
+<a name="v0.2.0"></a>
+## v0.2.0 (2022-11-10)
