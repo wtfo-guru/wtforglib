@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
-version = "0.3.0-dev1"
+version = "0.3.0-dev2"
 license = "MIT"
 
 authors = [
@@ -10,12 +10,19 @@ authors = [
 
 readme = "README.md"
 
-repository = "https://github.com/wtfo-guru/wtforglib"
+
+homepage = "https://github.com/wtfo-guru/wtforglib"
+documentation = "https://wtforglib.readthedocs.io/en/stable"
 
 keywords = []
 
 classifiers = [
   "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",

@@ -19,6 +19,11 @@ A set of utility functions I use in my various python projects.
 pip install wtforglib
 ```
 
+## Documentation
+
+[latest](https://wtforglib.readthedocs.io/en/latest)
+[stable](https://wtforglib.readthedocs.io/en/stable)
+
 ## License
 
 [MIT](https://github.com/wtfo-guru/wtforglib/blob/main/LICENSE)
