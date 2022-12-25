@@ -7,7 +7,6 @@
 
 A set of utility functions I use in my various python projects.
 
-
 ## Features
 
 - Fully typed with annotations and checked with mypy, [PEP561 compatible](https://www.python.org/dev/peps/pep-0561/)
@@ -20,22 +19,14 @@ A set of utility functions I use in my various python projects.
 pip install wtforglib
 ```
 
+## Documentation
 
-## Example
-
-Showcase how your project can be used:
-
-```python
-from wtforglib.example import some_function
-
-print(some_function(3, 4))
-# => 7
-```
+[latest](https://wtforglib.readthedocs.io/en/latest)
+[stable](https://wtforglib.readthedocs.io/en/stable)
 
 ## License
 
 [MIT](https://github.com/wtfo-guru/wtforglib/blob/main/LICENSE)
-
 
 ## Credits
 
