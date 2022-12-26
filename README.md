@@ -21,8 +21,9 @@ pip install wtforglib
 
 ## Documentation
 
-[latest](https://wtforglib.readthedocs.io/en/latest)
-[stable](https://wtforglib.readthedocs.io/en/stable)
+- [Stable](https://wtforglib.readthedocs.io/en/stable)
+
+- [Latest](https://wtforglib.readthedocs.io/en/latest)
 
 ## License
 
