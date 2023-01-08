@@ -16,9 +16,9 @@ Misc variables:
 
 
 import logging
-import sys
 from logging.handlers import SysLogHandler
 from types import MappingProxyType
+from typing import List
 
 LOG_LEVELS = MappingProxyType(
     {
@@ -44,8 +44,9 @@ class Scribe(object):
 
     def __init__(self, **kwargs) -> None:
         r"""Initialize a logging system interface.
+
         :param \**kwargs:
-                See below
+            See below
 
         :Keyword Arguments:
             * *level* (``str``) --
@@ -59,7 +60,7 @@ class Scribe(object):
             * *name* (``str``) --
                 unique identifier for this loggin instance, default "wtfscribe"
         """
-        warnings: list[str] = []
+        warnings: List[str] = []
         self.name = kwargs.get("name", "wtfscribe")
         level = kwargs.get("level", "info")
         self.logfn = kwargs.get("logfn", "")
@@ -74,10 +75,8 @@ class Scribe(object):
             self.log_level = LOG_LEVELS[level]
         self.logger.setLevel(self.log_level)
         self.handlers_nbr = 0
-        if self.logfn:
-            self._add_file_handler()
-        if self.syslognm:
-            self._add_syslog_handler()
+        self._add_file_handler()
+        self._add_syslog_handler()
         self._add_screen_handler(screen)
         for warning in warnings:
             self.logger.warning(warning)
@@ -93,7 +92,8 @@ class Scribe(object):
             filelog = logging.FileHandler(filename=self.logfn)
             filelog.setLevel(self.log_level)
             formatter = logging.Formatter(
-                "%(asctime)s %(levelname)s: %(message)s", "%Y-%m-%d %H:%M:%S"
+                "%(asctime)s %(levelname)s: %(message)s",
+                "%Y-%m-%d %H:%M:%S",
             )
             filelog.setFormatter(formatter)
             self.logger.addHandler(filelog)
@@ -112,7 +112,7 @@ class Scribe(object):
             syslog = SysLogHandler(address="/dev/log")
             syslog.setFormatter(
                 logging.Formatter(
-                    "[{0}] %(levelname)8s: %(message)s".format(self.syslognm)
+                    "[{0}] %(levelname)8s: %(message)s".format(self.syslognm),
                 ),
             )
             # don't send debug to syslog
