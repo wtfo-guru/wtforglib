@@ -1,6 +1,23 @@
 # Changelog
 
-## [v0.3.0](https://github.com/wtfo-guru/wtforglib/tree/v0.3.0) (2022-12-25)
+## [v0.5.0](https://github.com/wtfo-guru/wtforglib/tree/v0.5.0) (2023-01-15)
+
+[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.4.0...v0.5.0)
+
+**Merged pull requests:**
+
+- V0.5.0 [\#12](https://github.com/wtfo-guru/wtforglib/pull/12) ([qs5779](https://github.com/qs5779))
+
+## [v0.4.0](https://github.com/wtfo-guru/wtforglib/tree/v0.4.0) (2023-01-10)
+
+[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.3.0...v0.4.0)
+
+**Merged pull requests:**
+
+- V0.4.0 [\#11](https://github.com/wtfo-guru/wtforglib/pull/11) ([qs5779](https://github.com/qs5779))
+- docs: Updated v0.3.0 changelog [\#10](https://github.com/wtfo-guru/wtforglib/pull/10) ([qs5779](https://github.com/qs5779))
+
+## [v0.3.0](https://github.com/wtfo-guru/wtforglib/tree/v0.3.0) (2022-12-26)
 
 [Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.2.1...v0.3.0)
 
