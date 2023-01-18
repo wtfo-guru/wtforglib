@@ -1,6 +1,6 @@
 """Top-level module for wtforglib Library."""
 
-from ipaddress import IPv6Address, ip_address
+from ipaddress import IPv6Address, IPv6Network, ip_address, ip_network
 
 MAX_PREFIX_LENGTH6 = 128
 
@@ -45,7 +45,65 @@ def _get_ipv6_prefix(ipv6_addr: str, prefix_len: int) -> str:  # noqa: WPS210
         cur_prefix_len += prefix_increment
         if int(cur_prefix_len) >= int(prefix_len):
             return prefix
-    return prefix
+    return prefix  # pragma no cover
+
+
+def is_ipv6_address(ipaddr: str) -> bool:
+    """Returns True if ipaddr is a valid IPv6 address.
+
+    Parameters
+    ----------
+    ipaddr : str
+        A string representation of a IPv6 address
+
+    Returns
+    -------
+    bool
+        True if ipaddr is a valid IPv6 address
+    """
+    try:
+        osix = ip_address(ipaddr)
+        return isinstance(osix, IPv6Address)
+    except ValueError:
+        return False
+
+
+def is_ipv6_network(ipaddr: str) -> bool:
+    """Returns True if ipaddr is a valid IPv6 network.
+
+    Parameters
+    ----------
+    ipaddr : str
+        A string representation of a IPv6 network
+
+    Returns
+    -------
+    bool
+        True if ipaddr is a valid IPv6 network
+    """
+    try:
+        osix = ip_network(ipaddr)
+        return isinstance(osix, IPv6Network)
+    except ValueError:
+        return False
+
+
+def is_ipv6(ipvalue: str) -> bool:
+    """Returns True if ipvalue is a valid IPv6 address or IPv6 network.
+
+    Parameters
+    ----------
+    ipvalue : str
+        A string representation of a IPv6 address or IPv6 network
+
+    Returns
+    -------
+    bool
+        True if ipvalue is a valid IPv6 address or IPv6 network
+    """
+    if not is_ipv6_address(ipvalue):
+        return is_ipv6_network(ipvalue)
+    return True
 
 
 def ipv6_to_netprefix(ipaddr: str, prefix_len: int) -> str:
