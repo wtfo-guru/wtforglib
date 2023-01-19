@@ -1,5 +1,8 @@
+"""Top-level module for wtforglib Library."""
 import json
 from pathlib import Path
+from tempfile import TemporaryFile
+from typing import Optional, Tuple
 
 import yaml
 
@@ -119,3 +122,62 @@ def ensure_directory(target: Fspec, perm: int = 0o755) -> bool:
         )
     dp.mkdir(mode=perm, parents=True)
     return True
+
+
+def _verify_directory_write(dpath: Fspec) -> Optional[Exception]:
+    """Verify that the given directory is writable.
+
+    Parameters
+    ----------
+    dpath : Fspec
+        Pathlike object specifying the directory
+
+    Returns
+    -------
+    Optional[Exception]
+        The exception when caught
+    """
+    error: Optional[Exception] = None
+    try:
+        tfile = TemporaryFile(dir=dpath)
+        tfile.close()
+    except Exception as ex:
+        error = ex
+    return error
+
+
+def verify_directory(dspec: Fspec, ex: bool = False) -> Tuple[bool, str]:
+    """Verify that a directory exits and is writable.
+
+    Parameters
+    ----------
+    dspec : Fspec
+        Pathlike object specifying the directory
+    ex : bool, optional
+        When True exceptions are raised, by default False
+
+    Returns
+    -------
+    Tuple[bool, str]
+        When ex is False the status is returned
+
+    Raises
+    ------
+    error
+        NotADirectoryError, FileNotFoundError or other exception is raised on failure
+        when ex is True
+    """
+    dpath = Path(dspec)
+    dstr = str(dpath)
+    error: Optional[Exception] = None
+    if dpath.exists():
+        if dpath.is_dir():
+            error = _verify_directory_write(dpath)
+        else:
+            error = NotADirectoryError("'{0}' is not a directory".format(dstr))
+    else:
+        error = FileNotFoundError("Directory not found: {0}".format(dpath))
+    if error:
+        if ex:
+            raise error
+    return (error is None, str(error))
