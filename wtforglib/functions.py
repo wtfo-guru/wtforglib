@@ -1,9 +1,13 @@
 """Top-level module for wtforglib Library."""
 
+import platform
 import subprocess  # noqa: S404
 from typing import ClassVar
 
 from wtforglib.errors import ShellError
+
+WINDOZE = "Windows"
+WINDOZE_NOT_IMPLEMENTED = "{0} is not implemented on Windows"
 
 
 class WtfSingleton(object):
@@ -88,3 +92,22 @@ def hostname(test: bool = False) -> str:  # noqa: WPS605
 def strtobool(rts: str) -> bool:
     """Covert string rts to boolean."""
     return rts.lower() in {"true", "1", "t", "y", "yes"}
+
+
+def windoze_not_implemented(foo_name: str) -> None:
+    """Raised and exception if platform is Windows.
+
+    Parameters
+    ----------
+    foo_name : str
+        Name of function not supported
+
+    Raises
+    ------
+    NotImplementedError
+        When platform is Windows
+    """
+    if platform.system() == WINDOZE:
+        raise NotImplementedError(
+            WINDOZE_NOT_IMPLEMENTED.format(foo_name),
+        )  # pragma: no cover
