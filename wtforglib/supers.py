@@ -6,7 +6,7 @@ import platform
 from wtforglib.functions import WINDOZE
 
 if platform.system() == WINDOZE:
-    from ctypes.windll.shell32 import IsUserAnAdmin  # noqa: WPS433
+    import ctypes  # noqa: WPS433
 
     SUPER = "Administrator"
 else:
@@ -33,7 +33,7 @@ def issuper() -> bool:
     """
     try:
         if platform.system() == WINDOZE:
-            return IsUserAnAdmin() == 1
+            return ctypes.windll.shell32.IsUserAnAdmin() == 1  # type: ignore
         return geteuid() == 0
     except AttributeError:
         raise AdminStateUnknownError()

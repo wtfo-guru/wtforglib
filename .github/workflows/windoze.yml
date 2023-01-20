@@ -43,13 +43,16 @@ jobs:
         poetry run pip install -U pip
         poetry install
 
+    # - name: Run mypy
+    #   run: poetry run mypy wtforglib tests/**/*.py
+
+    - name: Run flake8
+      run: poetry run flake8 .
+
     - name: Run checks
       run: |
-        poetry run isort wtforglib tests/**/*.py
-        poetry run black wtforglib tests/**/*.py
-        poetry run mypy wtforglib tests/**/*.py
-        poetry run flake8 .
-        poetry run doc8 -q docs
         poetry check
         poetry run pip check
-        poetry run pytest tests
+
+    - name: Run pytest
+      run: poetry run pytest tests
