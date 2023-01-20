@@ -2,10 +2,8 @@
 import platform
 import re
 import shutil
-from grp import getgrgid
 from inspect import stack
 from pathlib import Path
-from pwd import getpwuid
 from typing import Optional, Union
 
 from wtforglib.kinds import Fspec
@@ -14,6 +12,10 @@ OwnGrpId = Optional[Union[str, int]]
 
 WINDOZE = "Windows"
 WINDOZE_NOT_IMPLEMENTED = "{0} is not implemented on Windows"
+
+if platform.system() != WINDOZE:
+    from grp import getgrgid  # noqa: WPS433
+    from pwd import getpwuid  # noqa: WPS433
 
 
 def set_file_perms(tgt: Fspec, mode: str) -> bool:
