@@ -2,7 +2,7 @@
 
 # vim:ft=py noqa: E800
 
-from os import geteuid
+import ctypes, os
 
 
 def issuper() -> bool:
@@ -12,7 +12,11 @@ def issuper() -> bool:
     -------
         bool : true if process euid is 0
     """
-    return geteuid() == 0
+    try:
+        is_super = os.geteuid() == 0
+    except AttributeError:
+        is_super = ctypes.windll.shell32.IsUserAnAdmin() != 0
+    return is_super
 
 
 def requires_super_user(prefix: str = "Specified action") -> None:

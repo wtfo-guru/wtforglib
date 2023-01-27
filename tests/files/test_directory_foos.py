@@ -1,3 +1,4 @@
+"""Test module for wtforglib package."""
 import os
 import tempfile
 from pathlib import Path
@@ -13,7 +14,8 @@ from wtforglib.versioned import unlink_path
 # ensure_directory tests
 def test_exception_raised_ensure():
     """Test raises exception when target exits and is not a directory."""
-    _t_file, path = tempfile.mkstemp()
+    t_file, path = tempfile.mkstemp()
+    os.close(t_file)
     with pytest.raises(NotADirectoryError):
         ensure_directory(path)
     unlink_path(path, missing_ok=True)
@@ -48,7 +50,8 @@ def test_verify_directory(tmp_path):
 
 def test_exception_raised_verify():
     """Test raises exception when target exits and is not a directory."""
-    _t_file, path = tempfile.mkstemp()
+    t_file, path = tempfile.mkstemp()
+    os.close(t_file)
     with pytest.raises(NotADirectoryError):
         verify_directory(path, ex=True)
     unlink_path(path, missing_ok=True)
@@ -56,7 +59,8 @@ def test_exception_raised_verify():
 
 def test_error_returned_verify():
     """Test raises exception when target exits and is not a directory."""
-    _t_file, path = tempfile.mkstemp()
+    t_file, path = tempfile.mkstemp()
+    os.close(t_file)
     retval, msg = verify_directory(path)
     assert not retval
     assert msg == "'{0}' is not a directory".format(str(path))

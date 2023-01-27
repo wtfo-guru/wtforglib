@@ -1,6 +1,11 @@
-from os import getegid, geteuid
 
+import sys
 import pytest
+
+if sys.platform.startswith("win"):
+    pytest.skip("skipping tests on windows platform", allow_module_level=True)
+
+from os import getegid, geteuid
 
 from wtforglib.fstats import set_owner_group_perms
 from wtforglib.ugpw import get_user_groups, get_user_name
