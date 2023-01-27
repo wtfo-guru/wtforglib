@@ -34,7 +34,9 @@ def issuper() -> bool:
     try:
         is_super = geteuid() == 0
     except AttributeError:
-        is_super = ctypes.windll.shell32.IsUserAnAdmin() != 0
+        is_super = (
+            ctypes.windll.shell32.IsUserAnAdmin() != 0  # type: ignore[attr-defined]
+        )
     return is_super
 
 
