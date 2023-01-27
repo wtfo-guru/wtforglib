@@ -1,5 +1,4 @@
 """Top-level module for wtforglib Library."""
-
 import platform
 import subprocess  # noqa: S404
 from typing import ClassVar
@@ -42,16 +41,23 @@ def domainname(test: bool = False) -> str:  # noqa: WPS605
         if subprocess returncode is not 0
     """
     if not WtfSingleton.dn:
-        sp_result = subprocess.run(
-            ["hostname", "-d"],
-            capture_output=True,
-            encoding="utf8",
-        )
-        if sp_result.returncode != 0:  # pragma no cover
-            raise ShellError("Failed to determine host's domainname")
         if test:
             WtfSingleton.dn = "example.com"
-        else:  # pragma no cover
+        elif platform.system() == "Windows":
+            from socket import getfqdn
+            parts = getfqdn().split('.', 1)
+            if len(parts) == 2:
+                WtfSingleton.dn = parts[1]
+            else:
+                WtfSingleton.dn = "unknown"
+        else:
+            sp_result = subprocess.run(
+                ["hostname", "-d"],
+                capture_output=True,
+                encoding="utf8",
+            )
+            if sp_result.returncode != 0:  # pragma no cover
+                raise ShellError("Failed to determine host's domainname")
             WtfSingleton.dn = sp_result.stdout.rstrip()
     return WtfSingleton.dn
 
@@ -75,16 +81,23 @@ def hostname(test: bool = False) -> str:  # noqa: WPS605
         if subprocess returncode is not 0
     """
     if not WtfSingleton.hn:
-        sp_result = subprocess.run(
-            ["hostname"],
-            capture_output=True,
-            encoding="utf8",
-        )
-        if sp_result.returncode != 0:  # pragma no cover
-            raise ShellError("Failed to determine hostname")
         if test:
             WtfSingleton.hn = "nombre"
-        else:  # pragma no cover
+        elif platform.system() == "Windows":
+            from socket import getfqdn
+            parts = getfqdn().split('.', 1)
+            if parts:
+                WtfSingleton.hn = parts[0]
+            else:
+                WtfSingleton.hn = "unknown"
+        else:
+            sp_result = subprocess.run(
+                ["hostname"],
+                capture_output=True,
+                encoding="utf8",
+            )
+            if sp_result.returncode != 0:  # pragma no cover
+                raise ShellError("Failed to determine hostname")
             WtfSingleton.hn = sp_result.stdout.rstrip()
     return WtfSingleton.hn
 

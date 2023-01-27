@@ -1,3 +1,5 @@
+"""Test module for wtforglib package."""
+import os
 import tempfile
 from pathlib import Path
 
@@ -16,7 +18,8 @@ foo: bar
 
 def test_load_yaml_file():
     """Test load_yaml_file function."""
-    _t_file, path = tempfile.mkstemp()
+    t_file, path = tempfile.mkstemp()
+    os.close(t_file)
     with open(path, mode="w") as yfile:
         yfile.write(LAYOUT)
         yfile.close()
@@ -28,7 +31,8 @@ def test_load_yaml_file():
 
 def test_load_yaml_file_missing():
     """Test load_yaml_file function with missing_ok=False."""
-    _t_file, path = tempfile.mkstemp()
+    t_file, path = tempfile.mkstemp()
+    os.close(t_file)
     unlink_path(path, missing_ok=True)
     missing_path = str(path) + ".missing"
     with pytest.raises(FileNotFoundError):

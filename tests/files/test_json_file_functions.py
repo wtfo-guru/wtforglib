@@ -1,3 +1,5 @@
+"""Test module for wtforglib package."""
+import os
 import tempfile
 from pathlib import Path
 
@@ -19,7 +21,8 @@ def test_write_json_file():
 
 def test_load_json_file():
     """Test load_json_file function."""
-    _t_file, path = tempfile.mkstemp()
+    t_file, path = tempfile.mkstemp()
+    os.close(t_file)
     assert write_json_file(path, test_data)
     test_me = load_json_file(path)
     unlink_path(path, missing_ok=True)
@@ -29,7 +32,8 @@ def test_load_json_file():
 
 def test_load_json_file_missing():
     """Test load_json_file function with missing_ok=False."""
-    _t_file, path = tempfile.mkstemp()
+    t_file, path = tempfile.mkstemp()
+    os.close(t_file)
     unlink_path(path, missing_ok=True)
     missing_path = str(path) + ".missing"
     with pytest.raises(FileNotFoundError):

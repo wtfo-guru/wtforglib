@@ -32,11 +32,10 @@ def issuper() -> bool:
         When if platform is Windows
     """
     try:
-        if platform.system() == WINDOZE:
-            return ctypes.windll.shell32.IsUserAnAdmin() == 1  # type: ignore
-        return geteuid() == 0
+        is_super = geteuid() == 0
     except AttributeError:
-        raise AdminStateUnknownError()
+        is_super = ctypes.windll.shell32.IsUserAnAdmin() != 0
+    return is_super
 
 
 def requires_super_user(prefix: str = "Specified action") -> None:

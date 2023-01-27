@@ -16,6 +16,7 @@ Misc variables:
 
 
 import logging
+import platform
 from logging.handlers import SysLogHandler
 from types import MappingProxyType
 from typing import List
@@ -76,7 +77,8 @@ class Scribe(object):
         self.logger.setLevel(self.log_level)
         self.handlers_nbr = 0
         self._add_file_handler()
-        self._add_syslog_handler()
+        if platform.system() != "Windows":
+            self._add_syslog_handler()
         self._add_screen_handler(screen)
         for warning in warnings:
             self.logger.warning(warning)
