@@ -2,18 +2,19 @@
 import platform
 import re
 import shutil
-from grp import getgrgid
 from inspect import stack
 from pathlib import Path
-from pwd import getpwuid
 from typing import Optional, Union
 
+from wtforglib.functions import WINDOZE, windoze_not_implemented
 from wtforglib.kinds import Fspec
 
 OwnGrpId = Optional[Union[str, int]]
 
-WINDOZE = "Windows"
-WINDOZE_NOT_IMPLEMENTED = "{0} is not implemented on Windows"
+
+if platform.system() != WINDOZE:
+    from grp import getgrgid  # noqa: WPS433
+    from pwd import getpwuid  # noqa: WPS433
 
 
 def set_file_perms(tgt: Fspec, mode: str) -> bool:
@@ -34,8 +35,6 @@ def set_file_perms(tgt: Fspec, mode: str) -> bool:
     ------
     ValueError
         When mode is not valid
-    NotImplementedError
-        When Windows platform
     """
     target = Path(tgt)
     mode_length = len(mode)
@@ -43,10 +42,7 @@ def set_file_perms(tgt: Fspec, mode: str) -> bool:
         raise ValueError("Invalid mode string length. Must be 3 or 4 characters.")
     if not re.match("[0-7]+$", mode):
         raise ValueError("Invalid mode string. Must be 3 or 4 octal digits.")
-    if platform.system() == WINDOZE:
-        raise NotImplementedError(
-            WINDOZE_NOT_IMPLEMENTED.format(stack()[0][3]),
-        )  # pragma: no cover
+    windoze_not_implemented(stack()[0][3])
     # convert mode to octal string right 4 chars
     cmode = str(oct(target.stat().st_mode))[-mode_length:]
     if cmode != mode:
@@ -69,16 +65,8 @@ def get_new_owner(tgt: Fspec, own: OwnGrpId) -> Optional[str]:
     Returns
     -------
     Optional[str] : new_owner or None
-
-    Raises
-    ------
-    NotImplementedError
-        When Windows platform
     """
-    if platform.system() == WINDOZE:
-        raise NotImplementedError(
-            WINDOZE_NOT_IMPLEMENTED.format(stack()[0][3]),
-        )  # pragma: no cover
+    windoze_not_implemented(stack()[0][3])
     new_owner: Optional[str]
     if own:
         if isinstance(own, int):
@@ -105,16 +93,8 @@ def get_new_group(tgt: Fspec, grp: OwnGrpId) -> Optional[str]:
     Returns
     -------
     Optional[str] : new_group or None
-
-    Raises
-    ------
-    NotImplementedError
-        When Windows platform
     """
-    if platform.system() == WINDOZE:
-        raise NotImplementedError(
-            WINDOZE_NOT_IMPLEMENTED.format(stack()[0][3]),
-        )  # pragma: no cover
+    windoze_not_implemented(stack()[0][3])
     new_group: Optional[str]
     if grp:
         if isinstance(grp, int):
@@ -143,16 +123,8 @@ def set_owner_group(tgt: Fspec, own: OwnGrpId, grp: OwnGrpId) -> bool:
     Returns
     -------
     bool : True if changes are made to the target
-
-    Raises
-    ------
-    NotImplementedError
-        When Windows platform
     """
-    if platform.system() == WINDOZE:
-        raise NotImplementedError(
-            WINDOZE_NOT_IMPLEMENTED.format(stack()[0][3]),
-        )  # pragma: no cover
+    windoze_not_implemented(stack()[0][3])
     target = Path(tgt)
     new_owner = get_new_owner(target, own)
     new_group = get_new_group(target, grp)
@@ -179,16 +151,8 @@ def set_owner_group_perms(tgt: Fspec, own: OwnGrpId, grp: OwnGrpId, mode: str) -
     Returns
     -------
     bool : True if changes are made to the target
-
-    Raises
-    ------
-    NotImplementedError
-        When Windows platform
     """
-    if platform.system() == WINDOZE:
-        raise NotImplementedError(
-            WINDOZE_NOT_IMPLEMENTED.format(stack()[0][3]),
-        )  # pragma: no cover
+    windoze_not_implemented(stack()[0][3])
     og_changed = set_owner_group(tgt, own, grp)
     fp_changed = set_file_perms(tgt, mode)
     return og_changed or fp_changed

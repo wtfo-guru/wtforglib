@@ -1,4 +1,6 @@
+"""Test module for wtforglib package."""
 import logging
+import platform
 import re
 
 from wtforglib.scribe import Scribe
@@ -69,5 +71,8 @@ def test_all_handlers(caplog, tmp_path_factory):
         logfn=fn,
         screen=True,
     )
-    # TODO: find out why call to syslog handle raised exception
-    assert scribe.handlers_nbr == 3
+    if platform.system() == "Windows":
+        assert scribe.handlers_nbr == 2
+    else:
+        # TODO: find out why call to syslog handle raised exception
+        assert scribe.handlers_nbr == 3

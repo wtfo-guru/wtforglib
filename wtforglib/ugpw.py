@@ -1,7 +1,13 @@
 """Top-level module for wtforglib Library."""
-from grp import getgrall, getgrgid
-from pwd import getpwnam, getpwuid
+import platform
+from inspect import stack
 from typing import Tuple, Union
+
+from wtforglib.functions import WINDOZE, windoze_not_implemented
+
+if platform.system() != WINDOZE:
+    from grp import getgrall, getgrgid  # noqa: WPS433
+    from pwd import getpwnam, getpwuid  # noqa: WPS433
 
 
 def get_user_name(uid: int) -> str:
@@ -17,6 +23,7 @@ def get_user_name(uid: int) -> str:
     str
         User name
     """
+    windoze_not_implemented(stack()[0][3])
     return getpwuid(uid)[0]
 
 
@@ -33,6 +40,7 @@ def get_user_groups(user: Union[str, int]) -> Tuple[str, ...]:
     Tuple[str,...]
         Groups user belongs to
     """
+    windoze_not_implemented(stack()[0][3])
     if isinstance(user, int):
         user_nm = get_user_name(int(user))
     else:
