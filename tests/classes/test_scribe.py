@@ -1,6 +1,6 @@
 """Test module for wtforglib package."""
-import platform
 import logging
+import platform
 import re
 
 from wtforglib.scribe import Scribe

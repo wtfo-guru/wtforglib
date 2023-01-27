@@ -6,6 +6,10 @@ from typing import ClassVar
 from wtforglib.errors import ShellError
 
 WINDOZE = "Windows"
+
+if platform.system() == WINDOZE:
+    from socket import getfqdn  # noqa: WPS433
+
 WINDOZE_NOT_IMPLEMENTED = "{0} is not implemented on Windows"
 
 
@@ -22,7 +26,7 @@ class WtfSingleton(object):
         return cls.instance
 
 
-def domainname(test: bool = False) -> str:  # noqa: WPS605
+def domainname(test: bool = False) -> str:  # noqa: WPS605, WPS231
     """Retuns hosts domainname.
 
     Parameters
@@ -43,9 +47,8 @@ def domainname(test: bool = False) -> str:  # noqa: WPS605
     if not WtfSingleton.dn:
         if test:
             WtfSingleton.dn = "example.com"
-        elif platform.system() == "Windows":
-            from socket import getfqdn
-            parts = getfqdn().split('.', 1)
+        elif platform.system() == WINDOZE:
+            parts = getfqdn().split(".", 1)
             if len(parts) == 2:
                 WtfSingleton.dn = parts[1]
             else:
@@ -62,7 +65,7 @@ def domainname(test: bool = False) -> str:  # noqa: WPS605
     return WtfSingleton.dn
 
 
-def hostname(test: bool = False) -> str:  # noqa: WPS605
+def hostname(test: bool = False) -> str:  # noqa: WPS605, WPS231
     """Retuns hosts hostname.
 
     Parameters
@@ -83,9 +86,8 @@ def hostname(test: bool = False) -> str:  # noqa: WPS605
     if not WtfSingleton.hn:
         if test:
             WtfSingleton.hn = "nombre"
-        elif platform.system() == "Windows":
-            from socket import getfqdn
-            parts = getfqdn().split('.', 1)
+        elif platform.system() == WINDOZE:
+            parts = getfqdn().split(".", 1)
             if parts:
                 WtfSingleton.hn = parts[0]
             else:

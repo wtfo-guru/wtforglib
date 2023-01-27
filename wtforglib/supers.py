@@ -25,11 +25,6 @@ def issuper() -> bool:
     Returns
     -------
         bool : true if process euid is 0
-
-    Raises
-    ------
-    AdminStateUnknownError
-        When if platform is Windows
     """
     try:
         is_super = geteuid() == 0

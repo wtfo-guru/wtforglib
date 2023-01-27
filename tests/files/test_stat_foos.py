@@ -1,18 +1,19 @@
 """Test module for wtforglib package."""
-import os
 import platform
+
 import pytest
 
 WINDOZE = "Windows"
 if platform.system() == WINDOZE:
     pytest.skip("skipping tests on windows platform", allow_module_level=True)
 
-from os import getegid, geteuid
+from os import getegid, geteuid  # noqa: E402
 
-from wtforglib.fstats import set_owner_group_perms
-from wtforglib.ugpw import get_user_groups, get_user_name
+from wtforglib.fstats import set_owner_group_perms  # noqa: E402
+from wtforglib.ugpw import get_user_groups, get_user_name  # noqa: E402
 
 # mypy: disable_error_code = var-annotated
+
 
 def test_set_owner_group_perms(tmp_path):
     """Test set_owner_group_perms."""
