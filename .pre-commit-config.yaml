@@ -1,4 +1,6 @@
 exclude: '^docs/conf.py'
+default_install_hook_types: ["pre-commit", "commit-msg"]
+default_stages: ["commit"]
 
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -20,21 +22,6 @@ repos:
   - id: no-commit-to-branch
     args: ['--branch', 'main']
 
-## If you want to avoid flake8 errors due to unused vars or imports:
-# - repo: https://github.com/myint/autoflake
-#   rev: v1.4
-#   hooks:
-#   - id: autoflake
-#     args: [
-#       --in-place,
-#       --remove-all-unused-imports,
-#       --remove-unused-variables,
-#     ]
-
-# - repo: https://github.com/pycqa/isort
-#   rev: 5.10.1
-#   hooks:
-#   - id: isort
 - repo: local
   hooks:
     - id: isort
@@ -53,19 +40,18 @@ repos:
       entry: /usr/local/bin/encryption-check.sh
       files: ((^|/)vault|vault.y[a]{0,1}ml$|.vault$)
       language: script
+    - id: commit-msg
+      name: conventional commit messages
+      language: pygrep
+      entry: '^(chore|test|feat|fix|build|docs|refactor)!?: ((?!.*(ing))(?!.*(ed))).*$'
+      args: [--multiline, --negate]
+      stages: [commit-msg]
 
 - repo: https://github.com/psf/black
   rev: 22.3.0 #stable 0
   hooks:
   - id: black
     language_version: python3
-
-## If like to embrace black styles even in the docs:
-# - repo: https://github.com/asottile/blacken-docs
-#   rev: v1.12.0
-#   hooks:
-#   - id: blacken-docs
-#     additional_dependencies: [black]
 
 - repo: https://github.com/PyCQA/flake8
   rev: 4.0.1
