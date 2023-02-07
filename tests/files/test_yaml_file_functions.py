@@ -5,24 +5,17 @@ from pathlib import Path
 
 import pytest
 
-from wtforglib.files import load_yaml_file
+from wtforglib.files import load_yaml_file, write_yaml_file
 from wtforglib.versioned import unlink_path
 
 # mypy: disable_error_code = var-annotated
-
-LAYOUT = """---
-foo: bar
-...
-"""
 
 
 def test_load_yaml_file():
     """Test load_yaml_file function."""
     t_file, path = tempfile.mkstemp()
     os.close(t_file)
-    with open(path, mode="w") as yfile:
-        yfile.write(LAYOUT)
-        yfile.close()
+    assert write_yaml_file(path, {"foo": "bar"})
     test_me = load_yaml_file(path)
     unlink_path(path, missing_ok=True)
     assert isinstance(test_me, dict)

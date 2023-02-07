@@ -38,6 +38,33 @@ def load_yaml_file(
     return yaml_result
 
 
+def write_yaml_file(
+    filenm: Fspec,
+    src_data: StrAnyDict,
+    encoding: str = "utf-8",
+) -> bool:
+    """Writes src_data to a file in a yaml format.
+
+    Parameters
+    ----------
+    filenm : Fspec
+        The yaml filename to write to
+    src_data : StrAnyDict
+        The data to write to a file
+    encoding : str Optional
+        encoding default 'utf-8'
+
+    Returns
+    -------
+        bool
+            True if file exists else False
+    """
+    ypath = Path(filenm)
+    with open(ypath, "w") as outf:
+        yaml.dump(src_data, outf, encoding=encoding)
+    return ypath.exists()
+
+
 def load_json_file(
     filenm: Fspec,
     missing_ok: bool = True,
@@ -76,7 +103,7 @@ def write_json_file(
     Parameters
     ----------
     filenm : Fspec
-        The yaml file to load
+        The json filename to write to
     src_data : StrAnyDict
         The data to write to a file
     indent : int Optional
