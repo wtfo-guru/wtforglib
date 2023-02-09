@@ -30,3 +30,6 @@ else:
     Fspec = Union[str, "PathLike[str]"]
 
 StrAnyDict = Dict[str, Any]  # type: ignore
+StrStrDict = Dict[str, str]
+StrStrInt = Dict[str, Union[int, str]]
+StrStrIntBool = Dict[str, Union[int, str, bool]]
