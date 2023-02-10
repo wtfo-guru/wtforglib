@@ -36,19 +36,20 @@ def set_file_perms(tgt: Fspec, mode: str) -> bool:
     ValueError
         When mode is not valid
     """
-    target = Path(tgt)
-    mode_length = len(mode)
-    if mode_length > 4 or mode_length < 3:
-        raise ValueError("Invalid mode string length. Must be 3 or 4 characters.")
-    if not re.match("[0-7]+$", mode):
-        raise ValueError("Invalid mode string. Must be 3 or 4 octal digits.")
-    windoze_not_implemented(stack()[0][3])
-    # convert mode to octal string right 4 chars
-    cmode = str(oct(target.stat().st_mode))[-mode_length:]
-    if cmode != mode:
-        omode = int(mode, 8)
-        target.chmod(omode)
-        return True
+    if mode:
+        target = Path(tgt)
+        mode_length = len(mode)
+        if mode_length > 4 or mode_length < 3:
+            raise ValueError("Invalid mode string length. Must be 3 or 4 characters.")
+        if not re.match("[0-7]+$", mode):
+            raise ValueError("Invalid mode string. Must be 3 or 4 octal digits.")
+        windoze_not_implemented(stack()[0][3])
+        # convert mode to octal string right 4 chars
+        cmode = str(oct(target.stat().st_mode))[-mode_length:]
+        if cmode != mode:
+            omode = int(mode, 8)
+            target.chmod(omode)
+            return True
     return False
 
 
