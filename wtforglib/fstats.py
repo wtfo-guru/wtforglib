@@ -17,7 +17,7 @@ if platform.system() != WINDOZE:
     from pwd import getpwuid  # noqa: WPS433
 
 
-def set_file_perms(tgt: Fspec, mode: str) -> bool:
+def set_file_perms(tgt: Fspec, mode: str) -> bool:  # noqa: WPS231
     """Sets the owner group permissions for a posix file if needed.
 
     Parameters
