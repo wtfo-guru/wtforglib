@@ -32,6 +32,27 @@ LOG_LEVELS = MappingProxyType(
 )
 
 
+def log_level_name(level: int, default: str = "info") -> str:
+    """Return logger level name.
+
+    Parameters
+    ----------
+    level : int
+        Level number
+    default : str, optional
+        Default if not matched, by default "info"
+
+    Returns
+    -------
+    str
+        Level name
+    """
+    for key, valor in LOG_LEVELS.items():
+        if level == valor:
+            return key
+    return default
+
+
 class Scribe(object):
     """
     A class to create a logging system interface.
