@@ -1,3 +1,5 @@
+"""Top-level module for Wtforg Library."""
+
 import errno
 import os
 from pathlib import Path
