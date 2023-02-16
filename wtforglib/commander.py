@@ -1,6 +1,7 @@
 """Top-level module for Wtforg Library."""
 
 import subprocess
+import sys
 from typing import Tuple, Union
 
 from wtforglib.options import Options
@@ -30,6 +31,12 @@ class FakedProcessResult(object):
         self.returncode = returncode
 
 
+if sys.version_info >= (3, 9):
+    CommanderResult = Union[subprocess.CompletedProcess[str], FakedProcessResult]
+else:
+    CommanderResult = Union[subprocess.CompletedProcess, FakedProcessResult]
+
+
 class Commander(Options):
     """Base class for subprocess management."""
 
@@ -37,7 +44,7 @@ class Commander(Options):
         self,
         args: Tuple[str, ...],
         **kwargs: bool,
-    ) -> Union[subprocess.CompletedProcess[str], FakedProcessResult]:
+    ) -> CommanderResult:
         """Runs commands specified by args."""
         always = kwargs.get("always", False)
         check = kwargs.get("check", True)
