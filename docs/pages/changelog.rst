@@ -2,6 +2,34 @@
 Changelog
 =========
 
+`Unreleased <https://github.com/wtfo-guru/wtforglib/tree/HEAD>`__
+---------------------------------------------------------------------
+
+`Full Changelog <https://github.com/wtfo-guru/wtforglib/compare/v0.7.0...HEAD>`__
+
+**Merged pull requests:**
+
+
+* Windoze `#34 <https://github.com/wtfo-guru/wtforglib/pull/34>`__ (\ `qs5779 <https://github.com/qs5779>`__\ )
+* refactor: Migrate new code into module `#33 <https://github.com/wtfo-guru/wtforglib/pull/33>`__ (\ `qs5779 <https://github.com/qs5779>`__\ )
+* Develop `#32 <https://github.com/wtfo-guru/wtforglib/pull/32>`__ (\ `qs5779 <https://github.com/qs5779>`__\ )
+* chore(deps): bump types-pyyaml from 6.0.12.5 to 6.0.12.6 `#31 <https://github.com/wtfo-guru/wtforglib/pull/31>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* chore(deps): bump types-pyyaml from 6.0.12.4 to 6.0.12.5 `#30 <https://github.com/wtfo-guru/wtforglib/pull/30>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* Develop `#29 <https://github.com/wtfo-guru/wtforglib/pull/29>`__ (\ `qs5779 <https://github.com/qs5779>`__\ )
+* chore(deps-dev): bump testfixtures from 7.0.4 to 7.1.0 `#28 <https://github.com/wtfo-guru/wtforglib/pull/28>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* chore(deps): bump types-pyyaml from 6.0.12.3 to 6.0.12.4 `#27 <https://github.com/wtfo-guru/wtforglib/pull/27>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* chore(deps-dev): bump sphinx-autodoc-typehints from 1.21.8 to 1.22 `#26 <https://github.com/wtfo-guru/wtforglib/pull/26>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* chore(deps-dev): bump m2r2 from 0.3.3 to 0.3.3.post2 `#25 <https://github.com/wtfo-guru/wtforglib/pull/25>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* Windoze `#24 <https://github.com/wtfo-guru/wtforglib/pull/24>`__ (\ `qs5779 <https://github.com/qs5779>`__\ )
+* chore(deps-dev): bump sphinx-autodoc-typehints from 1.21.7 to 1.21.8 `#23 <https://github.com/wtfo-guru/wtforglib/pull/23>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* chore(deps-dev): bump sphinx-autodoc-typehints from 1.21.5 to 1.21.7 `#22 <https://github.com/wtfo-guru/wtforglib/pull/22>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+* chore(deps-dev): bump sphinx-autodoc-typehints from 1.21.4 to 1.21.5 `#21 <https://github.com/wtfo-guru/wtforglib/pull/21>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
+
+`v0.7.0 <https://github.com/wtfo-guru/wtforglib/tree/v0.7.0>`__ (2023-02-17)
+--------------------------------------------------------------------------------
+
+`Full Changelog <https://github.com/wtfo-guru/wtforglib/compare/v0.6.0...v0.7.0>`__
+
 `v0.6.0 <https://github.com/wtfo-guru/wtforglib/tree/v0.6.0>`__ (2023-01-19)
 --------------------------------------------------------------------------------
 
@@ -10,6 +38,7 @@ Changelog
 **Merged pull requests:**
 
 
+* docs: Update changelog `#20 <https://github.com/wtfo-guru/wtforglib/pull/20>`__ (\ `qs5779 <https://github.com/qs5779>`__\ )
 * Added new functions `#19 <https://github.com/wtfo-guru/wtforglib/pull/19>`__ (\ `qs5779 <https://github.com/qs5779>`__\ )
 * chore(deps-dev): bump sphinx-autodoc-typehints from 1.21.3 to 1.21.4 `#18 <https://github.com/wtfo-guru/wtforglib/pull/18>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
 * chore(deps): bump types-pyyaml from 6.0.12.2 to 6.0.12.3 `#17 <https://github.com/wtfo-guru/wtforglib/pull/17>`__ (\ `dependabot[bot] <https://github.com/apps/dependabot>`__\ )
