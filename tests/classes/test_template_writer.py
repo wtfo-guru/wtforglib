@@ -1,6 +1,6 @@
 """Test module for wtforglib package."""
 
-import filecmp
+from testfixtures import compare
 
 from wtforglib.tmplwrtr import TemplateWriter
 
@@ -23,9 +23,7 @@ def test_template_writer(tmpdir, fs):
     """Test template writer."""
     tmpl_path = tmpdir / "jinja_test.j2"
     out_path = tmpdir / "jinja_test.txt"
-    anchor_path = tmpdir / "anchor.txt"
     fs.create_file(tmpl_path, contents=(TEST_JINJA))
-    fs.create_file(anchor_path, contents=(TEST_RESULT))
     tmpl_info = {
         "dest": str(out_path),
         "src": str(tmpl_path),
@@ -38,8 +36,8 @@ def test_template_writer(tmpdir, fs):
             ["2001:4860:4860:0:0:0:0:8844", "secondary.google.com"],
         ],
     }
-    writer = TemplateWriter()
+    writer = TemplateWriter({"test": True})
     writer.generate("test_template", tmpl_info, tmpl_var)
     assert out_path.isfile()
-    assert anchor_path.isfile()
-    assert filecmp.cmp(out_path, anchor_path)
+    with open(out_path, "r") as iif:
+        compare(iif.read(), TEST_RESULT)
