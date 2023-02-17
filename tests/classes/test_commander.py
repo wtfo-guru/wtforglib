@@ -1,6 +1,7 @@
 """Test module for wtforglib package."""
 import platform
 from datetime import datetime, timedelta
+from typing import Tuple
 
 from wtforglib.commander import Commander, FakedProcessResult
 
@@ -8,6 +9,7 @@ from wtforglib.commander import Commander, FakedProcessResult
 def test_date_command():
     """Test date command."""
     cmdr = Commander()
+    args: Tuple[str, ...]
     if platform.system() == "Windows":
         args = (
             "powershell",
