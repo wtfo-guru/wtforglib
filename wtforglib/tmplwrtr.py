@@ -97,6 +97,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
             tmpl_value.get("backup", 0),
         )
         if changed:
+            self.info("Updated: {0}".format(dest))
             if not self.istest():
                 set_owner_group_perms(
                     dest,
@@ -108,6 +109,8 @@ class TemplateWriter(Commander):  # noqa: WPS214
                 if cargs:
                     cmdres = self.run_command(tuple(cargs))
                     return cmdres.returncode
+        else:
+            self.debug("Unchanged dest: {0}".format(dest))
         return 0
 
     def _verify_config_data(self, tmpl_name: str, tmpl_value: StrAnyDict) -> bool:
