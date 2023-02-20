@@ -21,6 +21,8 @@ from wtforglib.scribe import Scribe
 from wtforglib.versioned import unlink_path
 from wtforglib.versionfile import version_file
 
+KDEST = "dest"
+
 
 class TemplateWriter(Commander):  # noqa: WPS214
     """
@@ -89,12 +91,10 @@ class TemplateWriter(Commander):  # noqa: WPS214
         int
             exit status
         """
-        dest = tmpl_value.get("dest", "")
+        dest = tmpl_value.get(KDEST, "")
         changed = self._render_template(
-            tmpl_value.get("src", ""),
+            tmpl_value,
             tmpl_var,
-            dest,
-            tmpl_value.get("backup", 0),
         )
         if changed:
             self.info("Updated: {0}".format(dest))
@@ -130,36 +130,33 @@ class TemplateWriter(Commander):  # noqa: WPS214
         """
         if self._verify_template_required_keys(tmpl_name, tmpl_value):
             if self._verify_template_source(tmpl_value.get("src", "")):
-                if self._verify_target(tmpl_value.get("dest", "")):
+                if self._verify_target(tmpl_value.get(KDEST, "")):
                     return True
         return False
 
     def _render_template(
         self,
-        source: str,
+        tmpl_value: StrAnyDict,
         tmpl_var: StrAnyDict,
-        dest: str,
-        backup: int,
     ) -> bool:
         """Render the template to the file system.
 
         Parameters
         ----------
-        source : str
-            Path to the template source file
+        tmpl_value : StrAnyDict
+            Data describing the target file requirements
         tmpl_var : StrAnyDict
-            Varible to pass into template engine
-        dest : str
-            Path to the output file
-        backup : int
-            Max number of backups to keep (if any)
+            Variables used by the template
 
         Returns
         -------
         int
             exit_code
         """
-        template = Template(self._read_template_source(source))
+        dest = tmpl_value.get(KDEST, "")
+        bnbr = tmpl_value.get("backup", 0)
+        bpath = tmpl_value.get("backup_dir")
+        template = Template(self._read_template_source(tmpl_value.get("src", "")))
         tfile = NamedTemporaryFile(
             mode="w",
             encoding="utf-8",
@@ -168,9 +165,15 @@ class TemplateWriter(Commander):  # noqa: WPS214
         )
         tfile.write(template.render(template_dict=tmpl_var))
         tfile.close()
-        return self._write_output(Path(dest), Path(tfile.name), backup)
+        return self._write_output(Path(dest), Path(tfile.name), bnbr, bpath)
 
-    def _write_output(self, dpath: Path, tpath: Path, backup: int) -> bool:
+    def _write_output(
+        self,
+        dpath: Path,
+        tpath: Path,
+        bnbr: int,
+        bpath: Optional[Path] = None,
+    ) -> bool:
         """Write output to output file, unlink temporary file.
 
         Parameters
@@ -179,8 +182,10 @@ class TemplateWriter(Commander):  # noqa: WPS214
             Path to the output file
         tpath : Path
             Path to the temporary generated template file
-        backup : int
+        bnbr : int
             Number of backups to keep if any
+        bpath : Optional[Path]
+            Directory to store the backups in
 
         Returns
         -------
@@ -199,7 +204,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         if not diff:
             if not self.options.get("noop", False):
                 if exists:
-                    self._backup_file(str(dpath), backup)
+                    self._backup_file(str(dpath), bnbr, bpath)
                     tpath.replace(dpath)
                 else:
                     tpath.rename(dpath)
@@ -209,18 +214,23 @@ class TemplateWriter(Commander):  # noqa: WPS214
             unlink_path(tpath, missing_ok=True)
         return retval
 
-    def _backup_file(self, dest: str, backup: int) -> None:
+    def _backup_file(self, dest: str, bnbr: int, bpath: Optional[Path] = None) -> None:
         """Backup the output before replacing.
 
         Parameters
         ----------
         dest : str
             Path to output file.
-        backup : int
+        bnbr : int
             Number of backup files to keep (if any)
+        bpath : Optional[Path]
+            Directory to store the backups in
         """
-        if backup:
-            version_file(dest, "rename", backup, debug=self.isdebug())
+        if bnbr:
+            if bpath is None:
+                version_file(dest, "rename", bnbr, self.isdebug())
+            else:
+                version_file(dest, "rename", bnbr, self.isdebug(), str(bpath))
 
     def _read_template_source(self, source: str) -> str:
         """Retruns the template data from the given source.
@@ -244,7 +254,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         tmpl_value: StrAnyDict,
     ) -> bool:
         """Verify that the template required keys exist."""
-        for key in ("src", "dest"):
+        for key in ("src", KDEST):
             kv = tmpl_value.get(key)
             if kv is None:
                 self.error(
