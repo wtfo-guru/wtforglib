@@ -1,6 +1,6 @@
 """Test module for wtforglib package."""
 
-from testfixtures import compare
+from testfixtures import compare  # type: ignore
 
 from wtforglib.tmplwrtr import TemplateWriter
 
