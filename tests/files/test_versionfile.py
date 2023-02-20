@@ -102,3 +102,23 @@ def test_version_file_numbered_ext():
     with pytest.raises(ValueError):
         version_file(numbered, "copy", TRES)
     shutil.rmtree(tnm)
+
+
+def test_version_file_alt_dir():
+    """Test versionfile alt directory."""
+    td, tnm = tempfile.mkstemp(suffix=".wtf", text=True)
+    os.write(td, GETTYSBURG_ADDRESS.encode("utf-8"))
+    os.close(td)
+    tmpd = tempfile.TemporaryDirectory()
+    slot_base = os.path.join(tmpd.name, os.path.basename(tnm))
+    for idx in range(1, 5):
+        slot = "{0}.{1}".format(slot_base, idx)
+        test_result = version_file(tnm, "copy", TRES, False, tmpd.name)
+        assert os.path.isfile(tnm)
+        if idx < 4:
+            assert os.path.isfile(slot)
+        else:
+            assert not os.path.isfile(slot)
+        assert test_result == 0
+    if os.path.isfile(tnm):
+        os.unlink(tnm)

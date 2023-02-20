@@ -1,10 +1,13 @@
 import os
 import re
 import shutil
+from typing import Optional
+
+from wtforglib.files import ensure_directory
 
 
 def clear_slot(root: str, idx: int, max_versions: int, debug: bool = False) -> str:
-    """Clear file out of slot.
+    """Clear backup slot for file being backed up.
 
     Parameters
     ----------
@@ -34,6 +37,37 @@ def clear_slot(root: str, idx: int, max_versions: int, debug: bool = False) -> s
             nslot = clear_slot(root, idx + 1, max_versions, debug)
             os.rename(slot, nslot)
     return slot
+
+
+def clear_directory_slot(
+    dirfpn: str,
+    basenm: str,
+    idx: int,
+    max_versions: int,
+    debug: bool = False,
+) -> str:
+    """Clear backup slot in directory other than file to backup.
+
+    Parameters
+    ----------
+    dirfpn : str
+        pathname of directory where backups are stored
+    basenm : str
+        un-numbered basename of file
+    idx : int
+        version number
+    max_versions : int
+        maximum number of versions
+    debug : bool, optional
+        debug flag, by default False
+
+    Returns
+    -------
+    str
+        numbered slot name
+    """
+    ensure_directory(dirfpn)
+    return clear_slot(os.path.join(dirfpn, basenm), idx, max_versions, debug)
 
 
 def check_root_filename(file_spec: str) -> str:
@@ -68,6 +102,7 @@ def version_file(
     vtype: str = "rename",
     max_versions: int = 5,
     debug: bool = False,
+    dir_spec: Optional[str] = None,
 ) -> int:
     """Save max versions of file.
 
@@ -81,6 +116,8 @@ def version_file(
         maximum number of versions, by default 5
     debug : bool, optional
         debug flag, by default False
+    dir_spec : Optional[str]
+        Path to the directory were versions are stored, by default file_spec directory
 
     Returns
     -------
@@ -96,7 +133,16 @@ def version_file(
     root = check_root_filename(file_spec)
 
     # Find next available file version
-    new_file = clear_slot(root, 1, max_versions, debug)
+    if dir_spec is not None:
+        new_file = clear_directory_slot(
+            dir_spec,
+            os.path.basename(root),
+            1,
+            max_versions,
+            debug,
+        )
+    else:
+        new_file = clear_slot(root, 1, max_versions, debug)
     # the code below is reported as not covered, but I
     # have ran severl tests to verify, I suspect, I need
     # use a fake file system for testing but not now
