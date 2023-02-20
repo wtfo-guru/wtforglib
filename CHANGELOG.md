@@ -1,11 +1,22 @@
 # Changelog
 
+## [v0.7.1](https://github.com/wtfo-guru/wtforglib/tree/v0.7.1) (2023-02-20)
+
+[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.7.0...v0.7.1)
+
+**Merged pull requests:**
+
+- feat: Add debug log calls, bump release [\#39](https://github.com/wtfo-guru/wtforglib/pull/39) ([qs5779](https://github.com/qs5779))
+- Develop [\#38](https://github.com/wtfo-guru/wtforglib/pull/38) ([qs5779](https://github.com/qs5779))
+- chore\(deps\): bump types-pyyaml from 6.0.12.6 to 6.0.12.7 [\#37](https://github.com/wtfo-guru/wtforglib/pull/37) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.7.0](https://github.com/wtfo-guru/wtforglib/tree/v0.7.0) (2023-02-17)
 
 [Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.6.0...v0.7.0)
 
 **Merged pull requests:**
 
+- docs: Adjust release tag, regenerate changelog [\#36](https://github.com/wtfo-guru/wtforglib/pull/36) ([qs5779](https://github.com/qs5779))
 - v0.7.0 [\#35](https://github.com/wtfo-guru/wtforglib/pull/35) ([qs5779](https://github.com/qs5779))
 - Windoze [\#34](https://github.com/wtfo-guru/wtforglib/pull/34) ([qs5779](https://github.com/qs5779))
 - refactor: Migrate new code into module [\#33](https://github.com/wtfo-guru/wtforglib/pull/33) ([qs5779](https://github.com/qs5779))
