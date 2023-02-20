@@ -1,11 +1,20 @@
 # Changelog
 
+## [v0.8.0](https://github.com/wtfo-guru/wtforglib/tree/v0.8.0) (2023-02-20)
+
+[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.7.1...v0.8.0)
+
+**Merged pull requests:**
+
+- Develop [\#41](https://github.com/wtfo-guru/wtforglib/pull/41) ([qs5779](https://github.com/qs5779))
+
 ## [v0.7.1](https://github.com/wtfo-guru/wtforglib/tree/v0.7.1) (2023-02-20)
 
 [Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.7.0...v0.7.1)
 
 **Merged pull requests:**
 
+- docs: Update changelog [\#40](https://github.com/wtfo-guru/wtforglib/pull/40) ([qs5779](https://github.com/qs5779))
 - feat: Add debug log calls, bump release [\#39](https://github.com/wtfo-guru/wtforglib/pull/39) ([qs5779](https://github.com/qs5779))
 - Develop [\#38](https://github.com/wtfo-guru/wtforglib/pull/38) ([qs5779](https://github.com/qs5779))
 - chore\(deps\): bump types-pyyaml from 6.0.12.6 to 6.0.12.7 [\#37](https://github.com/wtfo-guru/wtforglib/pull/37) ([dependabot[bot]](https://github.com/apps/dependabot))
