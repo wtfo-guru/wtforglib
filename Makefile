@@ -1,10 +1,19 @@
 SHELL:=/usr/bin/env bash
 
+LCACHE ?= $(shell readlink -f ~/.cache/python-testing/pypoetry)
+PCACHE ?= /home/qs5779/.cache/pypoetry
 PROJECT ?= $(shell git rev-parse --show-toplevel)
 DISTRO ?= ubuntu20.04
 PYVERS = 3.10.9
 
-.PHONY: black mypy lint sunit unit package test publish publish-test
+.PHONY: showvirt vars black mypy lint sunit unit package test publish publish-test
+vars:
+	@echo "PCACHE: $(PCACHE)"
+	@echo "LCACHE: $(LCACHE)"
+
+showvirt:
+	ls -l $(LCACHE)/virtualenvs
+
 black:
 	poetry run isort .
 	poetry run black .
@@ -36,15 +45,18 @@ publish: test
 publish-test: test
 	poetry publish --build -r test-pypi
 
-.PHONY: work37 work38 work
+.PHONY: work37 work38 work39 work
 work37:
-	docker run --rm -it --volume $(PROJECT):/project/ qs5779/python-testing:ubuntu20.04-3.7.16 /bin/bash
+	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:ubuntu20.04-3.7.16 /bin/bash
 
 work38:
-	docker run --pull --rm -it --volume $(PROJECT):/project/ qs5779/python-testing:ubuntu20.04-3.8.16 /bin/bash
+	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:ubuntu20.04-3.8.16 /bin/bash
+
+work39:
+	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:ubuntu20.04-3.9.14 /bin/bash
 
 work:
-	docker run --pull --rm -it --volume $(PROJECT):/project/ qs5779/python-testing:$(DISTRO)-$(PYVERS) /bin/bash
+	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:$(DISTRO)-$(PYVERS) /bin/bash
 
 .PHONY: chlog docs
 chlog:
