@@ -45,7 +45,7 @@ publish: test
 publish-test: test
 	poetry publish --build -r test-pypi
 
-.PHONY: work37 work38 work39 work
+.PHONY: work37 work38 work39 work311 work
 work37:
 	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:ubuntu20.04-3.7.16 /bin/bash
 
@@ -54,6 +54,9 @@ work38:
 
 work39:
 	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:ubuntu20.04-3.9.14 /bin/bash
+
+work311:
+	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:ubuntu20.04-3.11.2 /bin/bash
 
 work:
 	docker run --rm -it --volume $(PROJECT):/project/ --volume $(LCACHE):$(PCACHE) qs5779/python-testing:$(DISTRO)-$(PYVERS) /bin/bash
