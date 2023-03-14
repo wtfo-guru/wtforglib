@@ -1,11 +1,31 @@
 # Changelog
 
+## [v0.8.1](https://github.com/wtfo-guru/wtforglib/tree/v0.8.1) (2023-03-14)
+
+[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.8.0...v0.8.1)
+
+**Merged pull requests:**
+
+- feat: Allow template cross-file system, property for template changes [\#55](https://github.com/wtfo-guru/wtforglib/pull/55) ([qs5779](https://github.com/qs5779))
+- Develop [\#53](https://github.com/wtfo-guru/wtforglib/pull/53) ([qs5779](https://github.com/qs5779))
+- chore\(deps-dev\): bump setuptools from 67.5.1 to 67.6.0 [\#52](https://github.com/wtfo-guru/wtforglib/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump mypy from 1.0.1 to 1.1.1 [\#51](https://github.com/wtfo-guru/wtforglib/pull/51) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump setuptools from 67.5.0 to 67.5.1 [\#50](https://github.com/wtfo-guru/wtforglib/pull/50) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump setuptools from 67.4.0 to 67.5.0 [\#49](https://github.com/wtfo-guru/wtforglib/pull/49) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump pytest from 7.2.1 to 7.2.2 [\#48](https://github.com/wtfo-guru/wtforglib/pull/48) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump mypy from 0.982 to 1.0.1 [\#47](https://github.com/wtfo-guru/wtforglib/pull/47) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump black from 22.12.0 to 23.1.0 [\#46](https://github.com/wtfo-guru/wtforglib/pull/46) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump packaging from 22.0 to 23.0 [\#45](https://github.com/wtfo-guru/wtforglib/pull/45) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps-dev\): bump setuptools from 65.7.0 to 67.4.0 [\#44](https://github.com/wtfo-guru/wtforglib/pull/44) ([dependabot[bot]](https://github.com/apps/dependabot))
+- chore\(deps\): bump types-pyyaml from 6.0.12.7 to 6.0.12.8 [\#43](https://github.com/wtfo-guru/wtforglib/pull/43) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.8.0](https://github.com/wtfo-guru/wtforglib/tree/v0.8.0) (2023-02-20)
 
 [Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.7.1...v0.8.0)
 
 **Merged pull requests:**
 
+- docs: Update changelog [\#42](https://github.com/wtfo-guru/wtforglib/pull/42) ([qs5779](https://github.com/qs5779))
 - Develop [\#41](https://github.com/wtfo-guru/wtforglib/pull/41) ([qs5779](https://github.com/qs5779))
 
 ## [v0.7.1](https://github.com/wtfo-guru/wtforglib/tree/v0.7.1) (2023-02-20)
