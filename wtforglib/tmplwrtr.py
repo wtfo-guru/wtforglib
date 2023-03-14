@@ -7,6 +7,7 @@ Classes:
 import filecmp
 from os import R_OK, W_OK, access
 from pathlib import Path
+from shutil import copy2
 from tempfile import NamedTemporaryFile
 from typing import Optional
 
@@ -32,6 +33,8 @@ class TemplateWriter(Commander):  # noqa: WPS214
     in the configuration file.
     """
 
+    changed: bool
+
     def __init__(
         self,
         opts: Optional[OptionsDict] = None,
@@ -47,6 +50,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
             Scribe for logging, by default None
         """
         super().__init__(opts)
+        self.changed = False
         if scribe is not None:
             self.scribe = scribe
 
@@ -72,6 +76,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         int
             Exit code
         """
+        self.changed = False
         if self._verify_config_data(tmpl_name, tmpl_value):
             return self._update_template(tmpl_value, tmpl_var)
         return 1
@@ -92,11 +97,11 @@ class TemplateWriter(Commander):  # noqa: WPS214
             exit status
         """
         dest = tmpl_value.get(KDEST, "")
-        changed = self._render_template(
+        self.changed = self._render_template(
             tmpl_value,
             tmpl_var,
         )
-        if changed:
+        if self.changed:
             self.info("Updated: {0}".format(dest))
             if not self.istest():
                 set_owner_group_perms(
@@ -205,9 +210,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
             if not self.options.get("noop", False):
                 if exists:
                     self._backup_file(str(dpath), bnbr, bpath)
-                    tpath.replace(dpath)
-                else:
-                    tpath.rename(dpath)
+                copy2(tpath, dpath)
                 self.info("Updated file: {0}".format(str(dpath)))
                 retval = True
         if not self.isdebug():
