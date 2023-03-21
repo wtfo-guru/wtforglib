@@ -43,7 +43,7 @@ class Commander(Options):
     def run_command(
         self,
         args: Tuple[str, ...],
-        **kwargs: bool,
+        **kwargs,
     ) -> CommanderResult:
         """Runs commands specified by args."""
         always = kwargs.get("always", False)
