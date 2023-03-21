@@ -110,12 +110,32 @@ class TemplateWriter(Commander):  # noqa: WPS214
                     tmpl_value.get("group", ""),
                     tmpl_value.get("mode", ""),
                 )
-                cargs = tmpl_value.get("on_changed", [])
-                if cargs:
-                    cmdres = self.run_command(tuple(cargs))
-                    return cmdres.returncode
+                return self._on_changed(tmpl_value)
         else:
             self.debug("Unchanged dest: {0}".format(dest))
+        return 0
+
+    def _on_changed(self, tmpl_value: StrAnyDict) -> int:
+        """Execute the args specified in config .
+
+        Parameters
+        ----------
+        tmpl_value : StrAnyDict
+            Config values
+
+        Returns
+        -------
+        int
+            Exit code
+        """
+        cargs = tmpl_value.get("on_changed", [])
+        if cargs:
+            cmdres = self.run_command(tuple(cargs), check=False)
+            if cmdres.returncode != 0:
+                self.error("command: {0}".format(" ".join(cargs)))  # noqa: WPS421
+                self.error("returncode: {0}".format(cmdres.returncode))  # noqa: WPS421
+                self.error("stderr: {0}".format(cmdres.stderr))  # noqa: WPS421
+            return cmdres.returncode
         return 0
 
     def _verify_config_data(self, tmpl_name: str, tmpl_value: StrAnyDict) -> bool:

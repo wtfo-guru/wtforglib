@@ -3,6 +3,8 @@ SHELL:=/usr/bin/env bash
 LCACHE ?= $(shell readlink -f ~/.cache/python-testing/pypoetry)
 PCACHE ?= /home/qs5779/.cache/pypoetry
 PROJECT ?= $(shell git rev-parse --show-toplevel)
+PROJECT_VERSION ?= $(shell grep ^current_version .bumpversion.cfg | awk '{print $$NF'} | tr '-' '.')
+WHEELS ?= /home/jim/kbfs/private/jim5779/wheels
 DISTRO ?= ubuntu20.04
 PYVERS = 3.10.9
 
@@ -44,6 +46,11 @@ publish: test
 
 publish-test: test
 	poetry publish --build -r test-pypi
+
+build: test
+	poetry build
+	cp dist/wtforglib-$(PROJECT_VERSION)-py3-none-any.whl $(WHEELS)
+	sync-wheels
 
 .PHONY: work37 work38 work39 work311 work
 work37:
