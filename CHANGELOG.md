@@ -1,11 +1,20 @@
 # Changelog
 
+## [v0.8.2](https://github.com/wtfo-guru/wtforglib/tree/v0.8.2) (2023-03-21)
+
+[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.8.1...v0.8.2)
+
+**Merged pull requests:**
+
+- feat: Log Error when change notify fails [\#57](https://github.com/wtfo-guru/wtforglib/pull/57) ([qs5779](https://github.com/qs5779))
+
 ## [v0.8.1](https://github.com/wtfo-guru/wtforglib/tree/v0.8.1) (2023-03-14)
 
 [Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.8.0...v0.8.1)
 
 **Merged pull requests:**
 
+- docs: Update changelog [\#56](https://github.com/wtfo-guru/wtforglib/pull/56) ([qs5779](https://github.com/qs5779))
 - feat: Allow template cross-file system, property for template changes [\#55](https://github.com/wtfo-guru/wtforglib/pull/55) ([qs5779](https://github.com/qs5779))
 - Develop [\#53](https://github.com/wtfo-guru/wtforglib/pull/53) ([qs5779](https://github.com/qs5779))
 - chore\(deps-dev\): bump setuptools from 67.5.1 to 67.6.0 [\#52](https://github.com/wtfo-guru/wtforglib/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
