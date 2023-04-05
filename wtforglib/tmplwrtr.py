@@ -306,7 +306,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
                 self.error("Template dest '{0}' not a file!!".format(dest))
                 return False
             if not access(dspec, W_OK):
-                self.error("Template dest '{0}' not readable!!".format(dest))
+                self.error("Template dest '{0}' not writable!!".format(dest))
                 return False
         else:
             return self._verify_target_directory(dspec.parent)
