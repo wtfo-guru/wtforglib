@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
-version = "0.8.3-dev1"
+version = "0.8.3-dev6"
 license = "MIT"
 
 authors = [
