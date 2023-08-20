@@ -106,7 +106,7 @@ def is_ipv6(ipvalue: str) -> bool:
     return True
 
 
-def ipv6_to_netprefix(ipaddr: str, prefix_len: int) -> str:
+def ipv6_to_netprefix(ipaddr: str, prefix_len: int, ipv6net_style="standard") -> str:
     """Returns ipv6 network prefix.
 
     Parameters
@@ -115,11 +115,15 @@ def ipv6_to_netprefix(ipaddr: str, prefix_len: int) -> str:
         The ip address
     prefix_len : int
         The network prefix length
+    ipv6net_style : string
+        One of standard, postfix
 
     Returns
     -------
     str
         ipv6 network prefix Example: '1111:2222:3333:4444::/64'
+        or postfix style
+        ipv6 network prefix Example: '[1111:2222:3333:4444::]/64'
 
     Raises
     ------
@@ -129,6 +133,13 @@ def ipv6_to_netprefix(ipaddr: str, prefix_len: int) -> str:
     ipobj = ip_address(ipaddr)
     if isinstance(ipobj, IPv6Address):
         if prefix_len == MAX_PREFIX_LENGTH6:
+            if ipv6net_style == "postfix":
+                return "[{0}]/{1}".format(str(ipobj), prefix_len)
             return "{0}/{1}".format(str(ipobj), prefix_len)
+        if ipv6net_style == "postfix":
+            return "[{0}::]/{1}".format(
+                _get_ipv6_prefix(ipaddr, prefix_len),
+                prefix_len,
+            )
         return "{0}::/{1}".format(_get_ipv6_prefix(ipaddr, prefix_len), prefix_len)
     raise ValueError("Invalid ipv6 address: {0}".format(ipaddr))
