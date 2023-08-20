@@ -52,6 +52,21 @@ def test_ipv6_to_netprefix_valid_params():
         width += increment
 
 
+def test_ipv6_to_netprefix_postfix_valid_params():
+    """Test valid parameters."""
+    ipv6 = "1111:2222:3333:4444:5555:6666:7777:8888"
+    width = 5
+    increment = 5
+    max_prefix = 128
+    for prefix_len in (16, 32, 48, 64, 80, 96, 112, 128):
+        test_net = ipv6_to_netprefix(ipv6, prefix_len, "postfix")
+        if prefix_len == max_prefix:
+            assert test_net == "[{0}]/{1}".format(ipv6, prefix_len)
+        else:
+            assert test_net == "[{0}:]/{1}".format(ipv6[:width], prefix_len)
+        width += increment
+
+
 def test_ipv6_to_netprefix_invalid_address():
     """Test invalid ipv6 address."""
     with pytest.raises(Exception) as exc_info:
