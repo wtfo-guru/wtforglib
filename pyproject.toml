@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
-version = "0.8.3"
+version = "0.8.4-dev1"
 license = "MIT"
 
 authors = [
@@ -18,11 +18,11 @@ keywords = []
 
 classifiers = [
   "Development Status :: 3 - Alpha",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",
@@ -30,20 +30,18 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = ">=3.8.1,<4.0"
 types-pyyaml = "^6.0.12"
 wheel = ">= 0.37.1"
 pyyaml = "^6.0"
 jinja2 = "^3.1.2"
 
 [tool.poetry.group.test.dependencies]
-mypy = ">=0.982,<1.5"
-
-wemake-python-styleguide = "^0.17"
+mypy = "^1.5.0"
+wemake-python-styleguide = "^0.18"
 flake8-pytest-style = "^1.6"
 doc8 = "^1.0"
 nitpick = ">=0.32,<0.34"
-
 pytest = "^7.1"
 pytest-cov = "^4.0"
 pytest-randomly = "^3.12"
@@ -51,10 +49,11 @@ black = ">=22.12,<24.0"
 setuptools = ">=65.6.3,<69.0.0"
 packaging = ">=22,<24"
 isort = { version = "<5.12.0", python = "<3.8" }
-importlib-metadata = { version = "<5.0", python = "<3.8" }
 testfixtures = "^7.0.4"
 pyfakefs = "^5.1.0"
 requests-cache = ">=0.9,<1.2"
+importlib-metadata = "^6.8.0"
+flake8 = "^6.1.0"
 
 [tool.poetry.group.docs]
 optional = true

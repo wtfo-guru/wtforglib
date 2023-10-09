@@ -22,7 +22,7 @@ from wtforglib.scribe import Scribe
 from wtforglib.versioned import unlink_path
 from wtforglib.versionfile import version_file
 
-KDEST = "dest"
+KDEST: str = "dest"
 
 
 class TemplateWriter(Commander):  # noqa: WPS214
@@ -96,7 +96,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         int
             exit status
         """
-        dest = tmpl_value.get(KDEST, "")
+        dest: str = tmpl_value.get(KDEST, "")
         self.changed = self._render_template(
             tmpl_value,
             tmpl_var,
@@ -178,6 +178,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         int
             exit_code
         """
+        # Environment(keep_trailing_newline=True)
         dest = tmpl_value.get(KDEST, "")
         bnbr = tmpl_value.get("backup", 0)
         bpath = tmpl_value.get("backup_dir")
