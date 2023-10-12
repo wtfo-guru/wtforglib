@@ -27,7 +27,7 @@ class WtfSingleton(object):
 
 
 def domainname(test: bool = False) -> str:  # noqa: WPS605, WPS231
-    """Retuns hosts domainname.
+    """Return hosts domain name.
 
     Parameters
     ----------
@@ -37,12 +37,12 @@ def domainname(test: bool = False) -> str:  # noqa: WPS605, WPS231
     Returns
     -------
     str
-        domainname
+        domain name
 
     Raises
     ------
     ShellError
-        if subprocess returncode is not 0
+        if subprocess return code is not 0
     """
     if not WtfSingleton.dn:
         if test:
@@ -60,13 +60,13 @@ def domainname(test: bool = False) -> str:  # noqa: WPS605, WPS231
                 encoding="utf8",
             )
             if sp_result.returncode != 0:  # pragma no cover
-                raise ShellError("Failed to determine host's domainname")
+                raise ShellError("Failed to determine host's domain name")
             WtfSingleton.dn = sp_result.stdout.rstrip()
     return WtfSingleton.dn
 
 
 def hostname(test: bool = False) -> str:  # noqa: WPS605, WPS231
-    """Retuns hosts hostname.
+    """Return hosts' hostname.
 
     Parameters
     ----------
@@ -81,7 +81,7 @@ def hostname(test: bool = False) -> str:  # noqa: WPS605, WPS231
     Raises
     ------
     ShellError
-        if subprocess returncode is not 0
+        if subprocess return code is not 0
     """
     if not WtfSingleton.hn:
         if test:
