@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
-version = "0.8.4-dev2"
+version = "0.8.4-dev3"
 license = "MIT"
 
 authors = [
@@ -60,7 +60,7 @@ optional = true
 
 [tool.poetry.group.docs.dependencies]
 sphinx = ">=5.2,<8.0"
-sphinx-autodoc-typehints = "^1.19"
+sphinx-autodoc-typehints = "^1.24"
 m2r2 = "^0.3"
 tomli = "^2.0"
 
