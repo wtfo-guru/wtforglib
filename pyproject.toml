@@ -10,7 +10,6 @@ authors = [
 
 readme = "README.md"
 
-
 homepage = "https://github.com/wtfo-guru/wtforglib"
 documentation = "https://wtforglib.readthedocs.io/en/stable"
 
@@ -27,6 +26,11 @@ classifiers = [
   "Operating System :: OS Independent",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Typing :: Typed",
+]
+
+packages = [
+    { include = "wtforglib" },
+    { include = "wtforglib/py.typed" },
 ]
 
 [tool.poetry.dependencies]

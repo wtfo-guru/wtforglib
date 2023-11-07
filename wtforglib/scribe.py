@@ -23,11 +23,11 @@ from typing import List
 
 LOG_LEVELS = MappingProxyType(
     {
-        "crit": logging.CRITICAL,
-        "error": logging.ERROR,
-        "warn": logging.WARN,
-        "info": logging.INFO,
-        "debug": logging.DEBUG,
+        "CRITICAL": logging.CRITICAL,
+        "ERROR": logging.ERROR,
+        "WARNING": logging.WARNING,
+        "INFO": logging.INFO,
+        "DEBUG": logging.DEBUG,
     },
 )
 
