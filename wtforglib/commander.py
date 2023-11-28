@@ -1,7 +1,6 @@
 """Top-level module for Wtforg Library."""
 
 import subprocess
-import sys
 from typing import Tuple, Union
 
 from wtforglib.options import Options
@@ -31,10 +30,7 @@ class FakedProcessResult(object):
         self.returncode = returncode
 
 
-if sys.version_info >= (3, 9):
-    CommanderResult = Union[subprocess.CompletedProcess[str], FakedProcessResult]
-else:
-    CommanderResult = Union[subprocess.CompletedProcess, FakedProcessResult]
+CommanderResult = Union[subprocess.CompletedProcess[str], FakedProcessResult]
 
 
 class Commander(Options):

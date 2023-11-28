@@ -25,7 +25,7 @@ LOG_LEVELS = MappingProxyType(
     {
         "crit": logging.CRITICAL,
         "error": logging.ERROR,
-        "warn": logging.WARN,
+        "warn": logging.WARNING,
         "info": logging.INFO,
         "debug": logging.DEBUG,
     },

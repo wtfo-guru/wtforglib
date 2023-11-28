@@ -12,8 +12,20 @@ ValueType
     Generic mapping value type
 Fspec
     Fspec = Union[str, PathLike[str]]
+Filename
+    FSpec
 StrAnyDict
     StrAnyDict = Dict[str, Any]
+StrStrDict
+    StrStrDict = Dict[str, str]
+StrStrInt
+    StrStrInt = Dict[str, Union[int, str]]
+StrStrBool
+    StrStrBool = Dict[str, Union[int, bool]]
+StrStrIntBool
+    StrStrIntBool = Dict[str, Union[int, str, bool]]
+StrStrIntBoolNone
+    StrStrIntBoolNone = Dict[str, Union[int, str, bool, None]]
 """
 
 import sys
@@ -28,6 +40,8 @@ if sys.version_info >= (3, 9):
     Fspec = Union[str, PathLike[str]]
 else:
     Fspec = Union[str, "PathLike[str]"]
+
+FileName = Fspec
 
 StrAnyDict = Dict[str, Any]  # type: ignore
 StrStrDict = Dict[str, str]

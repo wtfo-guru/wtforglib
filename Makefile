@@ -42,12 +42,15 @@ package:
 test: lint package unit
 
 publish: test
+	manage-tag.sh -u v$(PROJECT_VERSION)
 	poetry publish --build
 
 publish-test: test
+	manage-tag.sh -u v$(PROJECT_VERSION)
 	poetry publish --build -r test-pypi
 
 build: test
+	manage-tag.sh -u v$(PROJECT_VERSION)
 	poetry build
 	cp dist/wtforglib-$(PROJECT_VERSION)-py3-none-any.whl $(WHEELS)
 	sync-wheels

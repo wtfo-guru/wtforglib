@@ -1,9 +1,12 @@
 """Top-level module for wtforglib Library."""
 import platform
+import re
 import subprocess  # noqa: S404
-from typing import ClassVar
+from pathlib import Path
+from typing import ClassVar, Optional
 
 from wtforglib.errors import ShellError
+from wtforglib.kinds import FileName
 
 WINDOZE = "Windows"
 
@@ -126,3 +129,24 @@ def windoze_not_implemented(foo_name: str) -> None:
         raise NotImplementedError(
             WINDOZE_NOT_IMPLEMENTED.format(foo_name),
         )  # pragma: no cover
+
+
+def unix_basename(fn: FileName, ext: Optional[str] = None) -> str:
+    """Return unix basename of file name.
+
+    Parameters
+    ----------
+    fn : FileName
+        The file to get basename of
+    ext : str Optional
+        File extension
+
+    Returns
+    -------
+    str
+        unix basename of file name
+    """
+    rtn = Path(fn).name
+    if ext:
+        return re.sub("{0}$".format(ext), "", rtn)
+    return rtn
