@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
-version = "0.8.4-dev3"
+version = "0.8.4"
 license = "MIT"
 
 authors = [
@@ -36,9 +36,11 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4.0"
 types-pyyaml = "^6.0.12"
-wheel = ">= 0.37.1"
 pyyaml = "^6.0"
 jinja2 = "^3.1.2"
+
+[tool.poetry.group.test]
+optional = true
 
 [tool.poetry.group.test.dependencies]
 mypy = "^1.5.0"
@@ -58,6 +60,7 @@ pyfakefs = "^5.1.0"
 requests-cache = ">=0.9,<1.2"
 importlib-metadata = "^6.8.0"
 flake8 = "^6.1.0"
+wheel = ">= 0.37.1"
 
 [tool.poetry.group.docs]
 optional = true
