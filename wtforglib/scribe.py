@@ -14,7 +14,6 @@ Misc variables:
     LOG_LEVELS
 """
 
-
 import logging
 import platform
 from logging.handlers import SysLogHandler

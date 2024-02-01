@@ -1,4 +1,5 @@
 """Top-level module for wtforglib Library."""
+
 import platform
 from inspect import stack
 from typing import Tuple, Union

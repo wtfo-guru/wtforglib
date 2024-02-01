@@ -4,6 +4,7 @@ Top level module for dynaddrmgr application.
 Classes:
     TemplateManager
 """
+
 import filecmp
 from os import R_OK, W_OK, access
 from pathlib import Path
