@@ -58,7 +58,7 @@ testfixtures = "^7.0.4"
 pyfakefs = "^5.1.0"
 requests-cache = ">=0.9,<1.2"
 importlib-metadata = "^7.0"
-flake8 = "^6.1.0"
+flake8 = ">=6.1,<8.0"
 wheel = ">= 0.37.1"
 
 [tool.poetry.group.docs]
