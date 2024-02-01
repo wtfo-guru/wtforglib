@@ -1,4 +1,5 @@
 """Test module for wtforglib package."""
+
 from logging import WARNING
 
 from wtforglib.options import Options, basic_options
