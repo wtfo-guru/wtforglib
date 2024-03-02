@@ -1,4 +1,5 @@
 """Test module for wtforglib package."""
+
 import os
 import tempfile
 from pathlib import Path

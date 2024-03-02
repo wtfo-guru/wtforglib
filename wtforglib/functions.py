@@ -1,4 +1,5 @@
 """Top-level module for wtforglib Library."""
+
 import platform
 import re
 import subprocess  # noqa: S404

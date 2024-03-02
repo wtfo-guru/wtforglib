@@ -1,4 +1,5 @@
 """Test module for wtforglib package."""
+
 import logging
 import platform
 import re

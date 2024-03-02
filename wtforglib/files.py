@@ -1,4 +1,5 @@
 """Top-level module for wtforglib Library."""
+
 import json
 from pathlib import Path
 from tempfile import TemporaryFile
