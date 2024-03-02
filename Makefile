@@ -8,7 +8,11 @@ WHEELS ?= /home/jim/kbfs/private/jim5779/wheels
 DISTRO ?= ubuntu20.04
 PYVERS = 3.10.9
 
-.PHONY: showvirt vars black mypy lint sunit unit package test publish publish-test
+.PHONY: showvirt vars black mypy lint sunit unit package test publish publish-test update
+
+update:
+	poetry update --with test --with docs
+
 vars:
 	@echo "PCACHE: $(PCACHE)"
 	@echo "LCACHE: $(LCACHE)"
