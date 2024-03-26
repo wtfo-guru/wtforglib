@@ -6,7 +6,7 @@ from typing import Tuple, Union
 from wtforglib.options import Options
 
 
-class FakedProcessResult(object):
+class FakedProcessResult:
     """Faked process result."""
 
     stdout: str

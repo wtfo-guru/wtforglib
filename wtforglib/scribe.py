@@ -52,7 +52,7 @@ def log_level_name(level: int, default: str = "info") -> str:
     return default
 
 
-class Scribe(object):
+class Scribe:
     """
     A class to create a logging system interface.
 
