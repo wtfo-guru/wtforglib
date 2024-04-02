@@ -17,7 +17,7 @@ if platform.system() == WINDOZE:
 WINDOZE_NOT_IMPLEMENTED = "{0} is not implemented on Windows"
 
 
-class WtfSingleton(object):
+class WtfSingleton:
     """Singleton class."""
 
     dn: ClassVar[str] = ""

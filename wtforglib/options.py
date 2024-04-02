@@ -60,7 +60,7 @@ def basic_options(
     return od
 
 
-class Options(object):  # noqa: WPS214
+class Options:  # noqa: WPS214
     """A class to handle Options."""
 
     options: OptionsDict
