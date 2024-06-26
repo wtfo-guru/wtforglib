@@ -15,7 +15,7 @@ from typing import Optional
 from jinja2 import Template
 
 from wtforglib.commander import Commander
-from wtforglib.files import verify_directory
+from wtforglib.dirs import verify_directory
 from wtforglib.fstats import set_owner_group_perms
 from wtforglib.kinds import StrAnyDict
 from wtforglib.options import OptionsDict

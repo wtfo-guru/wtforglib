@@ -7,7 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 0.9.0 - 2024-06-??
+## 1.0.1 - 2024-06-??
+
+### Added
+
+- SimpleScribe class
+- delete_empty_dirs function
+
+### Changed
+
+- Refactored directory function into new dirs module (breaking change)
+
+### Removed
+
+- Scribe class (breaking change)
 
 ### Security
 
