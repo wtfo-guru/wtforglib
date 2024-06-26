@@ -14,7 +14,6 @@ Misc variables:
     LOG_LEVELS
 """
 
-
 import logging
 import platform
 from logging.handlers import SysLogHandler
@@ -25,7 +24,7 @@ LOG_LEVELS = MappingProxyType(
     {
         "crit": logging.CRITICAL,
         "error": logging.ERROR,
-        "warn": logging.WARN,
+        "warn": logging.WARNING,
         "info": logging.INFO,
         "debug": logging.DEBUG,
     },
@@ -53,7 +52,7 @@ def log_level_name(level: int, default: str = "info") -> str:
     return default
 
 
-class Scribe(object):
+class Scribe:
     """
     A class to create a logging system interface.
 

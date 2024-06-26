@@ -4,6 +4,7 @@ Top level module for dynaddrmgr application.
 Classes:
     TemplateManager
 """
+
 import filecmp
 from os import R_OK, W_OK, access
 from pathlib import Path
@@ -14,15 +15,14 @@ from typing import Optional
 from jinja2 import Template
 
 from wtforglib.commander import Commander
-from wtforglib.files import verify_directory
+from wtforglib.dirs import verify_directory
 from wtforglib.fstats import set_owner_group_perms
 from wtforglib.kinds import StrAnyDict
 from wtforglib.options import OptionsDict
-from wtforglib.scribe import Scribe
 from wtforglib.versioned import unlink_path
 from wtforglib.versionfile import version_file
 
-KDEST = "dest"
+KDEST: str = "dest"
 
 
 class TemplateWriter(Commander):  # noqa: WPS214
@@ -38,7 +38,6 @@ class TemplateWriter(Commander):  # noqa: WPS214
     def __init__(
         self,
         opts: Optional[OptionsDict] = None,
-        scribe: Optional[Scribe] = None,
     ) -> None:
         """Constructs a new instance of TemplateWriter.
 
@@ -46,13 +45,9 @@ class TemplateWriter(Commander):  # noqa: WPS214
         ----------
         opts : Optional[OptionsDict], optional
             Options dictionary, by default None
-        scribe : Optional[Scribe], optional
-            Scribe for logging, by default None
         """
         super().__init__(opts)
         self.changed = False
-        if scribe is not None:
-            self.scribe = scribe
 
     def generate(
         self,
@@ -96,7 +91,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         int
             exit status
         """
-        dest = tmpl_value.get(KDEST, "")
+        dest: str = tmpl_value.get(KDEST, "")
         self.changed = self._render_template(
             tmpl_value,
             tmpl_var,
@@ -178,6 +173,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         int
             exit_code
         """
+        # Environment(keep_trailing_newline=True)
         dest = tmpl_value.get(KDEST, "")
         bnbr = tmpl_value.get("backup", 0)
         bpath = tmpl_value.get("backup_dir")
@@ -306,7 +302,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
                 self.error("Template dest '{0}' not a file!!".format(dest))
                 return False
             if not access(dspec, W_OK):
-                self.error("Template dest '{0}' not readable!!".format(dest))
+                self.error("Template dest '{0}' not writable!!".format(dest))
                 return False
         else:
             return self._verify_target_directory(dspec.parent)

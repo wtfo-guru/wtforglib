@@ -1,126 +1,135 @@
 # Changelog
 
-## [v0.8.1](https://github.com/wtfo-guru/wtforglib/tree/v0.8.1) (2023-03-14)
+All notable changes to this project will be documented in this file.
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.8.0...v0.8.1)
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-**Merged pull requests:**
+## [Unreleased]
 
-- feat: Allow template cross-file system, property for template changes [\#55](https://github.com/wtfo-guru/wtforglib/pull/55) ([qs5779](https://github.com/qs5779))
-- Develop [\#53](https://github.com/wtfo-guru/wtforglib/pull/53) ([qs5779](https://github.com/qs5779))
-- chore\(deps-dev\): bump setuptools from 67.5.1 to 67.6.0 [\#52](https://github.com/wtfo-guru/wtforglib/pull/52) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump mypy from 1.0.1 to 1.1.1 [\#51](https://github.com/wtfo-guru/wtforglib/pull/51) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump setuptools from 67.5.0 to 67.5.1 [\#50](https://github.com/wtfo-guru/wtforglib/pull/50) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump setuptools from 67.4.0 to 67.5.0 [\#49](https://github.com/wtfo-guru/wtforglib/pull/49) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump pytest from 7.2.1 to 7.2.2 [\#48](https://github.com/wtfo-guru/wtforglib/pull/48) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump mypy from 0.982 to 1.0.1 [\#47](https://github.com/wtfo-guru/wtforglib/pull/47) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump black from 22.12.0 to 23.1.0 [\#46](https://github.com/wtfo-guru/wtforglib/pull/46) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump packaging from 22.0 to 23.0 [\#45](https://github.com/wtfo-guru/wtforglib/pull/45) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump setuptools from 65.7.0 to 67.4.0 [\#44](https://github.com/wtfo-guru/wtforglib/pull/44) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps\): bump types-pyyaml from 6.0.12.7 to 6.0.12.8 [\#43](https://github.com/wtfo-guru/wtforglib/pull/43) ([dependabot[bot]](https://github.com/apps/dependabot))
+## 1.0.1 - 2024-06-??
 
-## [v0.8.0](https://github.com/wtfo-guru/wtforglib/tree/v0.8.0) (2023-02-20)
+### Added
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.7.1...v0.8.0)
+- SimpleScribe class
+- delete_empty_dirs function
 
-**Merged pull requests:**
+### Changed
 
-- docs: Update changelog [\#42](https://github.com/wtfo-guru/wtforglib/pull/42) ([qs5779](https://github.com/qs5779))
-- Develop [\#41](https://github.com/wtfo-guru/wtforglib/pull/41) ([qs5779](https://github.com/qs5779))
+- Refactored directory function into new dirs module (breaking change)
 
-## [v0.7.1](https://github.com/wtfo-guru/wtforglib/tree/v0.7.1) (2023-02-20)
+### Removed
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.7.0...v0.7.1)
+- Scribe class (breaking change)
 
-**Merged pull requests:**
+### Security
 
-- docs: Update changelog [\#40](https://github.com/wtfo-guru/wtforglib/pull/40) ([qs5779](https://github.com/qs5779))
-- feat: Add debug log calls, bump release [\#39](https://github.com/wtfo-guru/wtforglib/pull/39) ([qs5779](https://github.com/qs5779))
-- Develop [\#38](https://github.com/wtfo-guru/wtforglib/pull/38) ([qs5779](https://github.com/qs5779))
-- chore\(deps\): bump types-pyyaml from 6.0.12.6 to 6.0.12.7 [\#37](https://github.com/wtfo-guru/wtforglib/pull/37) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Updated dependencies
 
-## [v0.7.0](https://github.com/wtfo-guru/wtforglib/tree/v0.7.0) (2023-02-17)
+## 0.8.4 - 2023-11-28
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.6.0...v0.7.0)
+### Security
 
-**Merged pull requests:**
+- Updated dependencies
 
-- docs: Adjust release tag, regenerate changelog [\#36](https://github.com/wtfo-guru/wtforglib/pull/36) ([qs5779](https://github.com/qs5779))
-- v0.7.0 [\#35](https://github.com/wtfo-guru/wtforglib/pull/35) ([qs5779](https://github.com/qs5779))
-- Windoze [\#34](https://github.com/wtfo-guru/wtforglib/pull/34) ([qs5779](https://github.com/qs5779))
-- refactor: Migrate new code into module [\#33](https://github.com/wtfo-guru/wtforglib/pull/33) ([qs5779](https://github.com/qs5779))
-- Develop [\#32](https://github.com/wtfo-guru/wtforglib/pull/32) ([qs5779](https://github.com/qs5779))
-- chore\(deps\): bump types-pyyaml from 6.0.12.5 to 6.0.12.6 [\#31](https://github.com/wtfo-guru/wtforglib/pull/31) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps\): bump types-pyyaml from 6.0.12.4 to 6.0.12.5 [\#30](https://github.com/wtfo-guru/wtforglib/pull/30) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Develop [\#29](https://github.com/wtfo-guru/wtforglib/pull/29) ([qs5779](https://github.com/qs5779))
-- chore\(deps-dev\): bump testfixtures from 7.0.4 to 7.1.0 [\#28](https://github.com/wtfo-guru/wtforglib/pull/28) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps\): bump types-pyyaml from 6.0.12.3 to 6.0.12.4 [\#27](https://github.com/wtfo-guru/wtforglib/pull/27) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump sphinx-autodoc-typehints from 1.21.8 to 1.22 [\#26](https://github.com/wtfo-guru/wtforglib/pull/26) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump m2r2 from 0.3.3 to 0.3.3.post2 [\#25](https://github.com/wtfo-guru/wtforglib/pull/25) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Windoze [\#24](https://github.com/wtfo-guru/wtforglib/pull/24) ([qs5779](https://github.com/qs5779))
-- chore\(deps-dev\): bump sphinx-autodoc-typehints from 1.21.7 to 1.21.8 [\#23](https://github.com/wtfo-guru/wtforglib/pull/23) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump sphinx-autodoc-typehints from 1.21.5 to 1.21.7 [\#22](https://github.com/wtfo-guru/wtforglib/pull/22) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump sphinx-autodoc-typehints from 1.21.4 to 1.21.5 [\#21](https://github.com/wtfo-guru/wtforglib/pull/21) ([dependabot[bot]](https://github.com/apps/dependabot))
+## 0.8.2 - 2023-03-21
 
-## [v0.6.0](https://github.com/wtfo-guru/wtforglib/tree/v0.6.0) (2023-01-19)
+### Changed
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.5.0...v0.6.0)
+- Log error when notify fails
 
-**Merged pull requests:**
+## 0.8.1 - 2023-03-14
 
-- docs: Update changelog [\#20](https://github.com/wtfo-guru/wtforglib/pull/20) ([qs5779](https://github.com/qs5779))
-- Added new functions [\#19](https://github.com/wtfo-guru/wtforglib/pull/19) ([qs5779](https://github.com/qs5779))
-- chore\(deps-dev\): bump sphinx-autodoc-typehints from 1.21.3 to 1.21.4 [\#18](https://github.com/wtfo-guru/wtforglib/pull/18) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps\): bump types-pyyaml from 6.0.12.2 to 6.0.12.3 [\#17](https://github.com/wtfo-guru/wtforglib/pull/17) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump sphinx-autodoc-typehints from 1.19.5 to 1.21.3 [\#16](https://github.com/wtfo-guru/wtforglib/pull/16) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump pytest from 7.2.0 to 7.2.1 [\#15](https://github.com/wtfo-guru/wtforglib/pull/15) ([dependabot[bot]](https://github.com/apps/dependabot))
-- chore\(deps-dev\): bump setuptools from 65.6.3 to 65.7.0 [\#14](https://github.com/wtfo-guru/wtforglib/pull/14) ([dependabot[bot]](https://github.com/apps/dependabot))
-- docs: Updated changelog [\#13](https://github.com/wtfo-guru/wtforglib/pull/13) ([qs5779](https://github.com/qs5779))
+### Security
 
-## [v0.5.0](https://github.com/wtfo-guru/wtforglib/tree/v0.5.0) (2023-01-15)
+- Updated dependencies
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.4.0...v0.5.0)
+## 0.8.0 - 2023-02-20
 
-**Merged pull requests:**
+### Changed
 
-- V0.5.0 [\#12](https://github.com/wtfo-guru/wtforglib/pull/12) ([qs5779](https://github.com/qs5779))
+- Support for backup versions in separate directory
 
-## [v0.4.0](https://github.com/wtfo-guru/wtforglib/tree/v0.4.0) (2023-01-10)
+## 0.7.1 - 2023-02-19
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.3.0...v0.4.0)
+### Changed
 
-**Merged pull requests:**
+- Added verbosity to tmplwrtr module
 
-- V0.4.0 [\#11](https://github.com/wtfo-guru/wtforglib/pull/11) ([qs5779](https://github.com/qs5779))
-- docs: Updated v0.3.0 changelog [\#10](https://github.com/wtfo-guru/wtforglib/pull/10) ([qs5779](https://github.com/qs5779))
+### Security
 
-## [v0.3.0](https://github.com/wtfo-guru/wtforglib/tree/v0.3.0) (2022-12-26)
+- Updated dependencies
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.2.1...v0.3.0)
+## 0.7.0 - 2023-02-17
 
-**Merged pull requests:**
+### Added
 
-- chore: Release version ready [\#9](https://github.com/wtfo-guru/wtforglib/pull/9) ([qs5779](https://github.com/qs5779))
-- v0.3.0-dev0 [\#8](https://github.com/wtfo-guru/wtforglib/pull/8) ([qs5779](https://github.com/qs5779))
-- V0.3.0-dev1 [\#7](https://github.com/wtfo-guru/wtforglib/pull/7) ([qs5779](https://github.com/qs5779))
-- v0.3.0 [\#6](https://github.com/wtfo-guru/wtforglib/pull/6) ([qs5779](https://github.com/qs5779))
+- Check file existence and raise if not function
+- Update workflow name
+- write_yaml_file function
+- type aliases for StrStrDict, StrStrInt, StrStrIntBool
 
-## [v0.2.1](https://github.com/wtfo-guru/wtforglib/tree/v0.2.1) (2022-12-15)
+### Changed
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/v0.2.0...v0.2.1)
+- Update readme
+- Options class
 
-**Merged pull requests:**
+### Security
 
-- V0.2.1 [\#5](https://github.com/wtfo-guru/wtforglib/pull/5) ([qs5779](https://github.com/qs5779))
+- Updated dependencies
 
-## [v0.2.0](https://github.com/wtfo-guru/wtforglib/tree/v0.2.0) (2022-11-10)
+## 0.6.0 - 2023-01-19
 
-[Full Changelog](https://github.com/wtfo-guru/wtforglib/compare/d9cd0d5f3d919856f52acc473ce74f6d0218ecb5...v0.2.0)
+### Added
 
-**Merged pull requests:**
+- ipv6 validation functions
+- verify_directory function
+- file permission/ownership functions
 
-- Release 0.2.0 [\#4](https://github.com/wtfo-guru/wtforglib/pull/4) ([qs5779](https://github.com/qs5779))
-- created a release version [\#3](https://github.com/wtfo-guru/wtforglib/pull/3) ([qs5779](https://github.com/qs5779))
-- V0.1.0 dev0 [\#2](https://github.com/wtfo-guru/wtforglib/pull/2) ([qs5779](https://github.com/qs5779))
+### Security
 
-\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
+- Updated dependencies
+
+## 0.5.0 - 2023-01-15
+
+### Added
+
+- function to convert ipv6 address to ipv6 network
+- versioned backups
+
+## 0.4.0 - 2023-01-10
+
+### Added
+
+- scribe module
+
+## 0.3.0 - 2022-12-28
+
+### Added
+
+- versioned module
+
+### Changed
+
+- Updated README.md
+
+### Fixed
+
+- unlink issue for python 3.7
+
+### Removed
+
+- Wdict type
+
+## 0.2.1 - 2022-12-15
+
+### Added
+
+- StrAnyDict in kinds module
+- strtobool function
+
+## 0.2.0 - 2022-11-10
+
+### Security
+
+- Updated dependencies

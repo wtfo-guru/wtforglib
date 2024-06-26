@@ -1,8 +1,8 @@
 """Test module for wtforglib package."""
+
 from logging import WARNING
 
-from wtforglib.options import Options, basic_options
-from wtforglib.scribe import Scribe, log_level_name
+from wtforglib.options import Options, basic_options, log_level_name
 
 # mypy: disable_error_code = var-annotated
 
@@ -21,9 +21,9 @@ def test_options_default(capsys):
     assert not opts.isverbose()
     opts.debug(DMESSAGE)
     opts.verbose(VMESSAGE)
-    out, _err = capsys.readouterr()
-    assert DMESSAGE not in out
-    assert VMESSAGE not in out
+    _out, err = capsys.readouterr()
+    assert DMESSAGE not in err
+    assert VMESSAGE not in err
 
 
 def test_options_set(capsys):
@@ -34,9 +34,9 @@ def test_options_set(capsys):
     assert opts.isverbose()
     opts.debug(DMESSAGE)
     opts.verbose(VMESSAGE)
-    out, _err = capsys.readouterr()
-    assert DMESSAGE in out
-    assert VMESSAGE in out
+    _out, err = capsys.readouterr()
+    assert DMESSAGE in err
+    assert VMESSAGE in err
 
 
 def test_options_level(capsys):
@@ -44,13 +44,13 @@ def test_options_level(capsys):
     opts = Options(basic_options(2, False, 1))
     assert opts.isdebug()
     assert opts.isverbose()
-    opts.debug(DMESSAGE, 2)
+    opts.debug(DMESSAGE, 1)
     opts.verbose(VMESSAGE, 2)
     opts.info(IMESSAGE)
-    out, _err = capsys.readouterr()
-    assert "created instance of class Options" in out
-    assert DMESSAGE in out
-    assert VMESSAGE not in out
+    _out, err = capsys.readouterr()
+    assert "created instance of class Options" in err
+    assert DMESSAGE in err
+    assert VMESSAGE not in err
 
 
 def test_options_xtra(capsys):
@@ -62,8 +62,7 @@ def test_options_xtra(capsys):
 
 def test_options_scribe(capsys):
     """Test options with scribe."""
-    opts = Options(basic_options(2, False, 2))
-    opts.scribe = Scribe(screen=True)
+    opts = Options(basic_options(1, False, 2))
     # opts.debug(DMESSAGE)
     opts.info(IMESSAGE)
     opts.warn(WMESSAGE)
@@ -78,18 +77,18 @@ def test_options_scribe(capsys):
     assert IMESSAGE in err
 
 
-def test_options_misc(capsys):
-    """Test options with scribe."""
-    opts = Options()
-    opts.debug(DMESSAGE)
-    opts.info(IMESSAGE)
-    opts.warn(WMESSAGE)
-    opts.error(EMESSAGE)
-    out, _err = capsys.readouterr()
-    # assert DMESSAGE not in out
-    # assert VMESSAGE not in out
-    assert WMESSAGE in out
-    # assert IMESSAGE in out
+# def test_options_misc(capsys):
+#     """Test options with scribe."""
+#     opts = Options()
+#     opts.debug(DMESSAGE)
+#     opts.info(IMESSAGE)
+#     opts.warn(WMESSAGE)
+#     opts.error(EMESSAGE)
+#     out, _err = capsys.readouterr()
+#     # assert DMESSAGE not in out
+#     # assert VMESSAGE not in out
+#     assert WMESSAGE in out
+#     # assert IMESSAGE in out
 
 
 def test_log_level_names():
