@@ -82,9 +82,9 @@ def test_template_writer_src_missing(tmpdir, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, _err = capsys.readouterr()
+    out, err = capsys.readouterr()
     assert (
-        "ERROR: Template src '{0}' not found!!".format(str(tmpl_path)) in out
+        "ERROR: Template src '{0}' not found!!".format(str(tmpl_path)) in err
     )  # noqa: WPS323
 
 
@@ -99,9 +99,9 @@ def test_template_writer_src_not_file(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, _err = capsys.readouterr()
+    out, err = capsys.readouterr()
     assert (
-        "ERROR: Template src '{0}' not a file!!".format(str(tmpl_path)) in out
+        "ERROR: Template src '{0}' not a file!!".format(str(tmpl_path)) in err
     )  # noqa: WPS323
 
 
@@ -117,9 +117,9 @@ def test_template_writer_src_not_readable(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, _err = capsys.readouterr()
+    out, err = capsys.readouterr()
     assert (
-        "ERROR: Template src '{0}' not readable!!".format(str(tmpl_path)) in out
+        "ERROR: Template src '{0}' not readable!!".format(str(tmpl_path)) in err
     )  # noqa: WPS323
 
 
@@ -136,9 +136,9 @@ def test_template_writer_tgt_dir_not_dir(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, _err = capsys.readouterr()
+    out, err = capsys.readouterr()
     assert (
-        "ERROR: '{0}' is not a directory".format(str(out_parent)) in out
+        "ERROR: '{0}' is not a directory".format(str(out_parent)) in err
     )  # noqa: WPS323
 
 
@@ -154,9 +154,9 @@ def test_template_writer_tgt_not_file(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, _err = capsys.readouterr()
+    out, err = capsys.readouterr()
     assert (
-        "ERROR: Template dest '{0}' not a file!!".format(str(out_path)) in out
+        "ERROR: Template dest '{0}' not a file!!".format(str(out_path)) in err
     )  # noqa: WPS323
 
 
@@ -173,9 +173,9 @@ def test_template_writer_tgt_not_writable(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, _err = capsys.readouterr()
+    out, err = capsys.readouterr()
     assert (
-        "ERROR: Template dest '{0}' not writable!!".format(str(out_path)) in out
+        "ERROR: Template dest '{0}' not writable!!".format(str(out_path)) in err
     )  # noqa: WPS323
 
 
@@ -187,8 +187,8 @@ def test_template_writer_bad_info(tmpdir, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, _err = capsys.readouterr()
+    out, err = capsys.readouterr()
     assert (
         "ERROR: Template {0} does not have a {1} key!!".format(TEMPLATE_NAME, KSRC)
-        in out
+        in err
     )  # noqa: WPS323
