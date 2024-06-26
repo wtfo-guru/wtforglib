@@ -47,7 +47,7 @@ jobs:
     #   run: poetry run mypy wtforglib tests/**/*.py
 
     - name: Run flake8
-      run: poetry run flake8 .
+      run: poetry run flake8 wtforglib tests
 
     - name: Run checks
       run: |
