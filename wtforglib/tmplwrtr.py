@@ -15,11 +15,10 @@ from typing import Optional
 from jinja2 import Template
 
 from wtforglib.commander import Commander
-from wtforglib.files import verify_directory
+from wtforglib.dirs import verify_directory
 from wtforglib.fstats import set_owner_group_perms
 from wtforglib.kinds import StrAnyDict
 from wtforglib.options import OptionsDict
-from wtforglib.scribe import Scribe
 from wtforglib.versioned import unlink_path
 from wtforglib.versionfile import version_file
 
@@ -39,7 +38,6 @@ class TemplateWriter(Commander):  # noqa: WPS214
     def __init__(
         self,
         opts: Optional[OptionsDict] = None,
-        scribe: Optional[Scribe] = None,
     ) -> None:
         """Constructs a new instance of TemplateWriter.
 
@@ -47,13 +45,9 @@ class TemplateWriter(Commander):  # noqa: WPS214
         ----------
         opts : Optional[OptionsDict], optional
             Options dictionary, by default None
-        scribe : Optional[Scribe], optional
-            Scribe for logging, by default None
         """
         super().__init__(opts)
         self.changed = False
-        if scribe is not None:
-            self.scribe = scribe
 
     def generate(
         self,

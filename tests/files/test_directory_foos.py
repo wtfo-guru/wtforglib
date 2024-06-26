@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from wtforglib.files import ensure_directory, verify_directory
+from wtforglib.dirs import ensure_directory, verify_directory
 from wtforglib.versioned import unlink_path
 
 # mypy: disable_error_code = var-annotated

@@ -9,8 +9,29 @@
     "python.formatting.provider": "black",
     "ansible.python.interpreterPath": "/home/jim/.cache/pypoetry/virtualenvs/wtforglib-C4UfSdlt-py3.10/bin/python",
     "cSpell.words": [
+        "DMESSAGE",
+        "dpath",
+        "dspec",
+        "dtrace",
+        "EMESSAGE",
         "euid",
+        "filenotfound",
+        "fstats",
         "geteuid",
-        "issuper"
-    ]
+        "IMESSAGE",
+        "isdebug",
+        "isforce",
+        "isnoop",
+        "issuper",
+        "istest",
+        "isverbose",
+        "itrace",
+        "tmplwrtr",
+        "topdown",
+        "VMESSAGE",
+        "WMESSAGE"
+    ],
+    "markdownlint.config": {
+        "MD024": false,
+    }
 }

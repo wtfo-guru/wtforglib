@@ -3,7 +3,7 @@ import re
 import shutil
 from typing import Optional
 
-from wtforglib.files import ensure_directory
+from wtforglib.dirs import ensure_directory
 
 
 def clear_slot(root: str, idx: int, max_versions: int, debug: bool = False) -> str:
