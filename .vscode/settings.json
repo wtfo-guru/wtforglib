@@ -9,6 +9,10 @@
     "python.formatting.provider": "black",
     "ansible.python.interpreterPath": "/home/jim/.cache/pypoetry/virtualenvs/wtforglib-C4UfSdlt-py3.10/bin/python",
     "cSpell.words": [
+        "bnbr",
+        "bpath",
+        "cargs",
+        "cmdres",
         "DMESSAGE",
         "dpath",
         "dspec",
@@ -26,8 +30,11 @@
         "istest",
         "isverbose",
         "itrace",
+        "pspec",
+        "tfile",
         "tmplwrtr",
         "topdown",
+        "tpath",
         "VMESSAGE",
         "WMESSAGE"
     ],
