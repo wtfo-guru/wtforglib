@@ -79,6 +79,10 @@ class SimpleScribe:
         """Construct a simple scribe object."""
         self._errors = 0
 
+    def debug(self, message: str) -> None:  # noqa: WPS110
+        """Utility trace debug method."""
+        self._log_msg("DEBUG: {0}".format(message))
+
     def info(self, message: str) -> None:  # noqa: WPS110
         """Utility trace info method."""
         self._log_msg("INFO: {0}".format(message))
@@ -95,13 +99,6 @@ class SimpleScribe:
         """Utility trace error method."""
         self._log_msg("ERROR: {0}".format(message))
         self._errors += 1
-
-    def _dtrace(self, message: str) -> None:
-        self._log_msg("DEBUG: {0}".format(message))
-
-    def _itrace(self, message: str) -> None:
-        """Utility info trace method."""
-        self.info(message)
 
     def _log_msg(self, message: str) -> None:
         """Write message to stderr."""
@@ -157,10 +154,10 @@ class Options(SimpleScribe):
         """Utility debug method."""
         dl: int = int(self.options[OPTIONS_DEBUG])
         if self.options[OPTIONS_TEST] or dl >= level:
-            self._dtrace(message)
+            super().debug(message)
 
     def verbose(self, message: str, level: int = 1) -> None:
         """Utility verbose method."""
         vl: int = int(self.options[OPTIONS_VERBOSE])
         if self.options[OPTIONS_TEST] or vl >= level:
-            self._itrace(message)
+            self.info(message)
