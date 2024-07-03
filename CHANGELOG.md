@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - debug method to SimpleScribe
 
+### Changed
+
+- Updated pydantic-core (2.18.4 -> 2.20.0)
+- Updated pydantic (2.7.4 -> 2.8.0)
+- Updated setuptools (70.1.1 -> 70.2.0)
+
 ### Removed
 
 - dependency importlib-metadata
