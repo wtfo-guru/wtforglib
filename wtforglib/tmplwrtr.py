@@ -252,7 +252,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
                 version_file(dest, "rename", bnbr, self.isdebug(), str(bpath))
 
     def _read_template_source(self, source: str) -> str:
-        """Retruns the template data from the given source.
+        """Return the template data from the given source.
 
         Parameters
         ----------
