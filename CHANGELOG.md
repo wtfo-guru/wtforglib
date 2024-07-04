@@ -1,3 +1,4 @@
+<!-- markdownlint-configure-file { "MD024": false } -->
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -7,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 1.0.1 - 2024-07-03
+## [1.0.1] - 2024-07-03
 
 ### Added
 
@@ -23,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - dependency importlib-metadata
 
-## 1.0.0 - 2024-06-26
+## [1.0.0] - 2024-06-26
 
 ### Added
 
@@ -42,31 +43,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated dependencies
 
-## 0.8.4 - 2023-11-28
+## [0.8.4] - 2023-11-28
 
 ### Security
 
 - Updated dependencies
 
-## 0.8.2 - 2023-03-21
+## [0.8.2] - 2023-03-21
 
 ### Changed
 
 - Log error when notify fails
 
-## 0.8.1 - 2023-03-14
+## [0.8.1] - 2023-03-14
 
 ### Security
 
 - Updated dependencies
 
-## 0.8.0 - 2023-02-20
+## [0.8.0] - 2023-02-20
 
 ### Changed
 
 - Support for backup versions in separate directory
 
-## 0.7.1 - 2023-02-19
+## [0.7.1] - 2023-02-19
 
 ### Changed
 
@@ -76,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated dependencies
 
-## 0.7.0 - 2023-02-17
+## [0.7.0] - 2023-02-17
 
 ### Added
 

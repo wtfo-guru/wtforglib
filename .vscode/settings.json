@@ -37,8 +37,5 @@
         "tpath",
         "VMESSAGE",
         "WMESSAGE"
-    ],
-    "markdownlint.config": {
-        "MD024": false,
-    }
+    ]
 }
