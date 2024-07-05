@@ -73,19 +73,33 @@ def basic_options(
 class SimpleScribe:
     """Class for simple screen logging."""
 
+    options: OptionsDict
     _errors: int
 
-    def __init__(self) -> None:
-        """Construct a simple scribe object."""
-        self._errors = 0
+    def __init__(self, opts: Optional[OptionsDict] = None) -> None:
+        """Construct a simple scribe object.
 
-    def debug(self, message: str) -> None:  # noqa: WPS110
+        Class to handle screen logging.
+
+        Parameters
+        ----------
+        opts : OptionsDict Optional
+            Options to merge with defaults
+        """
+        self._errors = 0
+        self.options = {OPTIONS_DEBUG: 0, OPTIONS_VERBOSE: 0, OPTIONS_TEST: False}
+        if opts is not None:
+            self.options.update(opts)
+
+    def debug(self, message: str) -> None:
         """Utility trace debug method."""
-        self._log_msg("DEBUG: {0}".format(message))
+        if self.options[OPTIONS_DEBUG]:
+            self._log_msg("DEBUG: {0}".format(message))
 
     def info(self, message: str) -> None:  # noqa: WPS110
         """Utility trace info method."""
-        self._log_msg("INFO: {0}".format(message))
+        if self.options[OPTIONS_VERBOSE]:
+            self._log_msg("INFO: {0}".format(message))
 
     def warning(self, message: str) -> None:
         """Utility trace warning method."""
@@ -120,10 +134,7 @@ class Options(SimpleScribe):
         opts : OptionsDict Optional
             Options to merge with defaults
         """
-        super().__init__()
-        self.options = {OPTIONS_DEBUG: 0, OPTIONS_VERBOSE: 0, OPTIONS_TEST: False}
-        if opts is not None:  # pragma no cover ???
-            self.options.update(opts)
+        super().__init__(opts)
         if int(self.options[OPTIONS_DEBUG]):
             self.debug(
                 "created instance of class {0}".format(self.__class__.__name__),
