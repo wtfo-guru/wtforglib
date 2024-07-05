@@ -30,6 +30,7 @@
         "istest",
         "isverbose",
         "itrace",
+        "KSRC",
         "pspec",
         "tfile",
         "tmplwrtr",
