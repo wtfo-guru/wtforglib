@@ -1,6 +1,7 @@
 """Top-level module for wtforglib Library."""
 
 import os
+from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryFile
 from typing import Optional, Tuple
@@ -100,16 +101,83 @@ def verify_directory(dspec: Fspec, ex: bool = False) -> Tuple[bool, str]:
     return error is None, str(error)
 
 
-def delete_empty_dirs(path: Fspec) -> None:
-    """Delete empty directories in the given path.
+def delete_empty_dirs(path: Fspec) -> int:  # noqa: WPS210
+    """Delete empty directories in the given path recursively.
 
     Parameters
     ----------
     path : Fspec
         The given path to walk through
+
+    Returns
+    -------
+    int
+        Number of directories deleted
     """
+    removed = 0
     for root, dirs, _files in os.walk(path, topdown=False):
         for directory in dirs:
             dirpath = os.path.join(root, directory)
             if not os.listdir(dirpath):
                 os.rmdir(dirpath)
+                removed += 1
+    return removed
+
+
+# function to perform delete operation based on condition
+def prune_older_files(path: Fspec, max_days: int) -> int:  # noqa: WPS210
+    """Delete files recursively in path if they are older than days.
+
+    Parameters
+    ----------
+    path : Fspec
+        Path to the folder to prune
+    max_days : int
+        Number of days to keep
+
+    Returns
+    -------
+    int
+        Number of files pruned
+    """
+    removed = 0
+    # loop to check all files one by one
+    # os.walk returns 3 things:
+    #   - current path,
+    #   - files in the current path, and
+    #   - folders in the current path
+    for root, _dirs, files in os.walk(path, topdown=True):
+        for fn in files:
+            # temp variable to store path of the file
+            file_path = os.path.join(root, fn)
+            # get the timestamp, when the file was modified
+            timestamp_of_file_modified = os.path.getmtime(file_path)
+            # convert timestamp to datetime
+            modification_date = datetime.fromtimestamp(timestamp_of_file_modified)
+            # find the number of days when the file was modified
+            number_of_days = (datetime.now() - modification_date).days
+            if number_of_days > max_days:
+                # remove file
+                os.remove(file_path)
+                removed += 1
+    return removed
+
+
+def prune_older_files_empty_dir(path: Fspec, max_days: int) -> int:
+    """Delete files recursively in path if they are older than days, delete empty dirs.
+
+    Parameters
+    ----------
+    path : Fspec
+        Path to the folder to prune
+    max_days : int
+        Number of days to keep
+
+    Returns
+    -------
+    int
+        Number of items removed
+    """
+    removed = prune_older_files(path, max_days)
+    removed += delete_empty_dirs(path)
+    return removed
