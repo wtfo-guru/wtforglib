@@ -8,7 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## Changed
+### Added
+
+- tests for new pruning functions/features
+
+### Changed
 
 - certifi (2024.6.2 -> 2024.7.4)
 - exceptiongroup (1.2.1 -> 1.2.2)
