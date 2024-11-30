@@ -66,3 +66,11 @@ def test_error_returned_verify():
     assert not retval
     assert msg == "'{0}' is not a directory".format(str(path))
     unlink_path(path, missing_ok=True)
+
+
+def test_delete_empty_dirs():
+    """Test raises exception when target exits and is not a directory."""
+    path = tempfile.mkdtemp()
+    retval, msg = verify_directory(path)
+    assert retval
+    Path(path).rmdir()

@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-11-30
+
+### Added
+
+- tests for new pruning functions/features
+- feature support for python 3.13
+
+### Changed
+
+- certifi (2024.6.2 -> 2024.7.4)
+- exceptiongroup (1.2.1 -> 1.2.2)
+- pydantic-core (2.20.0 -> 2.20.1)
+- cryptography (42.0.8 -> 43.0.0)
+- pydantic (2.8.0 -> 2.8.2)
+- docutils = ">=0.19,<0.21"
+
+
 ## [1.0.2] - 2024-07-04
 
 ### Changed

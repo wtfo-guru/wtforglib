@@ -1,5 +1,8 @@
 """Test module for wtforglib package."""
 
+import sys
+
+import pytest
 from testfixtures import compare  # type: ignore
 
 from wtforglib.tmplwrtr import TemplateWriter
@@ -105,6 +108,10 @@ def test_template_writer_src_not_file(tmpdir, fs, capsys):
     )  # noqa: WPS323
 
 
+@pytest.mark.skipif(
+    sys.platform == "win32",
+    reason="Windows file permissions frustrating.",
+)
 def test_template_writer_src_not_readable(tmpdir, fs, capsys):
     """Test template writer."""
     tmpl_path = tmpdir / "tw_dir_src.j2"
