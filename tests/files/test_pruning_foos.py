@@ -77,10 +77,11 @@ def _cleanup(tree_top: str) -> None:
         raise ValueError("Invalid tree top: {0}".format(tree_top))
     top = Path(tree_top)
     for root, dirs, files in os.walk(top, topdown=False):
+        rp = Path(root)
         for fn in files:
-            (root / fn).unlink()
+            (rp / fn).unlink()
         for dn in dirs:
-            (root / dn).rmdir()
+            (rp / dn).rmdir()
     top.rmdir()
 
 
