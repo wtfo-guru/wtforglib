@@ -76,7 +76,7 @@ def _cleanup(tree_top: str) -> None:
     if tree_top in {"/", "/home", "/root", "/etc", "/usr", "/var"}:
         raise ValueError("Invalid tree top: {0}".format(tree_top))
     top = Path(tree_top)
-    for root, dirs, files in top.walk(top_down=False):
+    for root, dirs, files in os.walk(top, topdown=False):
         for fn in files:
             (root / fn).unlink()
         for dn in dirs:
