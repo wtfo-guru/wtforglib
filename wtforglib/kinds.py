@@ -21,7 +21,7 @@ StrStrDict
 StrStrInt
     StrStrInt = Dict[str, Union[int, str]]
 StrStrBool
-    StrStrBool = Dict[str, Union[int, bool]]
+    StrStrBool = Dict[str, Union[bool, str]]
 StrStrIntBool
     StrStrIntBool = Dict[str, Union[int, str, bool]]
 StrStrIntBoolNone
@@ -46,6 +46,6 @@ FileName = Fspec
 StrAnyDict = Dict[str, Any]  # type: ignore
 StrStrDict = Dict[str, str]
 StrStrInt = Dict[str, Union[int, str]]
-StrStrBool = Dict[str, Union[int, bool]]
+StrStrBool = Dict[str, Union[bool, str]]
 StrStrIntBool = Dict[str, Union[int, str, bool]]
 StrStrIntBoolNone = Dict[str, Union[int, str, bool, None]]
