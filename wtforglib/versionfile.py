@@ -144,7 +144,7 @@ def version_file(
             debug,
         )
     # the code below is reported as not covered, but I
-    # have ran severl tests to verify, I suspect, I need
+    # have ran several tests to verify, I suspect, I need
     # use a fake file system for testing but not now
     if not os.path.isfile(new_file):  # pragma no cover
         if vtype == "copy":
