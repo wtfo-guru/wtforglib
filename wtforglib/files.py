@@ -56,6 +56,7 @@ def safe_write_yaml_file(  # type: ignore [explicit-any]
         The data to write to a file
     kwargs : Optional
         Args passed to yaml.safe_dump
+
     Returns
     -------
         bool
