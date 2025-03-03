@@ -8,7 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-1.1.1-dev0 - 2025-01-12
+## [1.1.1] - 2025-
+
+### Added
+
+- function safe_write_yaml_file
+
+### Changed
+
+- marked write_yaml_file as deprecated
 
 ### Fixed
 
