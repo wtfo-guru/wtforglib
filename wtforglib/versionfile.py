@@ -133,7 +133,9 @@ def version_file(
     root = check_root_filename(file_spec)
 
     # Find next available file version
-    if dir_spec is not None:
+    if dir_spec is None:
+        new_file = clear_slot(root, 1, max_versions, debug)
+    else:
         new_file = clear_directory_slot(
             dir_spec,
             os.path.basename(root),
@@ -141,10 +143,8 @@ def version_file(
             max_versions,
             debug,
         )
-    else:
-        new_file = clear_slot(root, 1, max_versions, debug)
     # the code below is reported as not covered, but I
-    # have ran severl tests to verify, I suspect, I need
+    # have ran several tests to verify, I suspect, I need
     # use a fake file system for testing but not now
     if not os.path.isfile(new_file):  # pragma no cover
         if vtype == "copy":

@@ -2,11 +2,17 @@
 
 import json
 from pathlib import Path
+from typing import Any
 
 import yaml
 
 from wtforglib.errors import raise_filenotfound
 from wtforglib.kinds import Fspec, StrAnyDict
+
+WRITE_YAML_DEPRECATED = (
+    "WARNING: write_yaml_file is deprecated and will be removed "
+    "in a future release. Use safe_write_yaml_file."
+)
 
 
 def load_yaml_file(
@@ -37,6 +43,31 @@ def load_yaml_file(
     return yaml_result
 
 
+def safe_write_yaml_file(  # type: ignore [explicit-any]
+    file_spec: Fspec, src_data: StrAnyDict, **kwargs: Any
+) -> bool:
+    """Writes src_data to a file in a yaml format.
+
+    Parameters
+    ----------
+    file_spec : Fspec
+        The yaml filename to write to
+    src_data : StrAnyDict
+        The data to write to a file
+    kwargs : Optional
+        Args passed to yaml.safe_dump
+
+    Returns
+    -------
+        bool
+            True if file exists else False
+    """
+    yaml_path = Path(file_spec)
+    with open(yaml_path, "w") as out_file:
+        yaml.safe_dump(src_data, out_file, **kwargs)
+    return yaml_path.exists()
+
+
 def write_yaml_file(
     file_spec: Fspec,
     src_data: StrAnyDict,
@@ -58,6 +89,7 @@ def write_yaml_file(
         bool
             True if file exists else False
     """
+    print(WRITE_YAML_DEPRECATED)  # noqa: WPS421
     yaml_path = Path(file_spec)
     with open(yaml_path, "w") as out_file:
         yaml.dump(src_data, out_file, encoding=encoding)
