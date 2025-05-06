@@ -3,7 +3,7 @@ name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
 license = "MIT"
 keywords = []
-version = "1.1.2-dev1"
+version = "1.2.0"
 dynamic = ["classifiers"]
 readme = "README.md"
 authors = [{name = "Quien Sabe", email = "qs5779@mail.com"}]
@@ -54,7 +54,7 @@ pytest = ">=7.4,<9.0"
 pytest-cov = "^6.0.0"
 pytest-randomly = "^3.12"
 black = "^25.0"
-packaging = ">=22,<25"
+packaging = ">=22,<26"
 isort = "^6.0"
 testfixtures = ">=7.0.4,<9.0.0"
 pyfakefs = "^5.1.0"
