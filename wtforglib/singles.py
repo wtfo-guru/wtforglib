@@ -1,26 +1,11 @@
 # mypy: disable-error-code="explicit-any"
 """This module implements a simple-to-use decorator to implement the singleton pattern.
 
-This module provides two types of singleton decorators:
-`@singleton`, which ignores the arguments to the constructor on subsequent calls
-`@singleton_argenforce`, which raises a ValueError if the arguments on subsequent
-    calls vary from the initial ones.
-
 Exports:
-    - singleton: ignores the arguments to the constructor on subsequent calls
-    - singleton_argenforce: raises a ValueError if the arguments on subsequent
-        calls vary from the initial ones.
 
-Examples:
-    @singleton
-    class RegularSingleton:
-        def __init__(self, value=42) -> None:
-            self.value = value
-
-    @singleton_argenforce
-    class ArgEnforcingSingleton:
-        def __init__(self, value=42) -> None:
-            self.value = value
+- singleton: ignores the arguments to the constructor on subsequent calls
+- singleton_argenforce: raises a ValueError if the arguments on subsequent
+    calls vary from the initial ones.
 """
 
 import functools
