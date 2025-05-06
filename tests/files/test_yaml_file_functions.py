@@ -38,7 +38,7 @@ def test_load_yaml_file_missing():
         load_yaml_file(missing_path, False)
 
 
-def test_load_yaml_file_directroy():
+def test_load_yaml_file_directory():
     """Test load_yaml_file function passing a directory for file."""
     path = tempfile.mkdtemp()
     with pytest.raises(FileNotFoundError):
