@@ -30,7 +30,7 @@
 .. automodule:: wtforglib.options
     :members:
 
-.. automodule:: wtforglib.single
+.. automodule:: wtforglib.singles
     :members:
 
 .. automodule:: wtforglib.supers
