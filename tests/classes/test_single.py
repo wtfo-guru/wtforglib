@@ -1,77 +1,83 @@
 """Tests.classes.test_single module for wtforglib package."""
 
-from unittest import TestCase
+from threading import Event, Thread
 
-from wtforglib.single import singleton
+import pytest
 
-# create two test classes decorated with the singleton
+from wtforglib.singles import singleton, singleton_argenforce
 
-StdArg = bool | int | str
-
-
-@singleton
-class Foo:
-    """A test class decorated with singleton"""
+# Example classes to apply the singleton decorators to
 
 
-@singleton
-class Bar:
-    """A test class decorated with singleton"""
+@pytest.fixture(scope="function")
+def testclasses():
+    @singleton
+    class RegularSingleton:  # noqa: WPS431
+        def __init__(self, valor=42) -> None:
+            self.valor = valor
 
-    arg: StdArg
-    kwarg: StdArg
+    @singleton_argenforce
+    class ArgEnforcingSingleton:  # noqa: WPS431
+        def __init__(self, valor=42) -> None:
+            self.valor = valor
 
-    def __init__(self, *args: StdArg, **kwargs: StdArg) -> None:
-        self.arg = args[0]
-        self.kwarg = kwargs.get("kwarg", "wtf")
+    yield RegularSingleton, ArgEnforcingSingleton
 
 
-class TestSingletonIntegration(TestCase):
-    """Tests the singleton decorator in work"""
+def test_regular_singleton_behavior(testclasses):
+    instance1 = testclasses[0]()
+    instance2 = testclasses[0]()
+    assert instance1 is instance2, "Both instances should be the same object"
 
-    def test_create_two_objects_from_same_class(self) -> None:
-        """
-        Checks whether an instantiation of decorated class
-        returns the same object each time
-        """
-        self.assertEqual(Foo(), Foo())
 
-    def test_create_two_objects_from_same_class_diff_args(self) -> None:
-        """
-        Checks whether an instantiation of decorated class
-        returns the same object each time and its attributes
-        does not change
-        """
-        # create an object
-        bar1 = Bar(1, kwarg="foo")
-        # check whether the object has attributes arg=1 kwarg=foo
-        self.assertEqual(bar1.arg, 1)
-        self.assertEqual(bar1.kwarg, "foo")
-        # create another object
-        bar2 = Bar(2, kwarg="bar")
-        # check whether it's the same object
-        self.assertEqual(bar1, bar2)
-        # check whether its attributes are the same
-        self.assertEqual(bar2.arg, 1)
-        self.assertEqual(bar2.kwarg, "foo")
+def test_regular_singleton_with_different_arguments(testclasses):  # noqa: WPS118
+    instance1 = testclasses[0](1)
+    instance2 = testclasses[0](2)
+    assert (
+        instance1 is instance2
+    ), "Both instances should be the same object regardless of args"
+    assert instance1.valor == 1, "The valor should remain from the first instantiation"
 
-    # def test_two_objects_from_different_classes(self) -> None:
-    #     """
-    #     Checks whether an instantiations of different decorated classes
-    #     return different objects
-    #     """
-    #     # create two objects from different decorated classes
-    #     foo = Foo()
-    #     bar = Bar(1, kwarg="bar")
-    #     # check whether the objects are different
-    #     self.assertNotEqual(foo, bar)
 
-    # def test_wrapped_attribute(self):
-    #     """
-    #     Checks whether the __wrapped__ attribute contains a decorated class
-    #     """
-    #     # create an object from decorated class
-    #     foo = Foo()
-    #     # check whether the __wrapped__ attribute contains
-    #     # a class of the foo object
-    #     self.assertEqual(Foo.__wrapped__, foo.__class__)
+def test_arg_enforcing_singleton_with_different_arguments(testclasses):  # noqa: WPS118
+    _ = testclasses[1](1)  # noqa: WPS122
+    with pytest.raises(ValueError):
+        _ = testclasses[1](2)  # noqa: WPS122
+
+
+def test_arg_enforcing_singleton_with_same_arguments(testclasses):  # noqa: WPS118
+    instance1 = testclasses[1](3)
+    instance2 = testclasses[1](3)
+    assert (
+        instance1 is instance2
+    ), "Both instances should be the same object when instantiated with the same args"
+
+
+def test_singleton_with_threading(testclasses):
+    event = Event()  # Can call
+    event2 = Event()  # Can set Flag
+    event3 = Event()  # Can exit
+
+    class Flag:  # noqa: WPS431
+        flag = False
+
+    def get_instance_after_event():  # noqa: WPS430, WPS463, WPS431
+        event.wait()
+        Flag.flag = testclasses[0](False).valor
+        event2.set()
+        event3.wait()
+
+    my_thread = Thread(target=get_instance_after_event)
+    my_thread.start()
+
+    assert testclasses[0](True).valor
+
+    assert not Flag.flag
+
+    event.set()
+    event2.wait()
+    assert Flag.flag
+    event3.set()
+    my_thread.join()
+
+    assert Flag.flag
