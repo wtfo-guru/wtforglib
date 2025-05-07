@@ -9,6 +9,7 @@
     "python.formatting.provider": "black",
     "ansible.python.interpreterPath": "/home/jim/.cache/pypoetry/virtualenvs/wtforglib-C4UfSdlt-py3.10/bin/python",
     "cSpell.words": [
+        "argenforce",
         "bnbr",
         "bpath",
         "cargs",
