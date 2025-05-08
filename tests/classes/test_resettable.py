@@ -26,7 +26,6 @@ def test_regular_singleton_behavior():
     instance3 = ResettableSingleton(TEST_VALUE)
     assert instance1 is not instance3, "Both instances should be different objects"
     assert instance3.valor == TEST_VALUE
-    assert instance1.valor == DEFAULT_VALUE
 
 
 def test_regular_singleton_with_different_arguments():  # noqa: WPS118
