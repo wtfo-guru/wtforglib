@@ -23,7 +23,7 @@ class _ResettableWrapper(Generic[T]):
         self._lock = threading.Lock()
         functools.update_wrapper(self, cls)
 
-    def __call__(self, *args, **kwargs) -> T:
+    def __call__(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> T:
         # Double-checked locking pattern
         if self._instance is None:
             with self._lock:
@@ -31,7 +31,7 @@ class _ResettableWrapper(Generic[T]):
                     self._instance = self._cls(*args, **kwargs)
         return self._instance
 
-    def reset(self):
+    def reset(self) -> None:
         with self._lock:
             self._instance = None
 

@@ -23,7 +23,7 @@ class WtfSingleton:
     dn: ClassVar[str] = ""
     hn: ClassVar[str] = ""
 
-    def __new__(cls):  # pragma no cover
+    def __new__(cls):  # type: ignore[no-untyped-def]
         """Creates new singleton if one does not exist."""
         if not hasattr(cls, "instance"):  # noqa: WPS421
             cls.instance = super(WtfSingleton, cls).__new__(cls)  # noqa: WPS608

@@ -106,7 +106,9 @@ def is_ipv6(ipvalue: str) -> bool:
     return True
 
 
-def ipv6_to_netprefix(ipaddr: str, prefix_len: int, ipv6net_style="standard") -> str:
+def ipv6_to_netprefix(
+    ipaddr: str, prefix_len: int, ipv6net_style: str = "standard"
+) -> str:
     """Returns ipv6 network prefix.
 
     Parameters
