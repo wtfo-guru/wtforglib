@@ -39,9 +39,33 @@ class Commander(Options):
     def run_command(
         self,
         args: Tuple[str, ...],
-        **kwargs,
+        **kwargs: bool,
     ) -> CommanderResult:
-        """Runs commands specified by args."""
+        """
+        Runs a command.
+
+        Parameters
+        ----------
+        args : Tuple[str, ...]
+            Command and arguments to run
+        **kwargs : bool
+            Keyword arguments
+
+        Keyword Arguments
+        -----------------
+        always : bool
+            If set to True, command will be run even if we are in noexec mode.
+            (default: False)
+        check : bool
+            If set to True, will check the return code of the command and
+            raise a CalledProcessError if it is not 0.
+            (default: True)
+
+        Returns
+        -------
+        CommanderResult
+            CompletedProcess or FakedProcessResult
+        """
         always = kwargs.get("always", False)
         check = kwargs.get("check", True)
         cmd_str = "{0}".format(" ".join(args))
