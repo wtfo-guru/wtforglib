@@ -1,6 +1,5 @@
 # How to contribute
 
-
 ## Dependencies
 
 We use [poetry](https://github.com/python-poetry/poetry) to manage the dependencies.

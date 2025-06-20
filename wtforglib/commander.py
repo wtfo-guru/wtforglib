@@ -42,24 +42,23 @@ class Commander(Options):
         **kwargs: bool,
     ) -> CommanderResult:
         """
-        Runs a command.
+        Run a command.
 
         Parameters
         ----------
         args : Tuple[str, ...]
-            Command and arguments to run
-        **kwargs : bool
-            Keyword arguments
+            List of arguments to pass to subprocess
+        kwargs : bool
+            Keyword arguments, see below
 
         Keyword Arguments
         -----------------
         always : bool
-            If set to True, command will be run even if we are in noexec mode.
+            If True, always run the command, even if isnoop() returns True
             (default: False)
         check : bool
-            If set to True, will check the return code of the command and
-            raise a CalledProcessError if it is not 0.
-            (default: True)
+            If True, check the return code of the command and raise
+            CalledProcessError if it is not 0 (default: True)
 
         Returns
         -------

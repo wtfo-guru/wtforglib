@@ -3,7 +3,7 @@ name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
 license = "MIT"
 keywords = []
-version = "1.2.1"
+version = "1.2.2-dev0"
 dynamic = ["classifiers"]
 readme = "README.md"
 authors = [{name = "Quien Sabe", email = "qs5779@mail.com"}]
