@@ -32,6 +32,7 @@
         "isverbose",
         "itrace",
         "KSRC",
+        "mynetworks",
         "pspec",
         "tfile",
         "tmplwrtr",
