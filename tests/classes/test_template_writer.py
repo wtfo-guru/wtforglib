@@ -1,8 +1,10 @@
 """Test module for wtforglib package."""
 
 import sys
+from pathlib import Path
 
 import pytest
+from jinja2 import Environment
 from testfixtures import compare  # type: ignore
 
 from wtforglib.tmplwrtr import TemplateWriter
@@ -38,8 +40,15 @@ TEMPLATE_VAR = {
 }
 
 TEMPLATE_NAME = "test_template"
-KDEST = "dest"
+K_DEST = "dest"
 KSRC = "src"
+TEMPLATE_DICT = {
+    "whitelist": [
+        "101.87.124.17/32",
+        "101.89.83.33/32",
+        "[2605:aaaa:6208:bbbb::]/64",
+    ],
+}
 
 
 def test_template_writer(tmpdir, fs):
@@ -48,7 +57,7 @@ def test_template_writer(tmpdir, fs):
     out_path = tmpdir / "jinja_test.txt"
     fs.create_file(tmpl_path, contents=(TEST_JINJA))
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -65,7 +74,7 @@ def test_template_writer_dest_exists(tmpdir, fs):
     fs.create_file(out_path, contents=(TEST_RESULT))
     fs.create_file(tmpl_path, contents=(TEST_JINJA))
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -80,7 +89,7 @@ def test_template_writer_src_missing(tmpdir, capsys):
     tmpl_path = tmpdir / "tw_missing_src.j2"
     out_path = tmpdir / "tw_missing_src.txt"
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -97,7 +106,7 @@ def test_template_writer_src_not_file(tmpdir, fs, capsys):
     out_path = tmpdir / "tw_dir_src.txt"
     fs.create_dir(tmpl_path)
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -119,7 +128,7 @@ def test_template_writer_src_not_readable(tmpdir, fs, capsys):
     fs.create_file(tmpl_path)
     tmpl_path.chmod(0o333)
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -138,7 +147,7 @@ def test_template_writer_tgt_dir_not_dir(tmpdir, fs, capsys):
     fs.create_file(out_parent)
     out_path = out_parent / "tw_dir_src.txt"
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -156,7 +165,7 @@ def test_template_writer_tgt_not_file(tmpdir, fs, capsys):
     fs.create_file(tmpl_path)
     fs.create_dir(out_path)
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -175,7 +184,7 @@ def test_template_writer_tgt_not_writable(tmpdir, fs, capsys):
     fs.create_file(out_path)
     out_path.chmod(0o444)
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
@@ -190,7 +199,7 @@ def test_template_writer_bad_info(tmpdir, capsys):
     """Test template writer."""
     out_path = tmpdir / "badinfo_test.txt"
     tmpl_info = {
-        KDEST: str(out_path),
+        K_DEST: str(out_path),
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
@@ -199,3 +208,51 @@ def test_template_writer_bad_info(tmpdir, capsys):
         "ERROR: Template {0} does not have a {1} key!!".format(TEMPLATE_NAME, KSRC)
         in err
     )  # noqa: WPS323
+
+
+def test_template_writer_default_env(tmpdir, capsys):
+    """Test template writer."""
+    out_path = tmpdir / "mynetworks.txt"
+    tmpl_info = {
+        K_DEST: str(out_path),
+        KSRC: str(
+            Path(__file__).parent.parent.resolve() / "data" / "postfix-mynetworks.j2"
+        ),
+    }
+    writer = TemplateWriter({"test": True})
+    writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_DICT)
+    out, err = capsys.readouterr()
+    with open(out_path, "r") as iif:
+        rendered = iif.read()
+        reversed = rendered[::-1]
+        lines_at_end = 0
+        for char in reversed:
+            if char == "\n":
+                lines_at_end += 1
+            else:
+                break
+        assert lines_at_end == 0
+
+
+def test_template_writer_custom_env(tmpdir, capsys):
+    """Test template writer."""
+    out_path = tmpdir / "mynetworks.txt"
+    tmpl_info = {
+        K_DEST: str(out_path),
+        KSRC: str(
+            Path(__file__).parent.parent.resolve() / "data" / "postfix-mynetworks.j2"
+        ),
+    }
+    writer = TemplateWriter({"test": True}, Environment(keep_trailing_newline=True))
+    writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_DICT)
+    out, err = capsys.readouterr()
+    with open(out_path, "r") as iif:
+        rendered = iif.read()
+        reversed = rendered[::-1]
+        lines_at_end = 0
+        for char in reversed:
+            if char == "\n":
+                lines_at_end += 1
+            else:
+                break
+        assert lines_at_end == 1

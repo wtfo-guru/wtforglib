@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- jinja2 environment option to TemplateWriter constructor
+
+### Changed
+
+- updated dependencies
+
+## [1.2.1] - 2025-05-08
+
+### Added
+
 - resettable singleton class decorator
 
 ## [1.2.0] - 2025-05-06

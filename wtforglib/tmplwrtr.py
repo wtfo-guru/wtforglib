@@ -12,7 +12,7 @@ from shutil import copy2
 from tempfile import NamedTemporaryFile
 from typing import Optional
 
-from jinja2 import Template
+from jinja2 import Environment
 
 from wtforglib.commander import Commander
 from wtforglib.dirs import verify_directory
@@ -22,7 +22,7 @@ from wtforglib.options import OptionsDict
 from wtforglib.versioned import unlink_path
 from wtforglib.versionfile import version_file
 
-KDEST: str = "dest"
+K_DEST: str = "dest"
 
 
 class TemplateWriter(Commander):  # noqa: WPS214
@@ -34,20 +34,34 @@ class TemplateWriter(Commander):  # noqa: WPS214
     """
 
     changed: bool
+    _env: Environment
 
     def __init__(
         self,
         opts: Optional[OptionsDict] = None,
+        j_env: Optional[Environment] = None,
     ) -> None:
-        """Constructs a new instance of TemplateWriter.
+        """
+        Constructor for TemplateWriter.
 
         Parameters
         ----------
         opts : Optional[OptionsDict], optional
-            Options dictionary, by default None
+            Options to pass to base class, by default None
+        j_env : Optional[Environment], optional
+            Jinja2 environment to use, by default None
+
+        Notes
+        -----
+        If j_env is None, the constructor will create a default Jinja2
+        environment.
         """
         super().__init__(opts)
         self.changed = False
+        if j_env is None:
+            self._env = Environment()
+        else:
+            self._env = j_env
 
     def generate(
         self,
@@ -91,7 +105,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         int
             exit status
         """
-        dest: str = tmpl_value.get(KDEST, "")
+        dest: str = tmpl_value.get(K_DEST, "")
         self.changed = self._render_template(
             tmpl_value,
             tmpl_var,
@@ -150,7 +164,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         """
         if self._verify_template_required_keys(tmpl_name, tmpl_value):
             if self._verify_template_source(tmpl_value.get("src", "")):
-                if self._verify_target(tmpl_value.get(KDEST, "")):
+                if self._verify_target(tmpl_value.get(K_DEST, "")):
                     return True
         return False
 
@@ -174,10 +188,12 @@ class TemplateWriter(Commander):  # noqa: WPS214
             exit_code
         """
         # Environment(keep_trailing_newline=True)
-        dest = tmpl_value.get(KDEST, "")
+        dest = tmpl_value.get(K_DEST, "")
         bnbr = tmpl_value.get("backup", 0)
         bpath = tmpl_value.get("backup_dir")
-        template = Template(self._read_template_source(tmpl_value.get("src", "")))
+        template = self._env.from_string(
+            self._read_template_source(tmpl_value.get("src", ""))
+        )
         tfile = NamedTemporaryFile(
             mode="w",
             encoding="utf-8",
@@ -273,7 +289,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
         tmpl_value: StrAnyDict,
     ) -> bool:
         """Verify that the template required keys exist."""
-        for key in ("src", KDEST):
+        for key in ("src", K_DEST):
             kv = tmpl_value.get(key)
             if kv is None:
                 self.error(
