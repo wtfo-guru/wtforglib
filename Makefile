@@ -92,7 +92,7 @@ safety:
 
 .PHONY: nitpick
 nitpick:
-	poetry run nitpick -p . check
+	nitpick -p . check
 
 .PHONY: test
 test: nitpick lint package unit
