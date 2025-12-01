@@ -37,7 +37,6 @@ class _ResettableWrapper(Generic[T]):
 
 
 class _SingletonWrapper(Generic[T]):
-
     _instance: T | None
     _args: Tuple[Any, ...]
     _kwargs: Dict[str, Any]
