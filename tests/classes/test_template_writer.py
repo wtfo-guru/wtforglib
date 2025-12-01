@@ -51,20 +51,20 @@ TEMPLATE_DICT = {
 }
 
 
-def test_template_writer(tmp_path, fs):
+def test_template_writer(tmpdir, fs):
     """Test template writer."""
-    tmpl_path = tmp_path / "jinja_test.j2"
+    tmpl_path = tmpdir / "jinja_test.j2"
     # out_path: Path = Path(tmp_path / "jinja_test.txt")
-    out_path = tmp_path / "jinja_test.txt"
+    out_path = tmpdir / "jinja_test.txt"
     fs.create_file(tmpl_path, contents=(TEST_JINJA))
-    assert tmpl_path.is_file()
+    assert tmpl_path.isfile()
     tmpl_info = {
         K_DEST: str(out_path),
         KSRC: str(tmpl_path),
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    assert out_path.is_file()
+    assert out_path.isfile()
     with open(out_path, "r") as iif:
         compare(iif.read(), TEST_RESULT)
 
