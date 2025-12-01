@@ -57,6 +57,7 @@ def test_template_writer(tmp_path, fs):
     # out_path: Path = Path(tmp_path / "jinja_test.txt")
     out_path = tmp_path / "jinja_test.txt"
     fs.create_file(tmpl_path, contents=(TEST_JINJA))
+    assert tmpl_path.is_file()
     tmpl_info = {
         K_DEST: str(out_path),
         KSRC: str(tmpl_path),
@@ -72,8 +73,8 @@ def test_template_writer_dest_exists(tmpdir, fs):
     """Test template writer."""
     tmpl_path = tmpdir / "jinja_test.j2"
     out_path = tmpdir / "jinja_test.txt"
-    fs.create_file(out_path, contents=(TEST_RESULT))
     fs.create_file(tmpl_path, contents=(TEST_JINJA))
+    fs.create_file(out_path, contents=(TEST_RESULT))
     tmpl_info = {
         K_DEST: str(out_path),
         KSRC: str(tmpl_path),
