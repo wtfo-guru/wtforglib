@@ -56,7 +56,6 @@ black:
 
 .PHONY: ruff
 ruff: black
-	poetry run ruff format $(PACKAGE_DIR) $(TEST_MASK)
 	poetry run ruff check $(PACKAGE_DIR) $(TEST_MASK)
 
 .PHONY: mypy
