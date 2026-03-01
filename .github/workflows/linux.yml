@@ -33,11 +33,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - uses: BSFishy/pip-action@v1
-      with:
-        packages: |
-          tomllib
-
     - name: Install Poetry
       uses: snok/install-poetry@v1
       with:
