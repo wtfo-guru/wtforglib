@@ -3,8 +3,13 @@
 dir_path := "src"
 src_path := shell('test -d $1 && echo "src" || echo "."', dir_path)
 
-PROJECT_NAME := `python -c "import tomli; print(tomli.load(open('pyproject.toml', 'rb'))['project']['name'])"`
-PROJECT_VERSION := `python -c "import tomli; print(tomli.load(open('pyproject.toml', 'rb'))['project']['version'])"`
+# use these when not testing < python 3.11
+# PROJECT_NAME := `python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['name'])"`
+# PROJECT_VERSION := `python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])"`
+
+
+PROJECT_NAME := shell("grep ^name pyproject.toml | awk '{print $NF}' | tr -d '\"'")
+PROJECT_VERSION := shell("grep ^version pyproject.toml | awk '{print $NF}' | tr -d '\"'")
 PACKAGE_BASE := replace(PROJECT_NAME, "-", "_")
 PACKAGE_DIR := shell('echo $1/$2', src_path, PACKAGE_BASE)
 BUMP_VERSION := `grep ^current_version .bumpversion.cfg | awk '{print $NF}'`
