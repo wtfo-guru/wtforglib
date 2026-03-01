@@ -9,7 +9,7 @@ from wtforglib.singles import singleton, singleton_argenforce
 # Example classes to apply the singleton decorators to
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture()
 def testclasses():
     @singleton
     class RegularSingleton:  # noqa: WPS431
@@ -21,7 +21,7 @@ def testclasses():
         def __init__(self, valor=42) -> None:
             self.valor = valor
 
-    yield RegularSingleton, ArgEnforcingSingleton
+    return RegularSingleton, ArgEnforcingSingleton
 
 
 def test_regular_singleton_behavior(testclasses):

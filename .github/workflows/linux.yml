@@ -26,6 +26,7 @@ jobs:
         # python-version: ['3.13']
 
     steps:
+    - uses: extractions/setup-just@v3
     - uses: actions/checkout@v6
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v6
@@ -49,7 +50,7 @@ jobs:
       run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
 
     - name: Install dependencies
-      run: poetry install --with test --no-interaction
+      run: poetry install --with dev --no-interaction
 
     # - name: Safety Scan
     #   uses: pyupio/safety-action@v1
@@ -57,7 +58,7 @@ jobs:
     #     api-key: ${{ secrets.SAFETY_API_KEY }}
 
     - name: Run checks
-      run: make citest
+      run: just citest
 
     # Upload coverage to codecov: https://codecov.io/
     - name: Upload coverage to Codecov
