@@ -60,7 +60,7 @@ flake8 = "^7.0"
 tomli = "^2.2.1"
 ruff = "^0.15.0"
 types-pyyaml = ">=6.0.12,<7.0.0"
-pytest-cov = "^7.0"
+pytest-cov = "^7.1"
 
 [tool.poetry.group.docs]
 optional = true
