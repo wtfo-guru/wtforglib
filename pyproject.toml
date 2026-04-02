@@ -2,7 +2,7 @@
 name = "wtforglib"
 description = "A set of utility functions I use in my various python projects."
 keywords = []
-version = "1.3.1-dev4"
+version = "1.3.1-dev6"
 dynamic = ["classifiers"]
 license = "MIT"
 readme = "README.md"
@@ -43,7 +43,7 @@ requires-poetry = '>=2.0'
 optional = true
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.17.0"
+mypy = "^1.0"
 wemake-python-styleguide = "^1.0"
 flake8-pytest-style = "^2.0"
 doc8 = "^2.0"
@@ -57,7 +57,7 @@ testfixtures = ">=7.0.4,<9.0.0"
 pyfakefs = "^6.0"
 requests-cache = "^1.3.0"
 flake8 = "^7.0"
-tomli = "^2.2.1"
+tomli = "^2.0"
 ruff = "^0.15.0"
 types-pyyaml = ">=6.0.12,<7.0.0"
 pytest-cov = "^7.0"
@@ -76,5 +76,8 @@ sphinx-mdinclude = "^0.6.2"
 requires = ["poetry-core>=1.2.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.black]
+target-version = ["py311", "py312", "py313"]
+
 [tool.nitpick]
-style = "https://www.wtfo-guru.com/.well-known/nitpick-wtf-style.toml"
+style = "github://qs5779/devtools/nitpick/nitpick-wtf-style.toml"
