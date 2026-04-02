@@ -27,7 +27,7 @@ class WtfSingleton:
         """Creates new singleton if one does not exist."""
         if not hasattr(cls, "instance"):  # noqa: WPS421
             cls.instance = super(WtfSingleton, cls).__new__(cls)  # noqa: WPS608
-        return cls.instance
+        return cls.instance  # type: ignore[misc]
 
 
 def domainname(test: bool = False) -> str:  # noqa: WPS605, WPS231
