@@ -29,7 +29,7 @@ class WtfSingleton:
     def __new__(cls):  # type: ignore[no-untyped-def]
         """Creates new singleton if one does not exist."""
         if not hasattr(cls, "instance"):  # noqa: WPS421
-            cls.instance = super().__new__(cls)  # noqa: WPS608
+            cls.instance = super(WtfSingleton, cls).__new__(cls)  # noqa: WPS608, UP008
         return cls.instance  # type: ignore[misc]
 
 
