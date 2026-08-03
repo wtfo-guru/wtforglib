@@ -3,19 +3,19 @@ updates:
 - package-ecosystem: pip
   directory: "/"
   schedule:
-    interval: monthly
-    time: "01:25"
+    interval: cron
+    cronjob: "7 9 24 * *"
   open-pull-requests-limit: 10
 - package-ecosystem: pip
   directory: "/docs"
   schedule:
-    interval: monthly
-    time: "01:25"
+    interval: cron
+    cronjob: "7 9 24 * *"
   open-pull-requests-limit: 10
 
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
-    interval: monthly
-    time: "01:25"
+    interval: cron
+    cronjob: "7 9 24 * *"
   open-pull-requests-limit: 10
