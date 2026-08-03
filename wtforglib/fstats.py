@@ -5,12 +5,11 @@ import re
 import shutil
 from inspect import stack
 from pathlib import Path
-from typing import Optional, Union
 
 from wtforglib.functions import WINDOZE, windoze_not_implemented
 from wtforglib.kinds import Fspec
 
-OwnGrpId = Optional[Union[str, int]]
+OwnGrpId = str | int | None
 
 
 if platform.system() != WINDOZE:
@@ -54,7 +53,7 @@ def set_file_perms(tgt: Fspec, mode: str) -> bool:  # noqa: WPS231
     return False
 
 
-def get_new_owner(tgt: Fspec, own: OwnGrpId) -> Optional[str]:
+def get_new_owner(tgt: Fspec, own: OwnGrpId) -> str | None:
     """Sets the owner for a posix file in needed.
 
     Parameters
@@ -69,7 +68,7 @@ def get_new_owner(tgt: Fspec, own: OwnGrpId) -> Optional[str]:
     Optional[str] : new_owner or None
     """
     windoze_not_implemented(stack()[0][3])
-    new_owner: Optional[str]
+    new_owner: str | None
     if own:
         if isinstance(own, int):
             new_owner = getpwuid(own)[0]
@@ -82,7 +81,7 @@ def get_new_owner(tgt: Fspec, own: OwnGrpId) -> Optional[str]:
     return new_owner
 
 
-def get_new_group(tgt: Fspec, grp: OwnGrpId) -> Optional[str]:
+def get_new_group(tgt: Fspec, grp: OwnGrpId) -> str | None:
     """Sets the owner for a posix file in needed.
 
     Parameters
@@ -97,7 +96,7 @@ def get_new_group(tgt: Fspec, grp: OwnGrpId) -> Optional[str]:
     Optional[str] : new_group or None
     """
     windoze_not_implemented(stack()[0][3])
-    new_group: Optional[str]
+    new_group: str | None
     if grp:
         if isinstance(grp, int):
             new_group = getgrgid(grp)[0]

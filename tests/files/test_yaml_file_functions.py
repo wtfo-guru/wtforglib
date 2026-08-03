@@ -50,6 +50,6 @@ def test_deprecated(capsys):
     t_file, path = tempfile.mkstemp()
     os.close(t_file)
     assert write_yaml_file(path, {"foo": "bar"})
-    out, err = capsys.readouterr()
+    out, _err = capsys.readouterr()
     unlink_path(path)
     assert out.find(WRITE_YAML_DEPRECATED) != -1

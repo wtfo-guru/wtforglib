@@ -4,8 +4,8 @@ import os
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryFile
-from typing import Optional, Tuple
 
+from wtforglib.functions import local_tz
 from wtforglib.kinds import Fspec
 
 
@@ -34,13 +34,13 @@ def ensure_directory(target: Fspec, perm: int = 0o755) -> bool:
         return True
     if dp.exists():
         raise NotADirectoryError(
-            'Pathname "{0}" is not a directory.'.format(str(target)),
+            f'Pathname "{target!s}" is not a directory.',
         )
     dp.mkdir(mode=perm, parents=True)
     return True
 
 
-def _verify_directory_write(dpath: Fspec) -> Optional[Exception]:
+def _verify_directory_write(dpath: Fspec) -> Exception | None:
     """Verify that the given directory is writable.
 
     Parameters
@@ -53,16 +53,16 @@ def _verify_directory_write(dpath: Fspec) -> Optional[Exception]:
     Optional[Exception]
         The exception when caught
     """
-    error: Optional[Exception] = None
+    error: Exception | None = None
     try:
-        temp_file = TemporaryFile(dir=dpath)
-        temp_file.close()
-    except Exception as ex:
+        with TemporaryFile(dir=dpath) as temp_file:
+            temp_file.close()
+    except PermissionError as ex:
         error = ex
     return error
 
 
-def verify_directory(dspec: Fspec, ex: bool = False) -> Tuple[bool, str]:
+def verify_directory(dspec: Fspec, ex: bool = False) -> tuple[bool, str]:
     """Verify that a directory exits and is writable.
 
     Parameters
@@ -85,19 +85,18 @@ def verify_directory(dspec: Fspec, ex: bool = False) -> Tuple[bool, str]:
     """
     dpath = Path(dspec)
     target_path_str = str(dpath)
-    error: Optional[Exception]
+    error: Exception | None
     if dpath.exists():
         if dpath.is_dir():
             error = _verify_directory_write(dpath)
         else:
             error = NotADirectoryError(
-                "'{0}' is not a directory".format(target_path_str),
+                f"'{target_path_str}' is not a directory",
             )
     else:
-        error = FileNotFoundError("Directory not found: {0}".format(dpath))
-    if error:
-        if ex:
-            raise error
+        error = FileNotFoundError(f"Directory not found: {dpath}")
+    if error and ex:
+        raise error
     return error is None, str(error)
 
 
@@ -141,6 +140,7 @@ def prune_older_files(path: Fspec, max_days: int) -> int:  # noqa: WPS210
         Number of files pruned
     """
     removed = 0
+    ltz = local_tz()
     # loop to check all files one by one
     # os.walk returns 3 things:
     #   - current path,
@@ -153,9 +153,9 @@ def prune_older_files(path: Fspec, max_days: int) -> int:  # noqa: WPS210
             # get the timestamp, when the file was modified
             timestamp_of_file_modified = os.path.getmtime(file_path)
             # convert timestamp to datetime
-            modification_date = datetime.fromtimestamp(timestamp_of_file_modified)
+            modification_date = datetime.fromtimestamp(timestamp_of_file_modified, ltz)
             # find the number of days when the file was modified
-            number_of_days = (datetime.now() - modification_date).days
+            number_of_days = (datetime.now(ltz) - modification_date).days
             if number_of_days > max_days:
                 # remove file
                 os.remove(file_path)

@@ -25,5 +25,5 @@ def test_version_file_numbered_ext():
     try:
         raise_filenotfound_if(found)
     except FileNotFoundError:
-        pytest.fail("raise_filenotfound_if({0})".format(str(found)))
+        pytest.fail(f"raise_filenotfound_if({found!s})")
     shutil.rmtree(tnm)

@@ -33,7 +33,7 @@ def test_directory_create():
     """Ensure returns True when directory does not exit."""
     path = tempfile.mkdtemp()
     td = Path(path)
-    tp = Path(td.parent, "test_directory.{0}".format(os.getpid()))
+    tp = Path(td.parent, f"test_directory.{os.getpid()}")
 
     assert ensure_directory(tp)
     assert tp.is_dir()
@@ -64,13 +64,13 @@ def test_error_returned_verify():
     os.close(t_file)
     retval, msg = verify_directory(path)
     assert not retval
-    assert msg == "'{0}' is not a directory".format(str(path))
+    assert msg == f"'{path!s}' is not a directory"
     unlink_path(path, missing_ok=True)
 
 
 def test_delete_empty_dirs():
     """Test raises exception when target exits and is not a directory."""
     path = tempfile.mkdtemp()
-    retval, msg = verify_directory(path)
+    retval, _msg = verify_directory(path)
     assert retval
     Path(path).rmdir()

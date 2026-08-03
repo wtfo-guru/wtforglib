@@ -44,7 +44,7 @@ def test_version_file_copy_mode(tmp_path):
     os.write(td, GETTYSBURG_ADDRESS.encode("utf-8"))
     os.close(td)
     for idx in range(1, 5):
-        slot = "{0}.{1}".format(tnm, idx)
+        slot = f"{tnm}.{idx}"
         test_result = version_file(tnm, "copy", TRES)
         assert os.path.isfile(tnm)
         if idx < 4:
@@ -56,7 +56,7 @@ def test_version_file_copy_mode(tmp_path):
         if idx == 0:
             slot = tnm
         else:
-            slot = "{0}.{1}".format(tnm, idx)
+            slot = f"{tnm}.{idx}"
         if os.path.isfile(slot):
             os.unlink(slot)
 
@@ -67,7 +67,7 @@ def test_version_file_rename_mode():
     os.write(td, GETTYSBURG_ADDRESS.encode("utf-8"))
     os.close(td)
     for idx in range(1, 4):
-        slot = "{0}.{1}".format(tnm, idx)
+        slot = f"{tnm}.{idx}"
         test_result = version_file(tnm, "rename", TRES)
         assert not os.path.isfile(tnm)
         if idx < 4:
@@ -79,7 +79,7 @@ def test_version_file_rename_mode():
         if idx == 0:
             slot = tnm
         else:
-            slot = "{0}.{1}".format(tnm, idx)
+            slot = f"{tnm}.{idx}"
         if os.path.isfile(slot):
             os.unlink(slot)
 
@@ -112,7 +112,7 @@ def test_version_file_alt_dir():
     tmpd = tempfile.TemporaryDirectory()
     slot_base = os.path.join(tmpd.name, os.path.basename(tnm))
     for idx in range(1, 5):
-        slot = "{0}.{1}".format(slot_base, idx)
+        slot = f"{slot_base}.{idx}"
         test_result = version_file(tnm, "copy", TRES, False, tmpd.name)
         assert os.path.isfile(tnm)
         if idx < 4:

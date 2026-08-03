@@ -3,9 +3,8 @@
 import logging
 import sys
 from types import MappingProxyType
-from typing import Dict, Optional, Union
 
-OptionsDict = Dict[str, Union[str, int, bool]]
+OptionsDict = dict[str, str | int | bool]
 
 OPTIONS_DEBUG = "debug"
 OPTIONS_TEST = "test"
@@ -43,9 +42,9 @@ def log_level_name(level: int, default: str = "info") -> str:
 
 
 def basic_options(
-    debug: Union[bool, int],
+    debug: bool | int,
     test: bool,
-    verbose: Union[bool, int],
+    verbose: bool | int,
 ) -> OptionsDict:
     """Return a dictionary of basic options.
 
@@ -76,7 +75,7 @@ class SimpleScribe:
     options: OptionsDict
     _errors: int
 
-    def __init__(self, opts: Optional[OptionsDict] = None) -> None:
+    def __init__(self, opts: OptionsDict | None = None) -> None:
         """Construct a simple scribe object.
 
         Class to handle screen logging.
@@ -94,16 +93,16 @@ class SimpleScribe:
     def debug(self, message: str) -> None:
         """Utility trace debug method."""
         if self.options[OPTIONS_DEBUG]:
-            self._log_msg("DEBUG: {0}".format(message))
+            self._log_msg(f"DEBUG: {message}")
 
     def info(self, message: str) -> None:  # noqa: WPS110
         """Utility trace info method."""
         if self.options[OPTIONS_VERBOSE]:
-            self._log_msg("INFO: {0}".format(message))
+            self._log_msg(f"INFO: {message}")
 
     def warning(self, message: str) -> None:
         """Utility trace warning method."""
-        self._log_msg("WARNING: {0}".format(message))
+        self._log_msg(f"WARNING: {message}")
 
     def warn(self, message: str) -> None:
         """Utility trace warn method."""
@@ -111,7 +110,7 @@ class SimpleScribe:
 
     def error(self, message: str) -> None:
         """Utility trace error method."""
-        self._log_msg("ERROR: {0}".format(message))
+        self._log_msg(f"ERROR: {message}")
         self._errors += 1
 
     def _log_msg(self, message: str) -> None:
@@ -124,7 +123,7 @@ class Options(SimpleScribe):
 
     options: OptionsDict
 
-    def __init__(self, opts: Optional[OptionsDict] = None) -> None:
+    def __init__(self, opts: OptionsDict | None = None) -> None:
         """Options constructor.
 
         Class to manage options for the module.
@@ -137,7 +136,7 @@ class Options(SimpleScribe):
         super().__init__(opts)
         if int(self.options[OPTIONS_DEBUG]):
             self.debug(
-                "created instance of class {0}".format(self.__class__.__name__),
+                f"created instance of class {self.__class__.__name__}",  # noqa: WPS237
                 2,
             )
 

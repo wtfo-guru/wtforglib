@@ -10,7 +10,7 @@ def test_unlink_path_missing_ok():
     try:
         unlink_path(LBOGUS, missing_ok=True)
     except FileNotFoundError as exc:
-        pytest.fail("'unlink_path({0})' raised an exception {1}".format(LBOGUS, exc))
+        pytest.fail(f"'unlink_path({LBOGUS})' raised an exception {exc}")
 
 
 def test_unlink_path_missing_not_ok():

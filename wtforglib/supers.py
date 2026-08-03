@@ -49,4 +49,4 @@ def requires_super_user(prefix: str = "Specified action") -> None:
         if process euid is not 0
     """
     if not issuper():  # pragma no cover
-        raise PermissionError("{0} requires {1} priviledges!".format(prefix, SUPER))
+        raise PermissionError(f"{prefix} requires {SUPER} priviledges!")

@@ -11,19 +11,19 @@ Exports:
 
 import functools
 import threading
-from typing import Any, Dict, Generic, Tuple, Type, TypeVar
+from typing import Any, Generic, TypeVar
 
 T = TypeVar("T")  # noqa: WPS111
 
 
 class _ResettableWrapper(Generic[T]):
-    def __init__(self, cls: Type[T]):  # noqa: WPS117
+    def __init__(self, cls: type[T]):  # noqa: WPS117
         self._cls = cls
         self._instance: T | None = None
         self._lock = threading.Lock()
         functools.update_wrapper(self, cls)
 
-    def __call__(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> T:
+    def __call__(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> T:
         # Double-checked locking pattern
         if self._instance is None:
             with self._lock:
@@ -38,18 +38,18 @@ class _ResettableWrapper(Generic[T]):
 
 class _SingletonWrapper(Generic[T]):
     _instance: T | None
-    _args: Tuple[Any, ...]
-    _kwargs: Dict[str, Any]
+    _args: tuple[Any, ...]
+    _kwargs: dict[str, Any]
 
-    def __init__(self, cls: Type[T]) -> None:  # noqa: WPS117
-        self.__wrapped__: Type[T]
+    def __init__(self, cls: type[T]) -> None:  # noqa: WPS117
+        self.__wrapped__: type[T]
         functools.update_wrapper(self, cls)
 
         self._instance = None
         self._args = ()
         self._kwargs = {}
 
-    def __call__(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> T:
+    def __call__(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> T:
         if self._instance is None:  # Create the instance
             self._args = args
             self._kwargs = kwargs
@@ -58,11 +58,11 @@ class _SingletonWrapper(Generic[T]):
 
 
 class _ArgEnforceSingletonWrapper(_SingletonWrapper[T]):
-    def __init__(self, cls: Type[T]) -> None:  # noqa: WPS117
+    def __init__(self, cls: type[T]) -> None:  # noqa: WPS117
         super().__init__(cls)
-        self._instances: Dict[Tuple[T], T] = {}
+        self._instances: dict[tuple[T], T] = {}
 
-    def __call__(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> T:
+    def __call__(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> T:
         if self._instance is not None and (
             args != self._args or kwargs != self._kwargs
         ):
@@ -70,7 +70,7 @@ class _ArgEnforceSingletonWrapper(_SingletonWrapper[T]):
         return super().__call__(*args, **kwargs)
 
 
-def r_singleton(cls: Type[T]) -> _ResettableWrapper[T]:
+def r_singleton(cls: type[T]) -> _ResettableWrapper[T]:
     """Use this decorator to wrap a class to make it a resettable singleton.
 
     The first time the wrapped class is instantiated, it will create an object
@@ -87,7 +87,7 @@ def r_singleton(cls: Type[T]) -> _ResettableWrapper[T]:
     return _ResettableWrapper(cls)
 
 
-def singleton(cls: Type[T]) -> _SingletonWrapper[T]:
+def singleton(cls: type[T]) -> _SingletonWrapper[T]:
     """Use this decorator to wrap a class to make it a singleton.
 
     The first time the wrapped class is instantiated, it will create an object
@@ -103,7 +103,7 @@ def singleton(cls: Type[T]) -> _SingletonWrapper[T]:
     return _SingletonWrapper(cls)
 
 
-def singleton_argenforce(cls: Type[T]) -> _ArgEnforceSingletonWrapper[T]:
+def singleton_argenforce(cls: type[T]) -> _ArgEnforceSingletonWrapper[T]:
     """Use this decorator to wrap a class to make it an arg-enforce singleton.
 
     The first time the wrapped class is instantiated, it will create an object

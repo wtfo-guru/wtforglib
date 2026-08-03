@@ -1,7 +1,6 @@
 """Top-level module for Wtforg Library."""
 
 import subprocess
-from typing import Tuple, Union
 
 from wtforglib.options import Options
 
@@ -30,7 +29,7 @@ class FakedProcessResult:
         self.returncode = returncode
 
 
-CommanderResult = Union[subprocess.CompletedProcess[str], FakedProcessResult]
+CommanderResult = subprocess.CompletedProcess[str] | FakedProcessResult
 
 
 class Commander(Options):
@@ -38,7 +37,7 @@ class Commander(Options):
 
     def run_command(
         self,
-        args: Tuple[str, ...],
+        args: tuple[str, ...],
         **kwargs: bool,
     ) -> CommanderResult:
         """
@@ -67,15 +66,15 @@ class Commander(Options):
         """
         always = kwargs.get("always", False)
         check = kwargs.get("check", True)
-        cmd_str = "{0}".format(" ".join(args))
+        cmd_str = "{}".format(" ".join(args))
         if not always and self.isnoop():
-            print("noex: {0}".format(cmd_str))
+            print(f"noex: {cmd_str}")
             return FakedProcessResult()
-        self.verbose("ex: {0}".format(cmd_str), 2)
+        self.verbose(f"ex: {cmd_str}", 2)
         return subprocess.run(
             args,
             check=check,
-            shell=False,  # noqa: S603
+            shell=False,
             capture_output=True,
             encoding="utf-8",
         )

@@ -46,9 +46,9 @@ def test_ipv6_to_netprefix_valid_params():
     for prefix_len in (16, 32, 48, 64, 80, 96, 112, 128):
         test_net = ipv6_to_netprefix(ipv6, prefix_len)
         if prefix_len == max_prefix:
-            assert test_net == "{0}/{1}".format(ipv6, prefix_len)
+            assert test_net == f"{ipv6}/{prefix_len}"
         else:
-            assert test_net == "{0}:/{1}".format(ipv6[:width], prefix_len)
+            assert test_net == f"{ipv6[:width]}:/{prefix_len}"
         width += increment
 
 
@@ -61,9 +61,9 @@ def test_ipv6_to_netprefix_postfix_valid_params():
     for prefix_len in (16, 32, 48, 64, 80, 96, 112, 128):
         test_net = ipv6_to_netprefix(ipv6, prefix_len, "postfix")
         if prefix_len == max_prefix:
-            assert test_net == "[{0}]/{1}".format(ipv6, prefix_len)
+            assert test_net == f"[{ipv6}]/{prefix_len}"
         else:
-            assert test_net == "[{0}:]/{1}".format(ipv6[:width], prefix_len)
+            assert test_net == f"[{ipv6[:width]}:]/{prefix_len}"
         width += increment
 
 
@@ -71,7 +71,7 @@ def test_ipv6_to_netprefix_invalid_address():
     """Test invalid ipv6 address."""
     with pytest.raises(Exception) as exc_info:
         ipv6_to_netprefix(IPV4_ADDRESS, 64)
-    assert str(exc_info.value) == "Invalid ipv6 address: {0}".format(IPV4_ADDRESS)
+    assert str(exc_info.value) == f"Invalid ipv6 address: {IPV4_ADDRESS}"
 
 
 def test_ipv6_to_netprefix_invalid_prefix_len():

@@ -10,7 +10,6 @@ from os import R_OK, W_OK, access
 from pathlib import Path
 from shutil import copy2
 from tempfile import NamedTemporaryFile
-from typing import Optional
 
 from jinja2 import Environment
 
@@ -38,8 +37,8 @@ class TemplateWriter(Commander):  # noqa: WPS214
 
     def __init__(
         self,
-        opts: Optional[OptionsDict] = None,
-        j_env: Optional[Environment] = None,
+        opts: OptionsDict | None = None,
+        j_env: Environment | None = None,
     ) -> None:
         """
         Constructor for TemplateWriter.
@@ -111,7 +110,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
             tmpl_var,
         )
         if self.changed:
-            self.info("Updated: {0}".format(dest))
+            self.info(f"Updated: {dest}")
             if not self.istest():
                 set_owner_group_perms(
                     dest,
@@ -121,7 +120,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
                 )
                 return self._on_changed(tmpl_value)
         else:
-            self.debug("Unchanged dest: {0}".format(dest))
+            self.debug(f"Unchanged dest: {dest}")
         return 0
 
     def _on_changed(self, tmpl_value: StrAnyDict) -> int:
@@ -141,9 +140,9 @@ class TemplateWriter(Commander):  # noqa: WPS214
         if cargs:
             cmdres = self.run_command(tuple(cargs), check=False)
             if cmdres.returncode != 0:
-                self.error("command: {0}".format(" ".join(cargs)))  # noqa: WPS421
-                self.error("returncode: {0}".format(cmdres.returncode))  # noqa: WPS421
-                self.error("stderr: {0}".format(cmdres.stderr))  # noqa: WPS421
+                self.error("command: {}".format(" ".join(cargs)))  # noqa: WPS421
+                self.error(f"returncode: {cmdres.returncode}")  # noqa: WPS421
+                self.error(f"stderr: {cmdres.stderr}")  # noqa: WPS421
             return cmdres.returncode
         return 0
 
@@ -162,11 +161,11 @@ class TemplateWriter(Commander):  # noqa: WPS214
         bool
             True if the configuration is valid
         """
-        if self._verify_template_required_keys(tmpl_name, tmpl_value):
-            if self._verify_template_source(tmpl_value.get("src", "")):
-                if self._verify_target(tmpl_value.get(K_DEST, "")):
-                    return True
-        return False
+        return (
+            self._verify_template_required_keys(tmpl_name, tmpl_value)
+            and self._verify_template_source(tmpl_value.get("src", ""))
+            and self._verify_target(tmpl_value.get(K_DEST, ""))
+        )
 
     def _render_template(
         self,
@@ -194,22 +193,22 @@ class TemplateWriter(Commander):  # noqa: WPS214
         template = self._env.from_string(
             self._read_template_source(tmpl_value.get("src", ""))
         )
-        tfile = NamedTemporaryFile(
+        with NamedTemporaryFile(
             mode="w",
             encoding="utf-8",
             suffix=None,
             delete=False,
-        )
-        tfile.write(template.render(template_dict=tmpl_var))
-        tfile.close()
-        return self._write_output(Path(dest), Path(tfile.name), bnbr, bpath)
+        ) as tfile:
+            tfile.write(template.render(template_dict=tmpl_var))
+            tfile.close()
+            return self._write_output(Path(dest), Path(tfile.name), bnbr, bpath)
 
     def _write_output(
         self,
         dpath: Path,
         tpath: Path,
         bnbr: int,
-        bpath: Optional[Path] = None,
+        bpath: Path | None = None,
     ) -> bool:
         """Write output to output file, unlink temporary file.
 
@@ -236,20 +235,19 @@ class TemplateWriter(Commander):  # noqa: WPS214
             exists = False
             diff = False
         self.debug(
-            "dest: {0} exists: {1} diff: {2}".format(str(dpath), exists, diff),
+            f"dest: {dpath!s} exists: {exists} diff: {diff}",
         )
-        if not diff:
-            if not self.options.get("noop", False):
-                if exists:
-                    self._backup_file(str(dpath), bnbr, bpath)
-                copy2(tpath, dpath)
-                self.info("Updated file: {0}".format(str(dpath)))
-                retval = True
+        if not diff and not self.options.get("noop", False):
+            if exists:
+                self._backup_file(str(dpath), bnbr, bpath)
+            copy2(tpath, dpath)
+            self.info(f"Updated file: {dpath!s}")
+            retval = True
         if not self.isdebug():
             unlink_path(tpath, missing_ok=True)
         return retval
 
-    def _backup_file(self, dest: str, bnbr: int, bpath: Optional[Path] = None) -> None:
+    def _backup_file(self, dest: str, bnbr: int, bpath: Path | None = None) -> None:
         """Backup the output before replacing.
 
         Parameters
@@ -293,7 +291,7 @@ class TemplateWriter(Commander):  # noqa: WPS214
             kv = tmpl_value.get(key)
             if kv is None:
                 self.error(
-                    "Template {0} does not have a {1} key!!".format(tmpl_name, key),
+                    f"Template {tmpl_name} does not have a {key} key!!",
                 )
                 return False
         return True
@@ -315,10 +313,10 @@ class TemplateWriter(Commander):  # noqa: WPS214
         dspec = Path(dest)
         if dspec.exists():
             if not dspec.is_file():
-                self.error("Template dest '{0}' not a file!!".format(dest))
+                self.error(f"Template dest '{dest}' not a file!!")
                 return False
             if not access(dspec, W_OK):
-                self.error("Template dest '{0}' not writable!!".format(dest))
+                self.error(f"Template dest '{dest}' not writable!!")
                 return False
         else:
             return self._verify_target_directory(dspec.parent)
@@ -357,12 +355,12 @@ class TemplateWriter(Commander):  # noqa: WPS214
         """
         spec = Path(source)
         if not spec.exists():
-            self.error("Template src '{0}' not found!!".format(source))
+            self.error(f"Template src '{source}' not found!!")
             return False
         if not spec.is_file():
-            self.error("Template src '{0}' not a file!!".format(source))
+            self.error(f"Template src '{source}' not a file!!")
             return False
         if not access(spec, R_OK):
-            self.error("Template src '{0}' not readable!!".format(source))
+            self.error(f"Template src '{source}' not readable!!")
             return False
         return True
