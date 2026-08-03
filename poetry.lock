@@ -1583,4 +1583,4 @@ pygments = ">=2.19,<3.0"
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4.0"
-content-hash = "0621a7cc80ca3dca0b3abc0405381bd2539aae4053f6513fb786ca53643c69c7"
+content-hash = "942cca94cb0e7d0477e54e5c8c0c0d9da9e0032741d913a073cd64a461a8faf2"
