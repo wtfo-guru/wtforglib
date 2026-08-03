@@ -1,7 +1,6 @@
 import os
 import re
 import shutil
-from typing import Optional
 
 from wtforglib.dirs import ensure_directory
 
@@ -25,15 +24,15 @@ def clear_slot(root: str, idx: int, max_versions: int, debug: bool = False) -> s
     str
         numbered slot name
     """
-    slot = "{0}.{1}".format(root, idx)
+    slot = f"{root}.{idx}"
     if os.path.isfile(slot):
         if idx >= max_versions:
             if debug:  # pragma no cover
-                print("unlinking slot {0}".format(slot))
+                print(f"unlinking slot {slot}")
             os.unlink(slot)
         else:
             if debug:  # pragma no cover
-                print("clearing slot {0}".format(slot))
+                print(f"clearing slot {slot}")
             nslot = clear_slot(root, idx + 1, max_versions, debug)
             os.rename(slot, nslot)
     return slot
@@ -88,7 +87,7 @@ def check_root_filename(file_spec: str) -> str:
     ValueError
         If file_spec ends with one or more digit extension
     """
-    nn, ee = os.path.splitext(file_spec)
+    _nn, ee = os.path.splitext(file_spec)
 
     if re.match(r".\d+$", ee):
         raise ValueError(
@@ -102,7 +101,7 @@ def version_file(
     vtype: str = "rename",
     max_versions: int = 5,
     debug: bool = False,
-    dir_spec: Optional[str] = None,
+    dir_spec: str | None = None,
 ) -> int:
     """Save max versions of file.
 

@@ -2,15 +2,15 @@
 
 import platform
 from datetime import datetime, timedelta
-from typing import Tuple
 
 from wtforglib.commander import Commander, FakedProcessResult
+from wtforglib.functions import local_tz
 
 
 def test_date_command():
     """Test date command."""
     cmdr = Commander()
-    args: Tuple[str, ...]
+    args: tuple[str, ...]
     if platform.system() == "Windows":
         args = (
             "powershell",
@@ -21,8 +21,9 @@ def test_date_command():
         args = ("date", "+%s")  # noqa: WPS323
     res = cmdr.run_command(args, always=True)  # noqa: WPS323
     # tstamp = datetime.now().timestamp()
-    now = datetime.now()
-    epoch = datetime(1970, 1, 1)
+    ltz = local_tz()
+    now = datetime.now(ltz)
+    epoch = datetime(1970, 1, 1, tzinfo=ltz)
     tstamp = int((now - epoch) / timedelta(seconds=1))
     assert res.returncode == 0
     assert tstamp - int(res.stdout.strip()) <= 1

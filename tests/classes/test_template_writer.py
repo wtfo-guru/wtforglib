@@ -112,8 +112,8 @@ def test_template_writer_src_missing(tmpdir, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, err = capsys.readouterr()
-    assert "ERROR: Template src '{0}' not found!!".format(str(tmpl_path)) in err
+    _out, err = capsys.readouterr()
+    assert f"ERROR: Template src '{tmpl_path!s}' not found!!" in err
 
 
 def test_template_writer_src_not_file(tmpdir, fs, capsys):
@@ -127,8 +127,8 @@ def test_template_writer_src_not_file(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, err = capsys.readouterr()
-    assert "ERROR: Template src '{0}' not a file!!".format(str(tmpl_path)) in err
+    _out, err = capsys.readouterr()
+    assert f"ERROR: Template src '{tmpl_path!s}' not a file!!" in err
 
 
 @pytest.mark.skipif(
@@ -147,8 +147,8 @@ def test_template_writer_src_not_readable(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, err = capsys.readouterr()
-    assert "ERROR: Template src '{0}' not readable!!".format(str(tmpl_path)) in err
+    _out, err = capsys.readouterr()
+    assert f"ERROR: Template src '{tmpl_path!s}' not readable!!" in err
 
 
 def test_template_writer_tgt_dir_not_dir(tmpdir, fs, capsys):
@@ -164,8 +164,8 @@ def test_template_writer_tgt_dir_not_dir(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, err = capsys.readouterr()
-    assert "ERROR: '{0}' is not a directory".format(str(out_parent)) in err
+    _out, err = capsys.readouterr()
+    assert f"ERROR: '{out_parent!s}' is not a directory" in err
 
 
 def test_template_writer_tgt_not_file(tmpdir, fs, capsys):
@@ -180,8 +180,8 @@ def test_template_writer_tgt_not_file(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, err = capsys.readouterr()
-    assert "ERROR: Template dest '{0}' not a file!!".format(str(out_path)) in err
+    _out, err = capsys.readouterr()
+    assert f"ERROR: Template dest '{out_path!s}' not a file!!" in err
 
 
 def test_template_writer_tgt_not_writable(tmpdir, fs, capsys):
@@ -197,8 +197,8 @@ def test_template_writer_tgt_not_writable(tmpdir, fs, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, err = capsys.readouterr()
-    assert "ERROR: Template dest '{0}' not writable!!".format(str(out_path)) in err
+    _out, err = capsys.readouterr()
+    assert f"ERROR: Template dest '{out_path!s}' not writable!!" in err
 
 
 def test_template_writer_bad_info(tmpdir, capsys):
@@ -209,11 +209,8 @@ def test_template_writer_bad_info(tmpdir, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_VAR)
-    out, err = capsys.readouterr()
-    assert (
-        "ERROR: Template {0} does not have a {1} key!!".format(TEMPLATE_NAME, KSRC)
-        in err
-    )
+    _out, err = capsys.readouterr()
+    assert f"ERROR: Template {TEMPLATE_NAME} does not have a {KSRC} key!!" in err
 
 
 def test_template_writer_default_env(tmpdir, capsys):
@@ -227,7 +224,7 @@ def test_template_writer_default_env(tmpdir, capsys):
     }
     writer = TemplateWriter({"test": True})
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_DICT)
-    out, err = capsys.readouterr()
+    # out, err = capsys.readouterr()
     with open(out_path, "r") as iif:
         rendered = iif.read()
         reversed = rendered[::-1]  # noqa: WPS478
@@ -251,7 +248,7 @@ def test_template_writer_custom_env(tmpdir, capsys):
     }
     writer = TemplateWriter({"test": True}, Environment(keep_trailing_newline=True))
     writer.generate(TEMPLATE_NAME, tmpl_info, TEMPLATE_DICT)
-    out, err = capsys.readouterr()
+    # out, err = capsys.readouterr()
     with open(out_path, "r") as iif:
         rendered = iif.read()
         reversed = rendered[::-1]  # noqa: WPS478

@@ -7,7 +7,6 @@ src_path := shell('test -d $1 && echo "src" || echo "."', dir_path)
 # PROJECT_NAME := `python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['name'])"`
 # PROJECT_VERSION := `python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])"`
 
-
 PROJECT_NAME := shell("grep ^name pyproject.toml | awk '{print $NF}' | tr -d '\"'")
 PROJECT_VERSION := shell("grep ^version pyproject.toml | awk '{print $NF}' | tr -d '\"'")
 PACKAGE_BASE := replace(PROJECT_NAME, "-", "_")
@@ -43,7 +42,7 @@ changelog-check:
   error() { echo "$@" >&2 ; exit 1; }
   if echo "{{PROJECT_VERSION}}" | grep -q "dev"; then
     error "Cannot pull request when dev version"
-  elif ! grep -q "{{PROJECT_VERSION}}" CHANGELOG.md; then
+  elif ! grep -qP "^## \[{{PROJECT_VERSION}}\] - \d\d\d\d-\d\d-\d\d\$" CHANGELOG.md; then
     error "No changelog entry for {{PROJECT_VERSION}}"
   elif grep -q "Unreleased" CHANGELOG.md; then
     error "Unreleased section in CHANGELOG.md"
@@ -51,20 +50,14 @@ changelog-check:
     echo "Changelog entry found for {{PROJECT_VERSION}}"
   fi
 
-isort:
-	@poetry run isort {{PACKAGE_DIR}} {{TEST_FILES}}
+ruff:
+	@poetry run ruff check --fix {{PACKAGE_DIR}} {{TEST_FILES}}
 
-black: isort
-	@poetry run black {{PACKAGE_DIR}} {{TEST_FILES}}
-
-mypy: black
+mypy: ruff
 	@poetry run mypy {{PACKAGE_DIR}}
 # TODO: Add {{TEST_FILES}} when time permits
 
-ruff: mypy
-	@poetry run ruff check {{PACKAGE_DIR}} {{TEST_FILES}}
-
-lint: ruff
+lint: mypy
 	@poetry run flake8 {{PACKAGE_DIR}} {{TEST_FILES}}
 
 package:
@@ -82,6 +75,8 @@ nitpick:
 test: nitpick lint package unit
 
 citest: lint package unit
+
+candidate: test
 
 poetry-update:
 	@poetry update --with dev --with docs

@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 2025-12-01 - updated dependencies
 - 2025-12-01 - minimum python version 3.10
+- 2025-03-01 - switched from Makefile to justfile
+- 2026-08-03 - poetry updates
+- 2026-08-03 - use ruff formatter, removed black, isort dependencies
 
 ## [1.3.0] - 2025-07-01
 

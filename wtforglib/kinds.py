@@ -28,24 +28,19 @@ StrStrIntBoolNone
     StrStrIntBoolNone = Dict[str, Union[int, str, bool, None]]
 """
 
-import sys
 from os import PathLike
-from typing import Any, Dict, TypeVar, Union
+from typing import Any, TypeVar
 
 KeyType = TypeVar("KeyType")
 ValueType = TypeVar("ValueType")
 
-
-if sys.version_info >= (3, 9):
-    Fspec = Union[str, PathLike[str]]
-else:
-    Fspec = Union[str, "PathLike[str]"]
+Fspec = str | PathLike[str]
 
 FileName = Fspec
 
-StrAnyDict = Dict[str, Any]  # type: ignore
-StrStrDict = Dict[str, str]
-StrStrInt = Dict[str, Union[int, str]]
-StrStrBool = Dict[str, Union[bool, str]]
-StrStrIntBool = Dict[str, Union[int, str, bool]]
-StrStrIntBoolNone = Dict[str, Union[int, str, bool, None]]
+StrAnyDict = dict[str, Any]  # type: ignore
+StrStrDict = dict[str, str]
+StrStrInt = dict[str, int | str]
+StrStrBool = dict[str, bool | str]
+StrStrIntBool = dict[str, int | str | bool]
+StrStrIntBoolNone = dict[str, int | str | bool | None]

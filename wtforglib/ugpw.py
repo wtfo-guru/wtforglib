@@ -2,7 +2,6 @@
 
 import platform
 from inspect import stack
-from typing import Tuple, Union
 
 from wtforglib.functions import WINDOZE, windoze_not_implemented
 
@@ -28,7 +27,7 @@ def get_user_name(uid: int) -> str:
     return getpwuid(uid)[0]
 
 
-def get_user_groups(user: Union[str, int]) -> Tuple[str, ...]:
+def get_user_groups(user: str | int) -> tuple[str, ...]:
     """Returns a tuple of groups user belongs to.
 
     Parameters

@@ -1,6 +1,5 @@
 """Top-level module for wtforglib."""
 
-import sys
 from pathlib import Path
 
 from wtforglib.kinds import Fspec
@@ -22,11 +21,8 @@ def unlink_path(fspec: Fspec, missing_ok: bool = False) -> None:
         If missing_ok is False and file does not exist.
     """
     path = Path(fspec)
-    if sys.version_info >= (3, 8):
-        path.unlink(missing_ok=missing_ok)
-    else:
-        try:
-            path.unlink()
-        except FileNotFoundError:
-            if not missing_ok:
-                raise
+    try:
+        path.unlink()
+    except FileNotFoundError:
+        if not missing_ok:
+            raise

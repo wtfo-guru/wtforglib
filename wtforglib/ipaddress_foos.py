@@ -28,7 +28,7 @@ def _get_ipv6_prefix(ipv6_addr: str, prefix_len: int) -> str:  # noqa: WPS210
     valid_lengths = (16, 32, 48, 64, 80, 96, 112, 128)
     if prefix_len not in valid_lengths:
         raise ValueError(
-            "Invalid prefix length: {0}. Expected one of {1}".format(
+            "Invalid prefix length: {}. Expected one of {}".format(
                 prefix_len,
                 ",".join(str(xx) for xx in valid_lengths),
             ),
@@ -39,7 +39,7 @@ def _get_ipv6_prefix(ipv6_addr: str, prefix_len: int) -> str:  # noqa: WPS210
     ipv6_parts = ipv6_addr.split(":")
     for part in ipv6_parts:
         if prefix:
-            prefix = "{0}:{1}".format(prefix, part)
+            prefix = f"{prefix}:{part}"
         else:
             prefix = part
         cur_prefix_len += prefix_increment
@@ -136,12 +136,9 @@ def ipv6_to_netprefix(
     if isinstance(ipobj, IPv6Address):
         if prefix_len == MAX_PREFIX_LENGTH6:
             if ipv6net_style == "postfix":
-                return "[{0}]/{1}".format(str(ipobj), prefix_len)
-            return "{0}/{1}".format(str(ipobj), prefix_len)
+                return f"[{ipobj!s}]/{prefix_len}"
+            return f"{ipobj!s}/{prefix_len}"
         if ipv6net_style == "postfix":
-            return "[{0}::]/{1}".format(
-                _get_ipv6_prefix(ipaddr, prefix_len),
-                prefix_len,
-            )
-        return "{0}::/{1}".format(_get_ipv6_prefix(ipaddr, prefix_len), prefix_len)
-    raise ValueError("Invalid ipv6 address: {0}".format(ipaddr))
+            return f"[{_get_ipv6_prefix(ipaddr, prefix_len)}::]/{prefix_len}"
+        return f"{_get_ipv6_prefix(ipaddr, prefix_len)}::/{prefix_len}"
+    raise ValueError(f"Invalid ipv6 address: {ipaddr}")

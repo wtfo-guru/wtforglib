@@ -1,10 +1,13 @@
 """Top-level module for wtforglib Library."""
 
+import os
 import platform
 import re
-import subprocess  # noqa: S404
+import subprocess
+import time
 from pathlib import Path
-from typing import ClassVar, Optional
+from typing import ClassVar
+from zoneinfo import ZoneInfo
 
 from wtforglib.errors import ShellError
 from wtforglib.kinds import FileName
@@ -26,7 +29,7 @@ class WtfSingleton:
     def __new__(cls):  # type: ignore[no-untyped-def]
         """Creates new singleton if one does not exist."""
         if not hasattr(cls, "instance"):  # noqa: WPS421
-            cls.instance = super(WtfSingleton, cls).__new__(cls)  # noqa: WPS608
+            cls.instance = super(WtfSingleton, cls).__new__(cls)  # noqa: WPS608, UP008
         return cls.instance  # type: ignore[misc]
 
 
@@ -62,6 +65,7 @@ def domainname(test: bool = False) -> str:  # noqa: WPS605, WPS231
                 ["hostname", "-d"],
                 capture_output=True,
                 encoding="utf8",
+                check=False,
             )
             if sp_result.returncode != 0:  # pragma no cover
                 raise ShellError("Failed to determine host's domain name")
@@ -101,6 +105,7 @@ def hostname(test: bool = False) -> str:  # noqa: WPS605, WPS231
                 ["hostname"],
                 capture_output=True,
                 encoding="utf8",
+                check=False,
             )
             if sp_result.returncode != 0:  # pragma no cover
                 raise ShellError("Failed to determine hostname")
@@ -132,7 +137,7 @@ def windoze_not_implemented(foo_name: str) -> None:
         )  # pragma: no cover
 
 
-def unix_basename(fn: FileName, ext: Optional[str] = None) -> str:
+def unix_basename(fn: FileName, ext: str | None = None) -> str:
     """Return unix basename of file name.
 
     Parameters
@@ -149,5 +154,25 @@ def unix_basename(fn: FileName, ext: Optional[str] = None) -> str:
     """
     rtn = Path(fn).name
     if ext:
-        return re.sub("{0}$".format(ext), "", rtn)
+        return re.sub(f"{ext}$", "", rtn)
     return rtn
+
+
+def local_tz() -> ZoneInfo:
+    windoze_not_implemented("local_tz")
+    tz = os.environ.get("TZ")
+    if tz:
+        return ZoneInfo(tz)
+
+    # Common Linux case: /etc/localtime is a symlink into zoneinfo
+    if os.path.exists("/etc/localtime"):
+        if os.path.islink("/etc/localtime"):
+            # e.g. /etc/localtime -> ../usr/share/zoneinfo/America/New_York
+            target = os.path.realpath("/etc/localtime")
+            parts = target.split("zoneinfo/")
+            if len(parts) == 2:
+                return ZoneInfo(parts[1])
+
+    # Fallback: best-effort guess
+    # (Not fully fool-proof, but avoids the AST/EST abbreviation problem.)
+    return ZoneInfo(time.tzname[0])
