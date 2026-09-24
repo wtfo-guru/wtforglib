@@ -5,6 +5,8 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/wtforglib.svg)](https://pypi.org/project/wtforglib/)
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 
+This project is archived.
+
 A set of utility functions I use in my various python projects.
 
 ## Features

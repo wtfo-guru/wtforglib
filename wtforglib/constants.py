@@ -1,3 +1,3 @@
 """Top-level module for wtforglib Library."""
 
-VERSION = "1.3.1-dev7"
+VERSION = "1.3.1-dev8"
